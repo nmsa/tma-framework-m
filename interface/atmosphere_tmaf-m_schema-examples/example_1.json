@@ -1,0 +1,43 @@
+{
+    "probeId": 10,
+    "resourceId": 11,
+    "sentTime": 1524782450,
+    "data": [
+        {
+            "type": "event",
+            "metricId": 2018,
+            "observations": [{
+                    "time": 1524782445,
+                    "value": -1
+                }
+            ]
+        },
+        {
+            "type": "measurement",
+            "metricId": 1010,
+            "observations": [
+                {
+                    "time": 1524782440,
+                    "value": 1000
+                },
+                {
+                    "time": 1524782441,
+                    "value": 1001
+                },
+                {
+                    "time": 1524782442,
+                    "value": 1002
+                },
+                {
+                    "time": 1524782443,
+                    "value": 1003
+                },
+                {
+                    "time": 1524782444,
+                    "value": 1004
+                }
+            ]
+        }
+    ]
+}
+
