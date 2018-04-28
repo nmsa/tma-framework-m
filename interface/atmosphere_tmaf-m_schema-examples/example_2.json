@@ -1,0 +1,118 @@
+{
+    "probeId": 679,
+    "resourceId": 81,
+    "messageId": 1002,
+    "sentTime": 1524780030,
+    "data": [
+        {
+            "type": "event",
+            "descriptionId": 2018,
+            "observations": [{
+                    "time": 1524782445,
+                    "value": -1
+                }, 
+                {
+                    "time": 1524782410,
+                    "value": -1
+                }, 
+                {
+                    "time": 1524782411,
+                    "value": -1
+                }, 
+                {
+                    "time": 1524782412,
+                    "value": -1
+                }, 
+                {
+                    "time": 1524782413,
+                    "value": -1
+                }, 
+                {
+                    "time": 1524782414,
+                    "value": -1
+                }, 
+                {
+                    "time": 1524782415,
+                    "value": -1
+                }, 
+                {
+                    "time": 1524782416,
+                    "value": -1
+                }
+            ]
+        },
+        {
+            "type": "measurement",
+            "descriptionId": 19,
+            "observations": [
+                {
+                    "time": 925,
+                    "value": 640.75
+                },
+                {
+                    "time": 783,
+                    "value": -6.25
+                },
+                {
+                    "time": 666,
+                    "value": 533.0
+                },
+                {
+                    "time": 52,
+                    "value": 337.0
+                }
+            ]
+        },
+        {
+            "type": "measurement",
+            "descriptionId": 768,
+            "observations": [
+                {
+                    "time": 593,
+                    "value": 691.75
+                },
+                {
+                    "time": 838,
+                    "value": 564.25
+                },
+                {
+                    "time": 334,
+                    "value": 209.0
+                }
+            ]
+        },
+        {
+            "type": "measurement",
+            "descriptionId": 747,
+            "observations": [
+                {
+                    "time": 165,
+                    "value": 497.5
+                },
+                {
+                    "time": 535,
+                    "value": 151.25
+                },
+                {
+                    "time": 272,
+                    "value": 442.25
+                }
+            ]
+        },
+        {
+            "type": "measurement",
+            "descriptionId": 349,
+            "observations": [
+                {
+                    "time": 300,
+                    "value": 982.75
+                },
+                {
+                    "time": 817,
+                    "value": 786.25
+                }
+            ]
+        }
+    ]
+}
+

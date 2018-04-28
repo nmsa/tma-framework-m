@@ -1,11 +1,13 @@
 {
     "probeId": 10,
     "resourceId": 11,
-    "sentTime": 1524782450,
+    "sentTime": 1524780020,
+    "messageId": 1001,
+
     "data": [
         {
             "type": "event",
-            "metricId": 2018,
+            "descriptionId": 2018,
             "observations": [{
                     "time": 1524782445,
                     "value": -1
@@ -14,7 +16,7 @@
         },
         {
             "type": "measurement",
-            "metricId": 1010,
+            "descriptionId": 1010,
             "observations": [
                 {
                     "time": 1524782440,

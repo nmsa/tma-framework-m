@@ -1,7 +1,7 @@
 {
-    "title": "tmaf-m_schema_0.1",
+    "title": "tmaf-m_schema_0_2",
 
-    "$id": "http://atmosphere-eubrazil.eu/tmaf-m_schema_v0.1.json",
+    "$id": "http://atmosphere-eubrazil.eu/tmaf-m_schema_v0.2.json",
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
     "properties": {
@@ -17,10 +17,17 @@
             "default": -1,
             "minimum": 0
         },
+        "messageId": {
+            "$id": "/properties/messageId",
+            "type": "integer",
+            "default": -1,
+            "minimum": 0
+        },
         "sentTime": {
             "$id": "/properties/sentTime",
             "type": "integer",
-            "default": -1
+            "default": -1,
+            "minimum": 0
         },
         "data": {
             "$id": "/properties/data",
@@ -39,36 +46,42 @@
                             "event"
                         ]
                     },
-                    "metricId": {
-                        "$id": "/properties/data/items/properties/metricId",
+                    "descriptionId": {
+                        "$id": "/properties/data/items/properties/descriptionId",
                         "type": "integer",
-                        "default": -10
+                        "default": -10,
+                        "minimum": 0
                     },
                     "observations": {
-                        "$id": "/properties/data/items/properties/values",
+                        "$id": "/properties/data/items/properties/observations",
                         "type": "array",
                         "items": {
-                            "$id": "/properties/data/items/properties/values/items",
+                            "$id": "/properties/data/items/properties/observations/items",
                             "type": "object",
                             "properties": {
                                 "time": {
-                                    "$id": "/properties/data/items/properties/values/items/properties/time",
+                                    "$id": "/properties/data/items/properties/observations/items/properties/time",
                                     "type": "integer",
-                                    "default": 0
+                                    "default": -1,
+                                    "minimum": 0
                                 },
                                 "value": {
-                                    "$id": "/properties/data/items/properties/values/items/properties/value",
-                                    "type": "integer",
+                                    "$id": "/properties/data/items/properties/observations/items/properties/value",
+                                    "type": "number",
                                     "default": 0
                                 }
-                            }
+                            },
+                            "required": [
+                                "time",
+                                "value"
+                            ]
                         }
                     }
                 },
                 "required": [
                     "type",
-                    "metricId",
-                    "values"
+                    "descriptionId",
+                    "observations"
                 ]
             }
         }
@@ -76,6 +89,7 @@
     "required": [
         "probeId",
         "resourceId",
+        "messageId",
         "sentTime",
         "data"
     ]
