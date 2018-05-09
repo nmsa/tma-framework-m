@@ -40,7 +40,28 @@
                     "value": -1
                 }
             ]
-        },
+        }, 
+        {
+            "type": "event",
+            "descriptionId": 2010,
+            "observations": [{
+                    "time": 1524782445,
+                    "value": -1
+                }, 
+                {
+                    "time": 1524782410,
+                    "value": -1
+                }, 
+                {
+                    "time": 1524782411,
+                    "value": -1
+                }, 
+                {
+                    "time": 1524782412,
+                    "value": -1
+                }
+            ]
+        }, 
         {
             "type": "measurement",
             "descriptionId": 19,
