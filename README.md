@@ -32,7 +32,7 @@ Each message includes:
 * `data` -- an array of objects, each one including: 
 	* `type` -- event or measurement
 	* `descriptionId` -- identifies the event or measurement, and an array of 
-	* `observations` -- (each one is a pair of 
+	* `observations` -- each one is a pair of 
 		* `time` -- at which the specific observation was performed
 		* `value` -- the observerd value which can be 0 in the case of `event`.
 
