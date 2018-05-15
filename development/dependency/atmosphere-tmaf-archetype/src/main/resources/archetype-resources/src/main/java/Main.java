@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Main {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(Main.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
     /**
      * Please, document your main methods using <tt>Javadoc</tt>.
