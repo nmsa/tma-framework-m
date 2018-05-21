@@ -1,16 +1,21 @@
 apiVersion: apps/v1
+
 kind: Deployment
+
 metadata:
   name: monitor-apirest
+
 spec:
   replicas: 1
   selector:
     matchLabels:
       run: monitor-apirest
+
   template:
     metadata:
       labels:
         run: monitor-apirest
+
     spec:
       containers:
       - name: monitor-apirest

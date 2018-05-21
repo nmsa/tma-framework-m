@@ -1,4 +1,4 @@
-{
+m_schema_0_3 = {
     "title": "tma-m_schema_0_3",
 
     "$id": "http://atmosphere-eubrazil.eu/tma-m_schema_v0.2.json",
