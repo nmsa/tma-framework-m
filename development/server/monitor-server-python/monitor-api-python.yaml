@@ -3,23 +3,23 @@ apiVersion: apps/v1
 kind: Deployment
 
 metadata:
-  name: monitor-server-python
+  name: monitor-apirest
 
 spec:
   replicas: 1
   selector:
     matchLabels:
-      run: monitor-server-python
+      run: monitor-apirest
 
   template:
     metadata:
       labels:
-        run: monitor-server-python
+        run: monitor-apirest
 
     spec:
       containers:
-      - name: monitor-server-python
-        image: tma-monitor/server-python
+      - name: monitor-apirest
+        image: gyelo/restapi
         tty: true
         ports:
         - containerPort: 5000
