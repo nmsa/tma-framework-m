@@ -1,0 +1,1 @@
+docker build -t tma-monitor/python:0.1  .

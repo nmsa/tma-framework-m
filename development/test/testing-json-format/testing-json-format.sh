@@ -2,7 +2,7 @@
 
 if [ -z "$1" ]
 then
-    API_ENDPOINT="http://10.2.0.240:7001/monitor"
+    API_ENDPOINT="http://localhost:80/monitor"
 else
     API_ENDPOINT="$1"
 fi
