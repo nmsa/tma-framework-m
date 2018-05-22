@@ -6,7 +6,7 @@ These data are then stored in the `TMA_Knowledge` component, where it will be av
 
 
 The monitoring interface receives data regarding a **broad range of components in a generic fashion**.
-To use this interface, the protocol defined [here](https://github.com/nmsa/tma-framework/blob/master/architecture/diagrams/TMA-M/TMA-M_sequence.jpg) must be foolowed, to assure the basic security properties in the data transmission (integrity and confidentiality). 
+To use this interface, the protocol defined [here](https://github.com/nmsa/tma-framework/blob/master/architecture/diagrams/TMA-M/TMA-M_sequence.jpg) must be followed, to assure the basic security properties in the data transmission (integrity and confidentiality). 
 
 *![Monitor Usage Sequence Diagram](https://github.com/nmsa/tma-framework/blob/master/architecture/diagrams/TMA-M/TMA-M_sequence.jpg) Sequence diagram for the usage of the monitor component.*
 
@@ -32,7 +32,7 @@ Each message includes:
 * `data` -- an array of objects, each one including: 
 	* `type` -- event or measurement
 	* `descriptionId` -- identifies the event or measurement, and an array of 
-	* `observations` -- (each one is a pair of 
+	* `observations` -- each one is a pair of 
 		* `time` -- at which the specific observation was performed
 		* `value` -- the observerd value which can be 0 in the case of `event`.
 
