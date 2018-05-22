@@ -19,9 +19,7 @@ spec:
     spec:
       containers:
       - name: monitor-server-python
-        image: tma-monitor/server-python
+        image: tma-monitor/server-python:0.1
         tty: true
         ports:
         - containerPort: 5000
-        command: ["bash","-c"]
-        args: ["python apirest.py"]

@@ -12,6 +12,7 @@ app = Flask(__name__)
 logger = logging.getLogger(__name__)
 logger.info('Starting Monitor Server Python')
 
+# load json schema
 with open('schemas/atmosphere_tma-m_schema.json') as f:
     tma_m_schema = json.load(f)
 logger.debug('Schema loaded %s', tma_m_schema)
@@ -26,6 +27,7 @@ def processjson():
     if request.method == 'GET': 
         return "Method GET is not supported"
     
+    # load json file
     input = request.get_json(force=True)
     logger.debug('Processing Request %s', input)
     
@@ -35,6 +37,7 @@ def processjson():
 
 
 def validate_schema(input_msg):
+    #check if there are errors in json file and return the result
     errors = [error.message for error in validator.iter_errors(input_msg)]
     if errors:
         response = "Rejected" + "\n" + str(errors) + "\n"
@@ -42,6 +45,7 @@ def validate_schema(input_msg):
     else:
         return "Accepted" + "\n"
 
+# load logging json file
 def setup_logging(default_path='logging.json', env_key='LOG_CFG'):
     path = default_path
     value = os.getenv(env_key, None)
