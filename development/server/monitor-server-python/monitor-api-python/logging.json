@@ -42,7 +42,7 @@
 
     "loggers": {
         "__main__": {
-            "level": "ERROR",
+            "level": "DEBUG",
             "handlers": ["console"],
             "propagate": "no"
         }

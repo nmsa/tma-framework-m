@@ -13,7 +13,7 @@ The oracle is based on the name of the file, thus correct files must have a name
 
 ## Default configuration
 
-The current script assumes that the default endpoint path as `"http://10.2.0.240:7001/monitor"`
+The current script assumes that the default endpoint path as `http://localhost:80/monitor`
 
 
  
