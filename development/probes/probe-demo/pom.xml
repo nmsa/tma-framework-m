@@ -7,7 +7,7 @@
     <groupId>eu.atmosphere.tmaf</groupId>
     <artifactId>probe-demo</artifactId>
     <version>0.1</version>
-    <!--    <packaging>jar</packaging>-->
+    <packaging>jar</packaging>
 
     <url>https://github.com/nmsa/tma-framework</url>
     
@@ -23,12 +23,6 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
@@ -51,28 +45,40 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>eu.atmosphere.tmaf.probe-demo.Main</mainClass>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>eu.atmosphere.tmaf.probe.Main</mainClass>
                         </manifest>
                     </archive>
+                    <outputDirectory>${basedir}/bin</outputDirectory>
                 </configuration>
             </plugin>
-            <!-- If you need your jar to include the dependencies -->
-            <!--            
+            
+            
+            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.0</version>
                 <executions>
                     <execution>
-                        <phase>install</phase>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
                         <goals>
-                            <goal>shade</goal>
+                            <goal>copy-dependencies</goal>
                         </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/bin/lib</outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                        </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <finalName>\${project.artifactId}-\${project.version}-standalone</finalName>
-                </configuration>
-            </plugin>-->
+            </plugin>
+            
+            
+            
+      
         </plugins>        
         
         <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->

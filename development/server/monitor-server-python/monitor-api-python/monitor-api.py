@@ -58,5 +58,5 @@ if __name__ == '__main__':
     setup_logging()
     logger = logging.getLogger(__name__)
     logger.info('Initializing  Monitor Server Python')
-    app.run(debug='True', host='0.0.0.0')
+    app.run(debug='True', host='0.0.0.0', port=5000)
 

@@ -13,8 +13,11 @@
 package eu.atmosphere.tmaf.probe;
 
 import eu.atmosphere.tmaf.monitor.client.MonitorClient;
-import eu.atmosphere.tmaf.monitor.client.MonitorMessage;
-import eu.atmosphere.tmaf.monitor.message.MonitorMessage;
+import eu.atmosphere.tmaf.monitor.client.SynchronousClient;
+import eu.atmosphere.tmaf.monitor.message.Data;
+import eu.atmosphere.tmaf.monitor.message.Message;
+import eu.atmosphere.tmaf.monitor.message.Observation;
+import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,15 +38,35 @@ public class Main {
      */
     public static void main(String[] args) {
         LOGGER.info("Trust me! This is ATMOSPHERE!");
-        MonitorClient client = new MonitorClient();
-        
-        MonitorMessage message = client.createMessage();
-        
-//        message.setMessageId(Integer.SIZE);
-        
-        
-        int result = client.send(message);
-        
+        MonitorClient client = new SynchronousClient();
+
+        client.authenticate(1098, "pass".getBytes());
+
+        Message message;
+
+        for (int i = 0; i < 1000; i++) {
+            System.out.println("i = " + i);
+            message = client.createMessage();
+            message.setResourceId(101098);
+
+            message.addData(new Data(Data.Type.EVENT, i, new Observation(100000 + i, 10000.00001 + i)));
+
+            message.addData(new Data(Data.Type.MEASUREMENT, i, new Observation(10000 + i, 10000.00001 + i),
+                    new Observation(20000 + i, 20000.00001 + i),
+                    new Observation(30000 + i, 30000.00001 + i),
+                    new Observation(40000 + i, 40000.00001 + i),
+                    new Observation(50000 + i, 50000.00001 + i),
+                    new Observation(60000 + i, 60000.00001 + i)));
+
+            client.send(message);
+
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        }
+//        int result = client.send(message);
 
         LOGGER.info("Trust me! This is ATMOSPHERE!");
     }
