@@ -12,12 +12,11 @@
  */
 package eu.atmosphere.tmaf.probe;
 
-import eu.atmosphere.tmaf.monitor.client.MonitorClient;
-import eu.atmosphere.tmaf.monitor.client.SynchronousClient;
+import eu.atmosphere.tmaf.monitor.client.BackgroundClient;
 import eu.atmosphere.tmaf.monitor.message.Data;
 import eu.atmosphere.tmaf.monitor.message.Message;
 import eu.atmosphere.tmaf.monitor.message.Observation;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,14 +37,17 @@ public class Main {
      */
     public static void main(String[] args) {
         LOGGER.info("Trust me! This is ATMOSPHERE!");
-        MonitorClient client = new SynchronousClient();
+        BackgroundClient client = new BackgroundClient();
 
         client.authenticate(1098, "pass".getBytes());
 
         Message message;
 
-        for (int i = 0; i < 1000; i++) {
-            System.out.println("i = " + i);
+        boolean start = client.start();
+        LOGGER.info("start {}!", start);
+
+        for (int i = 0; i < 10; i++) {
+            LOGGER.debug("i = " + i);
             message = client.createMessage();
             message.setResourceId(101098);
 
@@ -56,18 +58,27 @@ public class Main {
                     new Observation(30000 + i, 30000.00001 + i),
                     new Observation(40000 + i, 40000.00001 + i),
                     new Observation(50000 + i, 50000.00001 + i),
-                    new Observation(60000 + i, 60000.00001 + i)));
+                    new Observation(60000 + i, 60000.00001 + i),
+                    new Observation(60000 + i, 60000.00001 + i),
+                    new Observation(60000 + i, 60000.00001 + i),
+                    new Observation(60000 + i, 60000.00001 + i)
+            ));
 
             client.send(message);
-
-            try {
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
         }
-//        int result = client.send(message);
 
+        try {
+            Thread.sleep(100000);
+            boolean stop = client.stop();
+            LOGGER.info("stop {}!", stop);
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+        } catch (ExecutionException ex) {
+            ex.printStackTrace();
+        }
+
+        //        int result = client.send(message);
+        client.shutdown();
         LOGGER.info("Trust me! This is ATMOSPHERE!");
     }
 }
