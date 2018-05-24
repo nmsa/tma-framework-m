@@ -5,6 +5,7 @@ from jsonschema import Draft4Validator
 import logging
 import logging.config
 import os
+from kafka import SimpleProducer, KafkaClient
 
 app = Flask(__name__)
 
@@ -18,6 +19,12 @@ logger.debug('Schema loaded %s', tma_m_schema)
 
 validator = Draft4Validator(tma_m_schema)
 logger.info('Validator initialized %s', validator)
+
+#Connect Kafka client to Kafka pod
+kafka = KafkaClient('kafka-0.kafka-hs.default.svc.cluster.local:9093')
+
+# Incialize producer structure to send messages
+producer = SimpleProducer(kafka)
 
 
 @app.route('/monitor', methods=['GET', 'POST'])
@@ -42,6 +49,10 @@ def validate_schema(input_msg):
         response = "Rejected" + "\n" + str(errors) + "\n"
         return response
     else:
+	# Convert dict into string. Kafka only accept messages at bytes or string format
+        jd = json.dumps(input_msg)
+        # Sending message
+        producer.send_messages('kafka-mysql', jd)
         return "Accepted" + "\n"
 
 
