@@ -22,6 +22,7 @@ RUN     set -x \
     
 COPY    log4j.properties /opt/$KAFKA_DIST/config/
 
+# TODO: Add comments
 RUN     set -x \
             && ln -s /opt/$KAFKA_DIST $KAFKA_HOME \
             && useradd $KAFKA_USER \

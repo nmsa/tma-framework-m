@@ -10,7 +10,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: /home/kubernetes/Desktop/volumes_zookeper
+    path: $(PWD)/volumes_zookeper
 
 ---
 
@@ -26,7 +26,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: /home/kubernetes/Desktop/volumes_kafka
+    path: $(PWD)/volumes_kafka
 
 
 ---
