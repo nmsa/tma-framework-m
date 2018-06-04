@@ -16,4 +16,7 @@ The oracle is based on the name of the file, thus correct files must have a name
 The current script assumes that the default endpoint path as `http://localhost:80/monitor`
 
 
+## Authors
+* Nuno Antunes
+
  
