@@ -1,4 +1,4 @@
-# TMA Monitor `Java` Client Library 
+# TMA-Monitor `Java` Client Library 
 
 Main dependency to use during the development of `TMA Monitor` probes developed in `Java`.
 

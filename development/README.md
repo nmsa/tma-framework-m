@@ -41,7 +41,7 @@ This folder is organized in the following sub-folders:
 * [libraries](libraries) -- The key libraries to be used during development. At the moment only containing `java` libraries. Make use of [dependency](dependency).
 * [probes](probes) -- Implementation of concrete probes, including a [probe-demo](probes/probe-demo). Make use of [dependency](dependency) and [libraries](libraries).
 * [server](server) -- Includes the implementation and scripts of the server component. It will include specific documentation. Make use of [dependency](dependency) and [libraries](libraries).
-* [test](test) -- Includes scripts and code for  
+* [test](test) -- Includes scripts and code for testing activities.  
    
    
 

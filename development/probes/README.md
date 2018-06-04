@@ -21,7 +21,7 @@ build.sh
 
 ## Running
 
-To start the container, use the follow commands.
+To start the container, use the following commands.
 
 ```sh
 cd probe-demo
