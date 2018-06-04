@@ -42,7 +42,7 @@ Each message includes:
 
 **Under development**
 
-*a server component will be developed*
+Preliminary documentation is currently available at [development](development) and [server](development/server).
 
 
 
@@ -51,7 +51,7 @@ Each message includes:
 
 **Under development**
 
-*a set of libraries will be developed to provide an easier implementation of the probes*
+Preliminary documentation is currently available at [development](development), [libraries](development/libraries) and [probes](development/probes).
 
 
 

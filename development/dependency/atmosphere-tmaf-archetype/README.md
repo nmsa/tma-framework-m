@@ -20,5 +20,6 @@ Read more about [`maven archetype`](https://maven.apache.org/guides/introduction
 
 
 
-
+## Authors
+* Nuno Antunes
 
