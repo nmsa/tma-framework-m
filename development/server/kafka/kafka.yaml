@@ -62,7 +62,6 @@ spec:
       terminationGracePeriodSeconds: 300
       containers:
       - name: k8skafka
-        imagePullPolicy: Always
         image: kafka:0.1
         resources:
           requests:

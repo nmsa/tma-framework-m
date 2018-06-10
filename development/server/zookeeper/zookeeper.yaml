@@ -55,7 +55,6 @@ spec:
               topologyKey: "kubernetes.io/hostname"
       containers:
       - name: kubernetes-zookeeper
-        imagePullPolicy: Always
         image: zookeeper:0.1
         resources:
           requests:
