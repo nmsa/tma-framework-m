@@ -35,7 +35,7 @@ def process_message():
 
     # load json file
     input = request.get_json(force=True)
-    logger.trace('Processing Request %s', input)
+    logger.info('Processing Request %s', input)
 
     # todo, validate schema should return number of errors.
     # If 0, proceed with processing
@@ -53,7 +53,7 @@ def validate_schema(input_msg):
 	# Convert dict into string. Kafka only accept messages at bytes or string format
         jd = json.dumps(input_msg)
         # Sending message
-        producer.send_messages('kafka-mysql', jd)
+        producer.send_messages('topic-monitor', jd)
         return "Accepted" + "\n"
 
 
