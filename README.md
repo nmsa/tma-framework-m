@@ -1,14 +1,14 @@
 # Monitor Component @ TMA Framework
 
-According to the [architecture of the TMA Framework](https://github.com/nmsa/tma-framework/blob/master/architecture/diagrams/TMA-Platform_Architecture.jpg)
+According to the [architecture of the TMA Framework](https://github.com/eubr-atmosphere/tma-framework/blob/master/architecture/diagrams/TMA-Platform_Architecture.jpg)
 the `TMA_Monitor` component provides a generic interface that can be used by the probes installed in the different layers of the system to send data about the collected measurements and events. 
 These data are then stored in the `TMA_Knowledge` component, where it will be available to be used in by the `TMA_Analyze`, `TMA_Planning`, and `TMA_Execute` components.
 
 
 The monitoring interface receives data regarding a **broad range of components in a generic fashion**.
-To use this interface, the protocol defined [here](https://github.com/nmsa/tma-framework/blob/master/architecture/diagrams/TMA-M/TMA-M_sequence.jpg) must be followed, to assure the basic security properties in the data transmission (integrity and confidentiality). 
+To use this interface, the protocol defined [here](https://github.com/eubr-atmosphere/tma-framework/blob/master/architecture/diagrams/TMA-M/TMA-M_sequence.jpg) must be followed, to assure the basic security properties in the data transmission (integrity and confidentiality). 
 
-*![Monitor Usage Sequence Diagram](https://github.com/nmsa/tma-framework/blob/master/architecture/diagrams/TMA-M/TMA-M_sequence.jpg) Sequence diagram for the usage of the monitor component.*
+*![Monitor Usage Sequence Diagram](https://github.com/eubr-atmosphere/tma-framework/blob/master/architecture/diagrams/TMA-M/TMA-M_sequence.jpg) Sequence diagram for the usage of the monitor component.*
 
 Each probe starts its activity with an authentication synchronous message, in which it will receive is `probeId` and the token to use in the ensuing messages. 
 All communication is performed over SSL sockets.
