@@ -1,25 +1,32 @@
-apiVersion: apps/v1
-
-kind: Deployment
-
+apiVersion: v1
+kind: Service
 metadata:
   name: monitor-server-python
-
+  labels:
+    app: monitor-server-python
 spec:
-  replicas: 1
+  ports:
+  - port: 5000
+  clusterIP: None
+  selector:
+    app: monitor-server-python
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: monitor-server-python
+spec:
   selector:
     matchLabels:
-      run: monitor-server-python
-
+      app: monitor-server-python # has to match .spec.template.metadata.labels
+  serviceName: "monitor-server-python"
   template:
     metadata:
       labels:
-        run: monitor-server-python
-
+        app: monitor-server-python # has to match .spec.selector.matchLabels
     spec:
       containers:
       - name: monitor-server-python
         image: tma-monitor/server-python:0.1
-        tty: true
         ports:
         - containerPort: 5000
