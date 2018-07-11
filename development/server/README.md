@@ -131,3 +131,4 @@ Rejected  (correct):  fail_3.json
 ## Authors
 * Rui Silva
 * Nuno Antunes
+* José Pereira
