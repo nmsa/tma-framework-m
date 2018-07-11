@@ -84,7 +84,7 @@ The first containers to be deloyed in Kubernetes are Zookeeper and Kafka. To do 
 
 ```sh
 cd ..
-sh setup.sh
+sh setup-testing-mode.sh
 ```
 
 First, setup.sh script runs the required commands to create the persistent volumes for Zookeeper and Kafka. Then, it deploys these two components. Finally, it creates `topic-monitor` topic in Kafka pod.
