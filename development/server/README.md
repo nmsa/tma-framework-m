@@ -84,7 +84,7 @@ The first containers to be deloyed in Kubernetes are Zookeeper and Kafka. To do 
 
 ```sh
 cd ..
-sh setup-testing-mode.sh
+sh setup.sh
 ```
 
 First, setup.sh script runs the required commands to create the persistent volumes for Zookeeper and Kafka. Then, it deploys these two components. Finally, it creates `topic-monitor` topic in Kafka pod.
@@ -100,14 +100,7 @@ For details on the REST API usage, you should check the current [monitor-server]
 
 For testing the validation of json files with schema, there is a script that injects some json files that have correct structure and others with some errors.
 That script is located in test/testing-json-format/testing-json-format.sh.
-Before running this script, it is necessary verify the IP address of the Monitor pod. To do that, run:
-
-```sh
-kubectl describe pods monitor-server-python-xxxxxxxxx-xxxxx
-``` 
-
-Where xxxxxxxxx-xxxxx is the id of the pod that changes in every deployment.
-After checking the IP of the pod, replace the `localhost` by the IP in the script. To test the environment, you should run:
+To test the environment, you should run:
 
 ```sh
 cd ../../test/testing-json-format/
