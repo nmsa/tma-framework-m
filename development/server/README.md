@@ -84,11 +84,11 @@ The first containers to be deloyed in Kubernetes are Zookeeper and Kafka. To do 
 
 ```sh
 cd ..
-sh setup.sh
+sh setup-testing-mode.sh
 ```
 
-First, setup.sh script runs the required commands to create the persistent volumes for Zookeeper and Kafka. Then, it deploys these two components. Finally, it creates `topic-monitor` topic in Kafka pod.
-With Zookeeper and Kafka running and the topic created, the next step is to deploy the Monitor application. The file called monitor-api-python.yaml creates a Kubernetes Deployment of the Monitor application. In order to create that deploy, you should run:
+First, `setup-testing-mode.sh` script runs the required commands to create the persistent volumes for Zookeeper and Kafka. Then, it deploys these two components. Finally, it creates `topic-monitor` topic in Kafka pod.
+With Zookeeper and Kafka running and the topic created, the next step is to deploy the Monitor application. The file called `monitor-api-python.yaml` creates a Kubernetes Deployment of the Monitor application. In order to create that deploy, you should run:
 
 ```sh
 kubectl create -f monitor-server-python/monitor-api-python.yaml
