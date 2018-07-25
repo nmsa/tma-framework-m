@@ -99,8 +99,8 @@ For details on the REST API usage, you should check the current [monitor-server]
 ## Testing
 
 For testing the validation of json files with schema, there is a script that injects some json files that have correct structure and others with some errors.
-That script is located in test/testing-json-format/testing-json-format.sh.
-To test the environment, you should run:
+That script is located in `test/testing-json-format/testing-json-format.sh`.
+Before running the script, check if the service is available on the endpoint of the defined in the file. If it is not, change it to the proper name or IP. To test the environment, you should run:
 
 ```sh
 cd ../test/testing-json-format/
