@@ -103,7 +103,7 @@ That script is located in test/testing-json-format/testing-json-format.sh.
 To test the environment, you should run:
 
 ```sh
-cd ../../test/testing-json-format/
+cd ../test/testing-json-format/
 chmod 777 testing-json-format.sh
 ./testing-json-format.sh
 ``` 
