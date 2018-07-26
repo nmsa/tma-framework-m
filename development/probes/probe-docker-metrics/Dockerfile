@@ -3,7 +3,7 @@ FROM tma-monitor/docker-client:0.1
 
 WORKDIR	/probe-docker-metrics
 
-COPY 	dockerAPI.py 	/probe-docker-metrics
+COPY 	probe-docker-metrics.py 	/probe-docker-metrics
 COPY 	data.py 		/probe-docker-metrics
 COPY 	message.py 		/probe-docker-metrics
 COPY 	observation.py 	/probe-docker-metrics
