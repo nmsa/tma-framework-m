@@ -21,7 +21,9 @@ sh build.sh
 ```
 
 To start the probe, run:
-```sh run.sh```
+```
+sh run.sh
+```
 ## Testing
 For testing purposes, you should create an Apache Kafka consumer in topic-monitor topic. To do that you should execute the following command:
 ```
