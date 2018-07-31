@@ -22,7 +22,7 @@ cd ../../probes/probe-docker-metrics/
 sh build.sh
 ```
 
-To start the probe, run:
+To start the probe, you should run:
 ```
 sh run.sh
 ```
