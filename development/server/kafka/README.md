@@ -1,27 +1,40 @@
 
+# Apache Kafka
+Apache Kafka is a distributed message open-source tool that uses the paradigm producer-consumer, which enables that when a producer sends a message to all consumers.
 
-# TMA-Monitor Python Server Implementation 
+## Prerequisites
+To use Apache Kafka, you need to initialize the Kubernetes cluster and deploy on it all components of server folder of this repository following the instructions present in README file of that folder.
 
-## REST API description
+## Installation
+In this folder, there are several files related to Apache Kafka in order to deploy it on Kubernetes Cluster.
+The first step of that deploy is to build an Apache Kafka image in Kubernetes Worker node. To do that, execute the following command.
+```
+sh build.sh
+```
+This script builds Apache Kafka image based on Dockerfile. That Dockerfile includes the `log4j.properties` file that is responsible for setting logging properties.
+The next steps are executed in Kubernetes Master node. In order to do that, it is necessary to execute the following command:
+```
+kubectl create -f persistent-volume_kafka.yaml
+```
+The previous command creates a persistent volume to store Apache Kafka data in a manner that cannot be lost. That data includes all information about Apache Kafka brokers and topics.
+Now, it is time to deploy Apache Kafka in Kubernetes Cluster. To do that, you should execute the following command:
+```
+kubectl create -f kafka.yaml
+```
+With Apache Kafka deployed, it is necessary to create a topic that is a communication pipe that enables producers sending messages to consumers.
+To do that, it is necessary to execute the following command:
+```
+kubectl exec -ti kafka-0 -- kafka.topics.sh --create --topic topic-monitor --zookeeper zk-0.zk-hs.default.svc.cluster.local:2181
+``` 
 
-This application has mainly three methods: process_message(), validate_schema(), and setup_logging():
-- process_message() method is used to load the json file sent to this application and calls the validate_schema() method.
-- validate_schema() method receives as argument the json file read in the previous method. It is verified in this method if the json received has the same structure of the json schema illustrated by the following image:
-*![Monitor Schema](https://github.com/nmsa/tma-framework-m/blob/master/interface/atmosphere_tma-m_schema.png)Format of the data to be provided to the monitor component.*
-
-If there are errors, the method returns the "Rejected" string concatenated with the description of the errors found.
-If there are not errors, this method returns a string with "Accepted".
-- setup_logging() method is used to load the logging configuration file.
-
-
-## REST API usage
-
-This REST API supports GET and POST methods. GET method only shows a message saying that this method is not allowed. 
-To interact with this application, user needs to generate and send a HTTP POST with a json file to the endpoint of TMA_Monitor. In this case, it is monitor-server-python-0.monitor-server-python.default.svc.cluster.local:5000/monitor.
-If json file sent to TMA_Monitor endpoint in in the expected format, the output of this application is a message with string "Accepted". If the data sent is not valid, a message with string "Rejected" is returned by the TMA_Monitor and also the description of errors occurred.
-
-
-
-## Implementation Details
- To implement this web API, it was used Flask microframework (http://flask.pocoo.org/) and other python libraries, namely, json (https://docs.python.org/2/library/json.html) and logging (https://docs.python.org/2/library/logging.html).
-
+## Testing
+For testing purposes, you should create an Apache Kafka consumer a that receives messages from `topic-monitor` topic, and an Apache Kafka producer that sends messages to the same topic.
+To initialize an Apache Kafka producer, you should execute the following command:
+```
+kubectl exec -ti kafka-0 -- kafka-console-producer.sh --topic topic-monitor --broker-list localhost:9093
+```
+To initialize an Apache Kafka consumer, you should execute the following command:
+ ```
+kubectl exec -ti kafka-0 -- kafka-console-consumer.sh --topic topic-monitor --bootstrap-server localhost:9093
+```
+After running the commands above, if you write a message in Apache Kafka producer instance, you will see that message in Apache Kafka consumer instance.
