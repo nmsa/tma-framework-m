@@ -13,4 +13,4 @@ RUN pip install docker
 RUN apk update
 RUN apk add docker
 
-CMD ["python", "dockerAPI.py", "monitor-api", "https://monitor-server-python-0.monitor-server-python.default.svc.cluster.local:5000/monitor"]
+CMD ["python", "dockerAPI.py", "monitor-api", "https://monitor-server-0.monitor-server.default.svc.cluster.local:5000/monitor"]

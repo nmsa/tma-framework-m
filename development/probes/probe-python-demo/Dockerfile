@@ -13,4 +13,4 @@ COPY 	key.pem 	/probe-python-demo
 
 
 
-CMD 	["python", "probe-python-demo.py", "https://monitor-server-python-0.monitor-server-python.default.svc.cluster.local:5000/monitor"]
+CMD 	["python", "probe-python-demo.py", "https://monitor-server-0.monitor-server.default.svc.cluster.local:5000/monitor"]
