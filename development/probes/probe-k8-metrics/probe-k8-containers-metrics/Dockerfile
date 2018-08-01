@@ -6,9 +6,11 @@ COPY dockerAPI.py /python-client
 COPY data.py /python-client
 COPY message.py /python-client
 COPY observation.py /python-client
+COPY cert.pem /python-client
+COPY key.pem /python-client
 
 RUN pip install docker
 RUN apk update
 RUN apk add docker
 
-CMD ["python", "dockerAPI.py", "monitor-api", "http://monitor-server-python-0.monitor-server-python.default.svc.cluster.local:5000/monitor"]
+CMD ["python", "dockerAPI.py", "monitor-api", "https://monitor-server-python-0.monitor-server-python.default.svc.cluster.local:5000/monitor"]

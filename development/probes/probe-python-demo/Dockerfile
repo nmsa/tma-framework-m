@@ -8,7 +8,9 @@ COPY 	data.py 		/probe-python-demo
 COPY 	message.py 		/probe-python-demo
 COPY 	observation.py 	        /probe-python-demo
 COPY 	comunication.py 	/probe-python-demo
+COPY 	cert.pem 	/probe-python-demo
+COPY 	key.pem 	/probe-python-demo
 
 
 
-CMD 	["python", "probe-python-demo.py", "http://monitor-server-python-0.monitor-server-python.default.svc.cluster.local:5000/monitor"]
+CMD 	["python", "probe-python-demo.py", "https://monitor-server-python-0.monitor-server-python.default.svc.cluster.local:5000/monitor"]

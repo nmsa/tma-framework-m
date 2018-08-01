@@ -17,5 +17,5 @@ class Comunication:
    self.message_formated = message_formated
    headers = {'content-type': 'application/json'}
    # return the response from Post request
-   return requests.post(self.url, data=self.message_formated, headers=headers)
+   return requests.post(self.url, data=self.message_formated, headers=headers, verify='cert.pem')
 

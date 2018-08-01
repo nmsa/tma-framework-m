@@ -32,7 +32,7 @@ def send_stat(stat, url):
     # url = 'http://0.0.0.0:5000/monitor'
     headers = {'content-type': 'application/json'}
     # return the response from Post request
-    return requests.post(url, data=stat_formatted, headers=headers)
+    return requests.post(url, data=stat_formatted, headers=headers, verify='cert.pem')
 
 
 # format stat to
