@@ -1,0 +1,26 @@
+
+apiVersion: apps/v1
+
+
+kind: Deployment
+
+metadata:
+  name: probe-python-demo
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: probe-python-demo
+
+  template:
+    metadata:
+      labels:
+        run: probe-python-demo
+
+    spec:
+      containers:
+      - name: probe-python-demo
+        image: probe-python-demo:0.1
+        tty: true
+

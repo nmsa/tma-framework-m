@@ -2,7 +2,7 @@
 
 if [ -z "$1" ]
 then
-    API_ENDPOINT="http://localhost:80/monitor"
+    API_ENDPOINT="https://monitor-server-python-0.monitor-server-python.default.svc.cluster.local:5000/monitor"
 else
     API_ENDPOINT="$1"
 fi
