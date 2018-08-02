@@ -18,7 +18,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: monitor-server-python # has to match .spec.template.metadata.labels
+      app: monitor-server # has to match .spec.template.metadata.labels
   serviceName: "monitor-server"
   template:
     metadata:
