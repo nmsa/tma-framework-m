@@ -7,7 +7,6 @@ COPY data.py /python-client
 COPY message.py /python-client
 COPY observation.py /python-client
 COPY cert.pem /python-client
-COPY key.pem /python-client
 
 RUN pip install docker
 RUN apk update
