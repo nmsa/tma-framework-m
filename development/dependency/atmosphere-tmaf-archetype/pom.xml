@@ -11,7 +11,7 @@
 
     <name>Archetype - ATMOSPHERE Trustworthiness Monitoring &amp; Assessment Framework </name>
 
-    <url>https://github.com/nmsa/tma-framework</url>
+    <url>https://github.com/eubr-atmosphere/tma-framework</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

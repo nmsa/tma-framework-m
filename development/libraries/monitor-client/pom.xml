@@ -9,7 +9,7 @@
     <version>0.1</version>
     <packaging>jar</packaging>
 
-    <url>https://github.com/nmsa/tma-framework</url>
+    <url>https://github.com/eubr-atmosphere/tma-framework</url>
     
     <organization> <!-- set your organization info -->
         <name>University of Coimbra</name>

@@ -5,8 +5,8 @@
  * <b>Trustworthiness Monitoring & Assessment Framework</b>
  * Component: Monitor - Client
  * <p>
- * Repository: https://github.com/nmsa/tma-framework
- * License: https://github.com/nmsa/tma-framework/blob/master/LICENSE
+ * Repository: https://github.com/eubr-atmosphere/tma-framework
+ * License: https://github.com/eubr-atmosphere/tma-framework/blob/master/LICENSE
  * <p>
  * <p>
  */

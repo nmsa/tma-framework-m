@@ -1,6 +1,6 @@
 # Maven Archetype - ATMOSPHERE TMA-Framework
 
-The [**ATMOSPHERE**](http://www.atmosphere-eubrazil.eu) [`TMA-Framework`](https://github.com/nmsa/tma-framework) `maven archetype`* provides the 'template' for the `java` projects to be used in the development of the framework artifacts.
+The [**ATMOSPHERE**](http://www.atmosphere-eubrazil.eu) [`TMA-Framework`](https://github.com/eubr-atmosphere/tma-framework) `maven archetype`* provides the 'template' for the `java` projects to be used in the development of the framework artifacts.
 
 It provides a common configuration for naming, class structure, build and logging functionalities. 
 It helps to achieve consistency in projects used in the development.

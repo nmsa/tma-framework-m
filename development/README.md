@@ -9,7 +9,7 @@ Below we detail the key points relative to processes followed and to the structu
 
 ## Development Process
 Following we describe the specific rules that apply to the development process of `TMA Monitor` components.
-General Processes and Principles followed by the entire `WP3` for the development of the solution for the [TMA Framework](https://github.com/nmsa/tma-framework) will be available in the [framework wiki](https://github.com/nmsa/tma-framework/wiki).
+General Processes and Principles followed by the entire `WP3` for the development of the solution for the [TMA Framework](https://github.com/eubr-atmosphere/tma-framework) will be available in the [framework wiki](https://github.com/eubr-atmosphere/tma-framework/wiki).
  
 ### Components development
 All the components should be ready to deploy in `docker` containers.

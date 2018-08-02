@@ -1,4 +1,3 @@
-
 # Probe Python Demo
 This probe was developed to generate random data in format of the json schema of this project. This probe was developed to be deployed in a Kubernetes pod.
 ## Prerequisites
@@ -25,4 +24,3 @@ For testing purposes, you should create an Apache Kafka consumer that receives m
 kubectl exec -ti kafka-0 -- kafka-console-consumer.sh --topic topic-monitor --bootstrap-server localhost:9093
 ```
 After running the previous command, you will see the data collected by this probe.
-
