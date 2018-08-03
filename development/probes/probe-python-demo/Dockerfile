@@ -8,7 +8,7 @@ COPY 	data.py 		/probe-python-demo
 COPY 	message.py 		/probe-python-demo
 COPY 	observation.py 	        /probe-python-demo
 COPY 	comunication.py 	/probe-python-demo
-COPY 	cert.pem 	/probe-python-demo
+
 
 
 
