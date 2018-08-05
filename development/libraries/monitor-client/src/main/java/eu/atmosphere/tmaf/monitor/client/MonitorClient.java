@@ -25,6 +25,15 @@ import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
+import java.security.cert.X509Certificate;
+import java.security.*;
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+
 /**
  *
  * <p>
@@ -36,7 +45,7 @@ public abstract class MonitorClient {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MonitorClient.class);
 
-    private static final String DEFAULT_ENDPOINT = "http://10.0.0.10:5000/monitor";
+    private static final String DEFAULT_ENDPOINT = "https://172.17.0.1:5000/monitor";
 //    private static final String DEFAULT_ENDPOINT = "http://localhost:80/monitor";
     private static final String ENDPOINT_AUTH_PATH = "auth";
     private static final int NONINITIALIZED_PROBEID = -1;
@@ -76,6 +85,7 @@ public abstract class MonitorClient {
         return probeId.get() != NONINITIALIZED_PROBEID;
     }
 
+
     /**
      *
      * @return a new {@link Message}
@@ -94,6 +104,46 @@ public abstract class MonitorClient {
         LOGGER.warn("Authentication is yet to be supported.");
         return this.probeId.compareAndSet(NONINITIALIZED_PROBEID, probeId);
     }
+    static {
+      disableSslVerification();
+    }
+
+    private static void disableSslVerification() {
+      try
+      {
+          // Create a trust manager that does not validate certificate chains
+          TrustManager[] trustAllCerts = new TrustManager[] {new X509TrustManager() {
+            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                return null;
+            }
+            public void checkClientTrusted(X509Certificate[] certs, String authType) {
+            }
+            public void checkServerTrusted(X509Certificate[] certs, String authType) {
+            }
+        }
+        };
+
+          // Install the all-trusting trust manager
+          SSLContext sc = SSLContext.getInstance("SSL");
+          sc.init(null, trustAllCerts, new java.security.SecureRandom());
+          HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+
+          // Create all-trusting host name verifier
+          HostnameVerifier allHostsValid = new HostnameVerifier() {
+            public boolean verify(String hostname, SSLSession session) {
+                return true;
+            }
+        };
+
+          // Install the all-trusting host verifier
+          HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+      } catch (NoSuchAlgorithmException e) {
+          e.printStackTrace();
+      } catch (KeyManagementException e) {
+          e.printStackTrace();
+      }
+    }
+
 
     protected final int post(Message message) {
         final long sentTime = System.currentTimeMillis();
