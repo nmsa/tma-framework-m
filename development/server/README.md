@@ -1,6 +1,7 @@
+
 # TMA-Monitor Server Development
 
-This server is a scalable REST API application for validating json files against a schema and if the json is correct, this application will send it to a kafka topic.
+This server is a scalable REST API application for validating json files against a schema and if the json is correct, this application will send it to a Apache Kafka topic.
 
 The instructions provided below include all steps that are needed to set up this framework in you local system for testing purposes.
 
@@ -25,7 +26,7 @@ apt-get install -y kubelet kubeadm kubectl kubernetes-cni
 
 In order to use Kubernetes two machines (nodes) are required with different IP addresses for deploying all necessary pods.
 These two nodes communicate through network plugin Flannel.
-To inicialize the Kubernetes cluster, run the following command in the Master machine:
+To initialize the Kubernetes cluster, run the following command in the Master machine:
 
 ```sh
 swapoff -a
@@ -64,7 +65,7 @@ Now, the Kubernetes cluster are ready to deploy containers.
 ## Installation
 
 
-After completing all steps of the previous section, the first step of project installation is to create the images that deploy Kafka, Zookeeper and the Monitor API REST containers. In orde to do that, there is a shell script called build.sh presented in `kafka`, `zookeeper` and `server-monitor` folders of this project.
+After completing all steps of the previous section, the first step of project installation is to create the images that deploy Kafka, Zookeeper and the Monitor API REST containers. In order to do that, there is a shell script called build.sh presented in `kafka`, `zookeeper` and `server-monitor` folders of this project.
 To deploy the monitor, you need to run the script called build.sh presented in `dependency/server-python` folder in order to create the base python image that will be used to generate the container that runs the Monitor.
 To execute this script for all components of the architecture, you should run the following commands on the worker node:
 
@@ -81,7 +82,7 @@ sh build.sh
 
 After executing this script, all containers are created and we are ready to deploy them on Kubernetes cluster.
 
-The first containers to be deloyed in Kubernetes are Zookeeper and Kafka. To do that, there is a script called setup.sh that automates all commands required to deploy these components. To execute the script, run the following command:
+The first containers to be deployed in Kubernetes are Zookeeper and Kafka. To do that, there is a script called setup.sh that automates all commands required to deploy these components. To execute the script, run the following command:
 
 ```sh
 cd ..
@@ -103,7 +104,7 @@ For testing the validation of json files with schema, there is a script that inj
 That script is located in `test/testing-json-format/testing-json-format.sh`.
 Before running the script, check if the service is available on the endpoint of the defined in the file. You can do that by running the following command: 
 ```sh
-kubectl describe pods monitor-server-python-xxxxxxxxx-xxxxx
+kubectl describe pods monitor-server-xxxxxxxxx-xxxxx
 ``` 
 
 Where xxxxxxxxx-xxxxx is the id of the pod that changes in every deployment.
@@ -131,3 +132,4 @@ Rejected  (correct):  fail_3.json
 * Rui Silva
 * Nuno Antunes
 * José Pereira
+
