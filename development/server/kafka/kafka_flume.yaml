@@ -63,7 +63,7 @@ spec:
       containers:
       - name: k8skafka
         imagePullPolicy: Always
-        image: gyelo/kafkav8
+        image: gyelo/kafkav12
         securityContext:
           privileged: true
         resources:
@@ -178,8 +178,8 @@ spec:
             - -c
             - "/opt/kafka/bin/kafka-broker-api-versions.sh --bootstrap-server=localhost:9093"
       securityContext:
-        runAsUser: 1000
-        fsGroup: 1000
+        runAsUser: 0
+        fsGroup: 0
   volumeClaimTemplates:
   - metadata:
       name: datadir
