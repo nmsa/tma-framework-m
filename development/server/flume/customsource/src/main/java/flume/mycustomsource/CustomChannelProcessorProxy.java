@@ -22,6 +22,21 @@ public class CustomChannelProcessorProxy extends ChannelProcessor {
         super(null);
         m_downstreamChannelProcessor = processor;
     }
+    public Map<String, String> generateEvent (int probeId, int resourceId, String type, int descriptionId, int time, double value){
+        Map<String, String> headers = new HashMap<String, String>();
+        String probestring= Integer.toString(probeId);
+        headers.put("probe", probestring );
+        String resourcestring = Integer.toString(resourceId);
+        headers.put("resource", resourcestring);
+        headers.put("type", type);
+        String descriptionstring = Integer.toString(descriptionId);
+        headers.put("description", descriptionstring);
+        String timestring = Integer.toString(time);
+        headers.put("time", timestring);
+        String valuestring =  Double.toString(value);
+        headers.put("value", valuestring);
+        return headers;
+    }
     public List<Event> SplitFunction (List<Event> evts){
         List<Event> listEvents = new ArrayList<Event>();
         for (Event event : evts){
@@ -37,18 +52,7 @@ public class CustomChannelProcessorProxy extends ChannelProcessor {
                     int descriptionId = data.getJSONObject(i).getInt("descriptionId");
                     int time = observations.getJSONObject(j).getInt("time");
                     Double value = observations.getJSONObject(j).getDouble("value");
-                    Map<String, String> headers = new HashMap<String, String>();
-                    String probestring;
-                    headers.put("probe", probestring = Integer.toString(probeId));
-                    String resourcestring;
-                    headers.put("resource", resourcestring = Integer.toString(resourceId));
-                    headers.put("type", type);
-                    String descriptionstring;
-                    headers.put("description", descriptionstring = Integer.toString(descriptionId));
-                    String timestring;
-                    headers.put("time", timestring = Integer.toString(time));
-                    String valuestring;
-                    headers.put("value", valuestring = Double.toString(value));
+                    Map<String, String> headers = generateEvent(probeId, resourceId, type, descriptionId, time, value);
                     Event observationEvent = EventBuilder.withBody(new byte[0], headers);
                     listEvents.add(observationEvent);
                 }

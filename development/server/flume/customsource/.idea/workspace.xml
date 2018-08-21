@@ -14,7 +14,7 @@
     <session id="-1107600825">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="15" />
+          <entry key="project.closed" value="16" />
           <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.2" value="3" />
           <entry key="project.open.time.20" value="1" />
@@ -26,10 +26,11 @@
           <entry key="project.open.time.31" value="1" />
           <entry key="project.open.time.33" value="1" />
           <entry key="project.open.time.35" value="1" />
+          <entry key="project.open.time.39" value="1" />
           <entry key="project.open.time.4" value="3" />
           <entry key="project.open.time.40" value="1" />
           <entry key="project.open.time.5" value="1" />
-          <entry key="project.opened" value="22" />
+          <entry key="project.opened" value="23" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -44,13 +45,13 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="1918" />
+          <entry key="java" value="2192" />
           <entry key="xml" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1918" />
+          <entry key="JAVA" value="2192" />
           <entry key="XML" value="2" />
         </counts>
       </usages-collector>
@@ -70,7 +71,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/flume/mycustomsource/CustomSource.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
+            <state relative-caret-position="120">
               <caret line="9" column="47" selection-start-line="9" selection-start-column="47" selection-end-line="9" selection-end-column="47" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -82,12 +83,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/flume/mycustomsource/CustomChannelProcessorProxy.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="223">
-              <caret line="34" column="70" selection-start-line="34" selection-start-column="70" selection-end-line="34" selection-end-column="70" />
+            <state relative-caret-position="493">
+              <caret line="55" column="89" selection-start-line="55" selection-start-column="89" selection-end-line="55" selection-end-column="89" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#761#768#0" expanded="true" />
-                <element signature="e#1755#1771#0" expanded="true" />
+                <element signature="e#836#852#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -197,7 +197,7 @@
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1855" height="956" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.0" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12382532" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Learn" order="3" />
@@ -233,7 +233,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/flume/mycustomsource/CustomSource.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
+        <state relative-caret-position="120">
           <caret line="9" column="47" selection-start-line="9" selection-start-column="47" selection-end-line="9" selection-end-column="47" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -243,12 +243,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/flume/mycustomsource/CustomChannelProcessorProxy.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="34" column="70" selection-start-line="34" selection-start-column="70" selection-end-line="34" selection-end-column="70" />
+        <state relative-caret-position="493">
+          <caret line="55" column="89" selection-start-line="55" selection-start-column="89" selection-end-line="55" selection-end-column="89" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#761#768#0" expanded="true" />
-            <element signature="e#1755#1771#0" expanded="true" />
+            <element signature="e#836#852#0" expanded="true" />
           </folding>
         </state>
       </provider>
