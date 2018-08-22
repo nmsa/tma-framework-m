@@ -22,7 +22,7 @@ public class CustomChannelProcessorProxy extends ChannelProcessor {
         super(null);
         m_downstreamChannelProcessor = processor;
     }
-    public Map<String, String> generateEvent (int probeId, int resourceId, String type, int descriptionId, int time, double value){
+    public Map<String, String> generateHeaders (int probeId, int resourceId, String type, int descriptionId, int time, double value){
         Map<String, String> headers = new HashMap<String, String>();
         String probestring= Integer.toString(probeId);
         headers.put("probe", probestring );
@@ -37,7 +37,7 @@ public class CustomChannelProcessorProxy extends ChannelProcessor {
         headers.put("value", valuestring);
         return headers;
     }
-    public List<Event> SplitFunction (List<Event> evts){
+    public List<Event> parseEvents (List<Event> evts){
         List<Event> listEvents = new ArrayList<Event>();
         for (Event event : evts){
             byte[] eventBody = event.getBody();
@@ -52,7 +52,7 @@ public class CustomChannelProcessorProxy extends ChannelProcessor {
                     int descriptionId = data.getJSONObject(i).getInt("descriptionId");
                     int time = observations.getJSONObject(j).getInt("time");
                     Double value = observations.getJSONObject(j).getDouble("value");
-                    Map<String, String> headers = generateEvent(probeId, resourceId, type, descriptionId, time, value);
+                    Map<String, String> headers = generateHeaders(probeId, resourceId, type, descriptionId, time, value);
                     Event observationEvent = EventBuilder.withBody(new byte[0], headers);
                     listEvents.add(observationEvent);
                 }
@@ -63,7 +63,7 @@ public class CustomChannelProcessorProxy extends ChannelProcessor {
 
     @Override
     public void processEventBatch(List<Event> events) {
-        List<Event> generatedEvents = SplitFunction(events);
+        List<Event> generatedEvents = parseEvents(events);
         m_downstreamChannelProcessor.processEventBatch(generatedEvents);
     }
 }
