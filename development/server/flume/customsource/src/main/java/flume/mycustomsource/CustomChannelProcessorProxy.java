@@ -3,14 +3,12 @@ package flume.mycustomsource;
 import org.apache.flume.ChannelSelector;
 import org.apache.flume.Event;
 import org.apache.flume.channel.ChannelProcessor;
-
 import org.apache.flume.event.EventBuilder;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 
 public class CustomChannelProcessorProxy extends ChannelProcessor {
@@ -24,48 +22,48 @@ public class CustomChannelProcessorProxy extends ChannelProcessor {
         super(null);
         m_downstreamChannelProcessor = processor;
     }
-    public List<Event> SplitFunction (List<Event> evts){
-        List<Event> aux = new ArrayList<Event>();
+    public Map<String, String> generateHeaders (int probeId, int resourceId, String type, int descriptionId, int time, double value){
+        Map<String, String> headers = new HashMap<String, String>();
+        String probestring= Integer.toString(probeId);
+        headers.put("probe", probestring );
+        String resourcestring = Integer.toString(resourceId);
+        headers.put("resource", resourcestring);
+        headers.put("type", type);
+        String descriptionstring = Integer.toString(descriptionId);
+        headers.put("description", descriptionstring);
+        String timestring = Integer.toString(time);
+        headers.put("time", timestring);
+        String valuestring =  Double.toString(value);
+        headers.put("value", valuestring);
+        return headers;
+    }
+    public List<Event> parseEvents (List<Event> evts){
+        List<Event> listEvents = new ArrayList<Event>();
         for (Event event : evts){
-            byte[] enventBody = event.getBody();
-            JSONObject testeV = new JSONObject(new String(enventBody));
-            JSONArray data = testeV.getJSONArray("data");
+            byte[] eventBody = event.getBody();
+            JSONObject input = new JSONObject(new String(eventBody));
+            JSONArray data = input.getJSONArray("data");
+            int probeId = input.getInt("probeId");
+            int resourceId = input.getInt("resourceId");
             for (int i=0; i<data.length();i++) {
                 JSONArray observations = data.getJSONObject(i).getJSONArray("observations");
+                String type = data.getJSONObject(i).getString("type");
                 for (int j = 0; j < observations.length(); j++) {
-                    int probeid = testeV.getInt("probeId");
-                    int resourceid = testeV.getInt("resourceId");
-                    String type = data.getJSONObject(i).getString("type");
-                    int descriptionid = data.getJSONObject(i).getInt("descriptionId");
+                    int descriptionId = data.getJSONObject(i).getInt("descriptionId");
                     int time = observations.getJSONObject(j).getInt("time");
-                    Double value = null;
-                    value = observations.getJSONObject(j).getDouble("value");
-                    StringBuilder str = new StringBuilder();
-                    str.append(probeid);
-                    str.append(",");
-                    str.append(resourceid);
-                    str.append(",");
-                    str.append(type);
-                    str.append(",");
-                    str.append(descriptionid);
-                    str.append(",");
-                    str.append(time);
-                    str.append(",");
-                    str.append(value);
-
-                    String message = str.toString();
-                    byte[] s = message.getBytes();
-                    Event aaa = EventBuilder.withBody(s);
-                    aux.add(aaa);
+                    Double value = observations.getJSONObject(j).getDouble("value");
+                    Map<String, String> headers = generateHeaders(probeId, resourceId, type, descriptionId, time, value);
+                    Event observationEvent = EventBuilder.withBody(new byte[0], headers);
+                    listEvents.add(observationEvent);
                 }
             }
         }
-        return aux;
+        return listEvents;
     }
 
     @Override
     public void processEventBatch(List<Event> events) {
-        List<Event> generatedEvents = SplitFunction(events);
+        List<Event> generatedEvents = parseEvents(events);
         m_downstreamChannelProcessor.processEventBatch(generatedEvents);
     }
 }
