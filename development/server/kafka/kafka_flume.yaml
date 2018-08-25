@@ -63,7 +63,7 @@ spec:
       containers:
       - name: k8skafka
         imagePullPolicy: Always
-        image: gyelo/kafkav12
+        image: gyelo/kafkav16
         securityContext:
           privileged: true
         resources:
@@ -171,6 +171,8 @@ spec:
         volumeMounts:
         - name: datadir
           mountPath: /var/lib/kafka
+        - name: testing-mode
+          mountPath: /testingmode
         readinessProbe:
           exec:
            command:
@@ -180,6 +182,10 @@ spec:
       securityContext:
         runAsUser: 0
         fsGroup: 0
+      volumes:
+        - name: testing-mode
+          hostPath:
+            path: /home/kubernetes/Desktop/testingmode         
   volumeClaimTemplates:
   - metadata:
       name: datadir
@@ -188,3 +194,4 @@ spec:
       resources:
         requests:
           storage: 10Gi
+           
