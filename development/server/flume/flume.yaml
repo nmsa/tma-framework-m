@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: flume
+  labels:
+    app: flume
+spec:
+  clusterIP: None
+  selector:
+    app: flume
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: flume
+spec:
+  selector:
+    matchLabels:
+      app: flume
+  serviceName: "flume"
+  template:
+    metadata:
+      labels:
+        app: flume
+    spec:
+      containers:
+      - name: flume
+        image: flume:0.2
+        tty: true
+        volumeMounts:
+        - name: testing-mode
+          mountPath: /testingmode
+      volumes:
+        - name: testing-mode
+          hostPath:
+            path: /home/kubernetes/Desktop/testingmode     
+     
