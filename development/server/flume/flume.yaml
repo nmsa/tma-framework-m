@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
       - name: flume
-        image: flume:0.2
+        image: flume:0.1
         tty: true
         volumeMounts:
         - name: testing-mode
