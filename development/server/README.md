@@ -66,7 +66,7 @@ Now, the Kubernetes cluster are ready to deploy containers.
 ## Installation
 
 
-After completing all steps of the previous section, the first step of project installation is to create the images that deploy Kafka, Zookeepe, the Monitor API REST, and Apache Flume containers. In order to do that, there is a shell script called build.sh presented in `kafka`, `zookeeper`, `server-monitor`, and `flume` folders of this project.
+After completing all steps of the previous section, the first step of project installation is to create the images that deploy Apache Kafka, Apache Zookeeper, the Monitor API REST, and Apache Flume containers. In order to do that, there is a shell script called build.sh presented in `kafka`, `zookeeper`, `server-monitor`, and `flume` folders of this project.
 To deploy the monitor, you need to run the script called build.sh presented in `dependency/server-python` folder in order to create the base python image that will be used to generate the container that runs the Monitor.
 To execute this script for all components of the architecture, you should run the following commands on the worker node:
 
@@ -85,7 +85,7 @@ sh build.sh
 
 After executing this script, all containers are created and we are ready to deploy them on Kubernetes cluster.
 
-The first containers to be deployed in Kubernetes are Zookeeper, Kafka, and Apache Flume. To do that, there is a script called setup-testing-mode.sh that automates all commands required to deploy these components. To execute the script, run the following command:
+The first containers to be deployed in Kubernetes are Zookeeper, Kafka, and Flume. To do that, there is a script called setup-testing-mode.sh that automates all commands required to deploy these components. To execute the script, run the following command:
 
 ```sh
 cd ..
@@ -93,7 +93,7 @@ sh setup-testing-mode.sh
 ```
 
 First, `setup-testing-mode.sh` script runs the required commands to create the persistent volumes for Zookeeper and Kafka. Then, it deploys these two components. Then, it creates `topic-monitor` topic in Kafka pod. Finnaly, Apache Flume is deployed in Kubernetes Cluster.
-With Zookeeper, Kafka, and Apache Flume running and the topic created, the next step is to deploy the Monitor application. The file called `monitor-api-python.yaml` creates a Kubernetes Deployment of the Monitor application. In order to create that deploy, you should run:
+With Zookeeper, Kafka, and Flume running and the topic created, the next step is to deploy the Monitor application. The file called `monitor-api-python.yaml` creates a Kubernetes Deployment of the Monitor application. In order to create that deploy, you should run:
 ```sh
 kubectl create -f monitor-server-python/monitor-api-python.yaml
 ``` 
