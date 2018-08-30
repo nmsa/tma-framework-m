@@ -1,5 +1,6 @@
 
 
+
 # Apache Flume
 Apache Flume is a distributed, available and reliable tool to efficiently collect, aggregate and move large amounts of log data. Apache Flume has a simple and flexible architecture based on message flows. This tool has fault tolerant, failover and recovery mechanisms.
 
@@ -12,7 +13,7 @@ The first step of that deploy is to build an Apache Flume image in Kubernetes Wo
 ```
 sh build.sh
 ```
-All commands bellow are fully automated in setup-testing-mode.sh script presents in server folder of this repository. The purpose of this section is only explain the reason of executing each command.
+All commands below are fully automated in `setup-testing-mode.sh` script presented in server folder of this repository. The purpose of this section is only to explain the reasons of executing each command.
 
 The next step is to deploy Apache Flume in Kubernetes Cluster. To do that, you should execute the following command:
 ```
@@ -24,10 +25,10 @@ After the previous command, to initialize Apache Flume you need to run flume.sh 
 ```
 This script shows a menu with two options. One of the options configures and executes Apache Flume to save the received data in a MySQL database that belongs to TMA_Knowledge component.
 For every observation in data received, one row in the database is generated with the following format:
-probeId, resourceId,  type, descriptionId, time,value
-Each of these fields are saved in one column in table created in database.
+probeId,resourceId, type,descriptionId,time,value
+Each of these fields are saved in one column in the table created in database.
 
-The second option presented in the menu of flume.sh script configures the Testing Mode in Apache Flume. In this mode, Apache Flume saves in a log file, for each observation, a SQL query to user can insert it in all types of SQL databases.
+The second option presented in the menu of `flume.sh`script configures the Testing Mode in Apache Flume. In this mode, Apache Flume saves in a log file, for each observation, a SQL query to user can insert it in all types of SQL databases.
 ## Testing
 For testing purposes, you need to deploy all components of TMA_Monitor and one probe that generates valid data. After those deployments, if you choose the option of save data in MySQL, you just need to check the database content and you will see the data formatted and stored there.
 
