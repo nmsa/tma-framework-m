@@ -8,7 +8,7 @@ from data import Data
 from message import Message
 from message import ComplexEncoder
 from observation import Observation
-from comunication import Comunication
+from communication import Communication
 
 def send_message(url, message_formated):
 
@@ -48,9 +48,9 @@ def create_message():
 if __name__ == '__main__':
     # receive the container name and server url as parameters
     url = str(sys.argv[1] + '')
-    comunication = Comunication(url)
+    communication = Communication(url)
     while 1:
      message_formated = create_message()
-     response=comunication.send_message(message_formated)
+     response=communication.send_message(message_formated)
      #response=send_message(url, message_formated)
      print (response.text)

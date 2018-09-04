@@ -8,7 +8,7 @@ from message import ComplexEncoder
 from observation import Observation
 
 
-class Comunication:
+class Communication:
   def __init__(self, url, message_formated=""):
    self.url = url
    self.message_formated = message_formated
