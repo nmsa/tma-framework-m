@@ -7,7 +7,7 @@ COPY 	probe-python-demo.py 	/probe-python-demo
 COPY 	data.py 		/probe-python-demo
 COPY 	message.py 		/probe-python-demo
 COPY 	observation.py 	        /probe-python-demo
-COPY 	comunication.py 	/probe-python-demo
+COPY 	communication.py 	/probe-python-demo
 
 
 
