@@ -22,13 +22,13 @@ public class CustomChannelProcessorProxy extends ChannelProcessor {
         super(null);
         m_downstreamChannelProcessor = processor;
     }
-    public Map<String, String> generateHeaders (int probeId, int resourceId, String type, int descriptionId, int time, double value){
+    public Map<String, String> generateHeaders (int probeId, int resourceId, int descriptionId, int time, double value){
         Map<String, String> headers = new HashMap<String, String>();
         String probestring= Integer.toString(probeId);
         headers.put("probe", probestring );
         String resourcestring = Integer.toString(resourceId);
         headers.put("resource", resourcestring);
-        headers.put("type", type);
+        //headers.put("type", type);
         String descriptionstring = Integer.toString(descriptionId);
         headers.put("description", descriptionstring);
         String timestring = Integer.toString(time);
@@ -47,12 +47,12 @@ public class CustomChannelProcessorProxy extends ChannelProcessor {
             int resourceId = input.getInt("resourceId");
             for (int i=0; i<data.length();i++) {
                 JSONArray observations = data.getJSONObject(i).getJSONArray("observations");
-                String type = data.getJSONObject(i).getString("type");
+                //String type = data.getJSONObject(i).getString("type");
                 for (int j = 0; j < observations.length(); j++) {
                     int descriptionId = data.getJSONObject(i).getInt("descriptionId");
                     int time = observations.getJSONObject(j).getInt("time");
                     Double value = observations.getJSONObject(j).getDouble("value");
-                    Map<String, String> headers = generateHeaders(probeId, resourceId, type, descriptionId, time, value);
+                    Map<String, String> headers = generateHeaders(probeId, resourceId, descriptionId, time, value);
                     Event observationEvent = EventBuilder.withBody(new byte[0], headers);
                     listEvents.add(observationEvent);
                 }
