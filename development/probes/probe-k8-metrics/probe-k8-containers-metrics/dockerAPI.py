@@ -148,11 +148,11 @@ def format(stat):
     # follow the json schema
     # sentTime = current time? Or the same timestamp from the metrics?
     # need to change the probeId, resourceId and messageId
-    message = Message(probeId=0, resourceId=0, messageId=0, sentTime=int(time.time()), data=None)
+    message = Message(probeId=1, resourceId=1, messageId=0, sentTime=int(time.time()), data=None)
 
     # append measurement data to message
     for i in range(len(merge_st)):
-        dt = Data(type="measurement", descriptionId=i, observations=None)
+        dt = Data(type="measurement", descriptionId=(i+1), observations=None)
         obs = Observation(time=timestamp, value=merge_st[i])
         dt.add_observation(observation=obs)
 
