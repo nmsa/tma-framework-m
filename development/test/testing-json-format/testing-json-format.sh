@@ -2,7 +2,7 @@
 
 if [ -z "$1" ]
 then
-    API_ENDPOINT="https://monitor-server-python-0.monitor-server-python.default.svc.cluster.local:5000/monitor"
+    API_ENDPOINT="https://10.100.166.233:5000/monitor"
 else
     API_ENDPOINT="$1"
 fi
@@ -14,7 +14,7 @@ mkdir $RESULTSDIR
 
 for filename in *.json; do
     OUTPUT_FILE="$RESULTSDIR/$filename.example.out"
-    curl -ss -X POST $API_ENDPOINT -d @"$filename" -o $OUTPUT_FILE >> "$RESULTSDIR/curl.log.out"
+    curl -ss -X POST $API_ENDPOINT -d @"$filename" -o $OUTPUT_FILE --cacert cert.pem >> "$RESULTSDIR/curl.log.out"
     if [[ $filename = "correct"* ]];
     then   
         if grep -q "Accepted" "$OUTPUT_FILE"

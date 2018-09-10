@@ -11,4 +11,4 @@ COPY 	communication.py 	/probe-python-demo
 
 
 
-CMD 	["python", "probe-python-demo.py", "https://monitor-server-0.monitor-server.default.svc.cluster.local:5000/monitor"]
+CMD 	["python", "probe-python-demo.py", "https://10.100.166.233:5000/monitor"]
