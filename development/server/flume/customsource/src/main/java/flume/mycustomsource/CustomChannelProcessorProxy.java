@@ -28,7 +28,6 @@ public class CustomChannelProcessorProxy extends ChannelProcessor {
         headers.put("probe", probestring );
         String resourcestring = Integer.toString(resourceId);
         headers.put("resource", resourcestring);
-        //headers.put("type", type);
         String descriptionstring = Integer.toString(descriptionId);
         headers.put("description", descriptionstring);
         String timestring = Integer.toString(time);
@@ -47,7 +46,6 @@ public class CustomChannelProcessorProxy extends ChannelProcessor {
             int resourceId = input.getInt("resourceId");
             for (int i=0; i<data.length();i++) {
                 JSONArray observations = data.getJSONObject(i).getJSONArray("observations");
-                //String type = data.getJSONObject(i).getString("type");
                 for (int j = 0; j < observations.length(); j++) {
                     int descriptionId = data.getJSONObject(i).getInt("descriptionId");
                     int time = observations.getJSONObject(j).getInt("time");
