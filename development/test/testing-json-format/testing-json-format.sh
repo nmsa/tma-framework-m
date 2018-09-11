@@ -17,7 +17,7 @@ for filename in *.json; do
     curl -ss -X POST $API_ENDPOINT -d @"$filename" -o $OUTPUT_FILE --cacert cert.pem >> "$RESULTSDIR/curl.log.out"
     if [[ $filename = "correct"* ]];
     then   
-        if grep -q "Accepted" "$OUTPUT_FILE"
+        if grep -q "0" "$OUTPUT_FILE"
         then  
             echo "Accepted  (correct):  $filename"
         else
@@ -26,7 +26,8 @@ for filename in *.json; do
 
     elif [[ $filename = "fail"* ]];
     then
-        if grep -q "Accepted" "$OUTPUT_FILE"
+        line=$(head -n 1 $OUTPUT_FILE)
+        if [[ $line = "0" ]];
         then  
             echo "Accepted  (wrong):    $filename"
         else
