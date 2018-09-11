@@ -1,6 +1,3 @@
-
-
-
 # TMA-Monitor Server Development
 
 This server is a scalable REST API application for validating json files against a schema and if the json is correct, this application will send it to a Apache Kafka topic.
