@@ -37,24 +37,24 @@ def process_message():
     input = request.get_json(force=True)
     logger.info('Processing Request %s', input)
 
-    # todo, validate schema should return number of errors.
-    # If 0, proceed with processing
     return validate_schema(input)
 
 
-# Should return the number of errors, or -1 if exception
 def validate_schema(input_msg):
+    try:
     # check if there are errors in json file and return the result
-    errors = [error.message for error in validator.iter_errors(input_msg)]
-    if errors:
-        response = "Rejected" + "\n" + str(errors) + "\n"
-        return response
-    else:
-	# Convert dict into string. Kafka only accept messages at bytes or string format
-        jd = json.dumps(input_msg)
-        # Sending message
-        producer.send_messages('topic-monitor', jd)
-        return "Accepted" + "\n"
+      errors = [error.message for error in validator.iter_errors(input_msg)]
+      if errors:
+          response = "Number of erros: " + str(len(errors)) + "\n" + str(errors) + "\n"
+          return response
+      else:
+	  # Convert dict into string. Kafka only accept messages at bytes or string format
+          jd = json.dumps(input_msg)
+          # Sending message
+          producer.send_messages('topic-monitor', jd)
+          return "0" + "\n"
+    except Exception, e:
+      logger.error('Error Code -1: %s', e)
 
 
 # load logging configuration file

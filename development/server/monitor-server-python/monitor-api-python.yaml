@@ -7,7 +7,7 @@ metadata:
 spec:
   ports:
   - port: 5000
-  clusterIP: None
+  clusterIP: 10.100.166.233
   selector:
     app: monitor-server
 ---
