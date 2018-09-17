@@ -95,6 +95,9 @@ public class ProbeKubernetes {
         // TODO: to define the resource ID!!!!
         message.setResourceId(101098);
 
+        int cpuDescriptionId = 1;
+        int memoryDescriptionId = 2;
+
         Gson gson = new GsonBuilder().create();
         Object rawJson = gson.fromJson(isr, Object.class);
         LinkedTreeMap<String, Object> c = (LinkedTreeMap<String, Object>) rawJson;
@@ -114,14 +117,18 @@ public class ProbeKubernetes {
                 String cpuString = ltmUsage.get("cpu").toString();
                 int cpu = Integer.parseInt(cpuString.substring(0, cpuString.length() - 1));
                 System.out.println(cpu);
-                int descriptionId = 1;
-                Data datum = new Data(Data.Type.MEASUREMENT, descriptionId,
+                Data cpuDatum = new Data(Data.Type.MEASUREMENT, cpuDescriptionId,
                         new Observation((new Date()).getTime(), cpu));
-                System.out.println(datum);
-                message.addData(datum);
+                System.out.println(cpuDatum);
+                message.addData(cpuDatum);
 
-                System.out.println(ltmUsage.get("cpu"));
-                System.out.println(ltmUsage.get("memory"));
+                String memoryString = ltmUsage.get("memory").toString();
+                int memory = Integer.parseInt(memoryString.substring(0, memoryString.length() - 2));
+                System.out.println(memory);
+                Data memoryDatum = new Data(Data.Type.MEASUREMENT, memoryDescriptionId,
+                        new Observation((new Date()).getTime(), memory));
+                System.out.println(memoryDatum);
+                message.addData(memoryDatum);
             }
             // metadata.name : this is to be used to identify the resourceId
             // containers.usage.cpu
