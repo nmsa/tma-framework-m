@@ -17,7 +17,10 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 import javax.print.attribute.standard.DateTimeAtCompleted;
@@ -45,6 +48,11 @@ import eu.atmosphere.tmaf.monitor.message.Observation;
 public class ProbeKubernetes {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProbeKubernetes.class);
+
+    private static final int cpuDescriptionId = 1;
+    private static final int memoryDescriptionId = 2;
+
+    private static Map<String, Integer> resourceKeyMap = new HashMap<String, Integer>();
 
     public static void main(String[] args) {
 
@@ -87,27 +95,36 @@ public class ProbeKubernetes {
         LOGGER.info("Trust me! This is ATMOSPHERE!");
     }
 
+    private static int getResourceId(String podName) {
+        if (resourceKeyMap.containsKey(podName)) {
+            return resourceKeyMap.get(podName);
+        } else {
+            Random random = new Random();
+            int podKey = random.nextInt(1000) + 1;
+            resourceKeyMap.put(podName, podKey);
+            return podKey;
+        }
+    }
+
     private static void parsePodMetrics(InputStreamReader isr, BackgroundClient client) {
-
-        Message message;
-        message = client.createMessage();
-
-        // TODO: to define the resource ID!!!!
-        message.setResourceId(101098);
-
-        int cpuDescriptionId = 1;
-        int memoryDescriptionId = 2;
 
         Gson gson = new GsonBuilder().create();
         Object rawJson = gson.fromJson(isr, Object.class);
         LinkedTreeMap<String, Object> c = (LinkedTreeMap<String, Object>) rawJson;
         List<Object> items = (List<Object>) c.get("items");
+        int messageId = 0;
+
         for (Object object : items) {
             LinkedTreeMap<String, Object> podData = (LinkedTreeMap<String, Object>) object;
-            System.out.println(podData);
             Object metadata = podData.get("metadata");
             LinkedTreeMap<String, Object> ltmMetadata = (LinkedTreeMap<String, Object>) metadata;
-            System.out.println(ltmMetadata.get("name"));
+            String podName = ltmMetadata.get("name").toString();
+
+            Message message = client.createMessage();
+
+            int resourceId = getResourceId(podName);
+            message.setResourceId(resourceId);
+
             List<Object> containers = (List<Object>) podData.get("containers");
             for (Object container: containers) {
 
@@ -116,25 +133,21 @@ public class ProbeKubernetes {
 
                 String cpuString = ltmUsage.get("cpu").toString();
                 int cpu = Integer.parseInt(cpuString.substring(0, cpuString.length() - 1));
-                System.out.println(cpu);
                 Data cpuDatum = new Data(Data.Type.MEASUREMENT, cpuDescriptionId,
                         new Observation((new Date()).getTime(), cpu));
-                System.out.println(cpuDatum);
                 message.addData(cpuDatum);
 
                 String memoryString = ltmUsage.get("memory").toString();
                 int memory = Integer.parseInt(memoryString.substring(0, memoryString.length() - 2));
-                System.out.println(memory);
                 Data memoryDatum = new Data(Data.Type.MEASUREMENT, memoryDescriptionId,
                         new Observation((new Date()).getTime(), memory));
-                System.out.println(memoryDatum);
                 message.addData(memoryDatum);
             }
-            // metadata.name : this is to be used to identify the resourceId
-            // containers.usage.cpu
-            // containers.usage.memory
+            message.setSentTime((new Date()).getTime());
+            message.setMessageId(messageId++);
+            System.out.println(message);
+            client.send(message);
         }
-        client.send(message);
     }
 
 }
