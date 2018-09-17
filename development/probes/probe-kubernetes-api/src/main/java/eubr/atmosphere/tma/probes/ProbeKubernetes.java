@@ -52,14 +52,18 @@ public class ProbeKubernetes {
     private static final int cpuDescriptionId = 1;
     private static final int memoryDescriptionId = 2;
 
+    private static final int probeId = 1098;
+
+    private static final String endpoint = "https://10.100.166.233:5000/monitor";
+
     private static Map<String, Integer> resourceKeyMap = new HashMap<String, Integer>();
 
     public static void main(String[] args) {
 
         LOGGER.info("Trust me! This is ATMOSPHERE!");
-        BackgroundClient client = new BackgroundClient();
+        BackgroundClient client = new BackgroundClient(endpoint);
 
-        client.authenticate(1098, "pass".getBytes());
+        client.authenticate(probeId, "pass".getBytes());
 
         boolean start = client.start();
         LOGGER.info("start {}!", start);
@@ -71,7 +75,7 @@ public class ProbeKubernetes {
         HttpResponse response = requestRestService(uri);
         InputStreamReader isr = new InputStreamReader(response.getEntity().getContent());*/
 
-        String path = "/home/virt-atm/Documents/tma-framework-m/development/probes/probe-kubernetes-api/src/main/resources/data.json";
+        String path = "/atmosphere/tma/probe/probe-kubernetes-api/src/main/resources/data.json";
         InputStream input;
         try {
             input = new FileInputStream(path);
