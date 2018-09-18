@@ -1,4 +1,3 @@
-
 # Apache Kafka
 Apache Kafka is a distributed message open-source tool that uses the paradigm producer-consumer, which enables that when a producer sends a message to all consumers.
 
@@ -12,6 +11,9 @@ The first step of that deploy is to build an Apache Kafka image in Kubernetes Wo
 sh build.sh
 ```
 This script builds Apache Kafka image based on Dockerfile. That Dockerfile includes the `log4j.properties` file that is responsible for setting logging properties.
+
+All commands bellow are fully automated in setup-testing-mode.sh script presents in server folder of this repository. The purpose of this section is only explain the reason of executing each command.
+
 The next steps are executed in Kubernetes Master node. In order to do that, it is necessary to execute the following command:
 ```
 kubectl create -f persistent-volume_kafka.yaml
@@ -38,3 +40,4 @@ To initialize an Apache Kafka consumer, you should execute the following command
 kubectl exec -ti kafka-0 -- kafka-console-consumer.sh --topic topic-monitor --bootstrap-server localhost:9093
 ```
 After running the commands above, if you write a message in Apache Kafka producer instance, you will see that message in Apache Kafka consumer instance.
+
