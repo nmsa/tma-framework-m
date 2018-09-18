@@ -28,7 +28,7 @@ import javax.print.attribute.standard.DateTimeAtCompleted;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-//import org.apache.http.HttpResponse;
+import org.apache.http.HttpResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -55,6 +55,8 @@ public class ProbeKubernetes {
     private static final int probeId = 1098;
 
     private static final String endpoint = "https://10.100.166.233:5000/monitor";
+    private static final String metricsEndpoint =
+            "http://127.0.0.1:8089/apis/metrics.k8s.io/v1beta1/namespaces/default/pods";
 
     private static Map<String, Integer> resourceKeyMap = new HashMap<String, Integer>();
 
@@ -72,6 +74,7 @@ public class ProbeKubernetes {
 
         /*String uri = "http://127.0.0.1:8001/apis/metrics.k8s.io/v1beta1/namespace/"
                 + namespaceName + + "/pods/" + podName;
+        String uri = metricsEndpoint;
         HttpResponse response = requestRestService(uri);
         InputStreamReader isr = new InputStreamReader(response.getEntity().getContent());*/
 
@@ -86,7 +89,7 @@ public class ProbeKubernetes {
         }
 
         try {
-            Thread.sleep(100000);
+            Thread.sleep(20000);
             boolean stop = client.stop();
             LOGGER.info("stop {}!", stop);
         } catch (InterruptedException ex) {
