@@ -16,4 +16,4 @@ RUN     ["cp", "-r", "bin", "/atmosphere/tma/probe/bin"]
 
 COPY    data.json ${probes}/probe-kubernetes-api/src/main/resources/data.json
 
-CMD ["java", "-jar", "/atmosphere/tma/probe/bin/probe-kubernetes-api-0.1.jar"]
+CMD ["java", "-jar", "/atmosphere/tma/probe/bin/probe-kubernetes-api-0.0.1.jar"]
