@@ -12,9 +12,7 @@
  */
 package eubr.atmosphere.tma.probes;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Date;
 import java.util.HashMap;
@@ -23,12 +21,13 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
-import javax.print.attribute.standard.DateTimeAtCompleted;
-
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import org.apache.http.HttpResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -56,7 +55,7 @@ public class ProbeKubernetes {
 
     private static final String endpoint = "https://10.100.166.233:5000/monitor";
     private static final String metricsEndpoint =
-            "http://127.0.0.1:8089/apis/metrics.k8s.io/v1beta1/namespaces/default/pods";
+            "http://192.168.122.34:8089/apis/metrics.k8s.io/v1beta1/namespaces/default/pods";
 
     private static Map<String, Integer> resourceKeyMap = new HashMap<String, Integer>();
 
@@ -73,18 +72,17 @@ public class ProbeKubernetes {
         // TODO Check if it is not possible to select all the pods from one namespace
 
         /*String uri = "http://127.0.0.1:8001/apis/metrics.k8s.io/v1beta1/namespace/"
-                + namespaceName + + "/pods/" + podName;
+                + namespaceName + + "/pods/" + podName;*/
         String uri = metricsEndpoint;
-        HttpResponse response = requestRestService(uri);
-        InputStreamReader isr = new InputStreamReader(response.getEntity().getContent());*/
-
-        String path = "/atmosphere/tma/probe/probe-kubernetes-api/src/main/resources/data.json";
-        InputStream input;
+        HttpResponse response;
+        InputStreamReader isr;
         try {
-            input = new FileInputStream(path);
-            InputStreamReader isr = new InputStreamReader(input);
+            response = requestRestService(uri);
+            isr = new InputStreamReader(response.getEntity().getContent());
             parsePodMetrics(isr, client);
-        } catch (FileNotFoundException e) {
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -100,6 +98,14 @@ public class ProbeKubernetes {
 
         client.shutdown();
         LOGGER.info("Trust me! This is ATMOSPHERE!");
+    }
+
+    private static HttpResponse requestRestService(String uri) throws ClientProtocolException, IOException {
+      HttpClient client = new DefaultHttpClient();
+      HttpGet request = new HttpGet(uri);
+      HttpResponse response = client.execute(request);
+
+      return response;
     }
 
     private static int getResourceId(String podName) {
@@ -139,22 +145,29 @@ public class ProbeKubernetes {
                 LinkedTreeMap<String, Object> ltmUsage = (LinkedTreeMap<String, Object>) ltmContainers.get("usage");
 
                 String cpuString = ltmUsage.get("cpu").toString();
-                int cpu = Integer.parseInt(cpuString.substring(0, cpuString.length() - 1));
-                Data cpuDatum = new Data(Data.Type.MEASUREMENT, cpuDescriptionId,
-                        new Observation((new Date()).getTime(), cpu));
-                message.addData(cpuDatum);
+                message.addData(parseDatumValue(cpuString, cpuDescriptionId, 1));
 
                 String memoryString = ltmUsage.get("memory").toString();
-                int memory = Integer.parseInt(memoryString.substring(0, memoryString.length() - 2));
-                Data memoryDatum = new Data(Data.Type.MEASUREMENT, memoryDescriptionId,
-                        new Observation((new Date()).getTime(), memory));
-                message.addData(memoryDatum);
+                message.addData(parseDatumValue(memoryString, memoryDescriptionId, 2));
+
+                System.out.println(cpuString);
+                System.out.println(memoryString);
             }
             message.setSentTime((new Date()).getTime());
             message.setMessageId(messageId++);
             System.out.println(message);
             client.send(message);
         }
+    }
+
+    private static Data parseDatumValue(String valueString, int descriptionId, int unitLength) {
+        int value = 0;
+        if (!"0".equals(valueString.trim())) {
+            value = Integer.parseInt(valueString.substring(0, valueString.length() - unitLength));
+        }
+        Data datum = new Data(Data.Type.MEASUREMENT, descriptionId,
+                new Observation((new Date()).getTime(), value));
+        return datum;
     }
 
 }
