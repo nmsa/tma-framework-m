@@ -55,7 +55,9 @@ public class ProbeKubernetes {
 
     private static final String endpoint = "https://10.100.166.233:5000/monitor";
     private static final String metricsEndpoint =
-            "http://192.168.122.34:8089/apis/metrics.k8s.io/v1beta1/namespaces/default/pods";
+            "http://192.168.122.34:8089/apis/metrics.k8s.io/v1beta1/namespaces/";
+
+    private static final String namespaceName = "default";
 
     private static Map<String, Integer> resourceKeyMap = new HashMap<String, Integer>();
 
@@ -69,11 +71,7 @@ public class ProbeKubernetes {
         boolean start = client.start();
         LOGGER.info("start {}!", start);
 
-        // TODO Check if it is not possible to select all the pods from one namespace
-
-        /*String uri = "http://127.0.0.1:8001/apis/metrics.k8s.io/v1beta1/namespace/"
-                + namespaceName + + "/pods/" + podName;*/
-        String uri = metricsEndpoint;
+        String uri = metricsEndpoint + namespaceName + "/pods/";
         HttpResponse response;
         InputStreamReader isr;
         try {
