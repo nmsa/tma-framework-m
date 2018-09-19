@@ -48,10 +48,10 @@ public class ProbeKubernetes {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProbeKubernetes.class);
 
-    private static final int cpuDescriptionId = 1;
-    private static final int memoryDescriptionId = 2;
+    private static final int cpuDescriptionId = 27;
+    private static final int memoryDescriptionId = 28;
 
-    private static final int probeId = 1098;
+    private static final int probeId = 7;
 
     private static final String endpoint = "https://10.100.166.233:5000/monitor";
     private static final String metricsEndpoint =
@@ -70,6 +70,11 @@ public class ProbeKubernetes {
 
         boolean start = client.start();
         LOGGER.info("start {}!", start);
+
+        // TODO: Remove it! It is just sample data
+        resourceKeyMap.put("kafka-0", 8);
+        resourceKeyMap.put("wildfly-0", 9);
+        resourceKeyMap.put("mysql-wsvd-0", 10);
 
         String uri = metricsEndpoint + namespaceName + "/pods/";
         HttpResponse response;
@@ -131,30 +136,31 @@ public class ProbeKubernetes {
             LinkedTreeMap<String, Object> ltmMetadata = (LinkedTreeMap<String, Object>) metadata;
             String podName = ltmMetadata.get("name").toString();
 
-            Message message = client.createMessage();
+            if (isMonitorizedPod(podName)) {
+                Message message = client.createMessage();
+                int resourceId = getResourceId(podName);
+                message.setResourceId(resourceId);
 
-            int resourceId = getResourceId(podName);
-            message.setResourceId(resourceId);
+                List<Object> containers = (List<Object>) podData.get("containers");
+                for (Object container: containers) {
 
-            List<Object> containers = (List<Object>) podData.get("containers");
-            for (Object container: containers) {
+                    LinkedTreeMap<String, Object> ltmContainers = (LinkedTreeMap<String, Object>) container;
+                    LinkedTreeMap<String, Object> ltmUsage = (LinkedTreeMap<String, Object>) ltmContainers.get("usage");
 
-                LinkedTreeMap<String, Object> ltmContainers = (LinkedTreeMap<String, Object>) container;
-                LinkedTreeMap<String, Object> ltmUsage = (LinkedTreeMap<String, Object>) ltmContainers.get("usage");
+                    String cpuString = ltmUsage.get("cpu").toString();
+                    message.addData(parseDatumValue(cpuString, cpuDescriptionId, 1));
 
-                String cpuString = ltmUsage.get("cpu").toString();
-                message.addData(parseDatumValue(cpuString, cpuDescriptionId, 1));
+                    String memoryString = ltmUsage.get("memory").toString();
+                    message.addData(parseDatumValue(memoryString, memoryDescriptionId, 2));
 
-                String memoryString = ltmUsage.get("memory").toString();
-                message.addData(parseDatumValue(memoryString, memoryDescriptionId, 2));
-
-                System.out.println(cpuString);
-                System.out.println(memoryString);
+                    System.out.println(cpuString);
+                    System.out.println(memoryString);
+                }
+                message.setSentTime((new Date()).getTime());
+                message.setMessageId(messageId++);
+                System.out.println(message);
+                client.send(message);
             }
-            message.setSentTime((new Date()).getTime());
-            message.setMessageId(messageId++);
-            System.out.println(message);
-            client.send(message);
         }
     }
 
@@ -166,6 +172,10 @@ public class ProbeKubernetes {
         Data datum = new Data(Data.Type.MEASUREMENT, descriptionId,
                 new Observation((new Date()).getTime(), value));
         return datum;
+    }
+
+    private static boolean isMonitorizedPod(String podName) {
+        return podName.startsWith("wildfly-") || podName.startsWith("mysql-wsvd-") || podName.startsWith("kafka-");
     }
 
 }
