@@ -1,0 +1,35 @@
+{
+  "kind": "NodeMetricsList",
+  "apiVersion": "metrics.k8s.io/v1beta1",
+  "metadata": {
+    "selfLink": "/apis/metrics.k8s.io/v1beta1/nodes"
+  },
+  "items": [
+    {
+      "metadata": {
+        "name": "virtmanagernode-standard-pc-i440fx-piix-1996",
+        "selfLink": "/apis/metrics.k8s.io/v1beta1/nodes/virtmanagernode-standard-pc-i440fx-piix-1996",
+        "creationTimestamp": "2018-09-20T09:40:35Z"
+      },
+      "timestamp": "2018-09-20T09:40:00Z",
+      "window": "1m0s",
+      "usage": {
+        "cpu": "278m",
+        "memory": "2974968Ki"
+      }
+    },
+    {
+      "metadata": {
+        "name": "virtmanagermaster-standard-pc-i440fx-piix-1996",
+        "selfLink": "/apis/metrics.k8s.io/v1beta1/nodes/virtmanagermaster-standard-pc-i440fx-piix-1996",
+        "creationTimestamp": "2018-09-20T09:40:35Z"
+      },
+      "timestamp": "2018-09-20T09:40:00Z",
+      "window": "1m0s",
+      "usage": {
+        "cpu": "166m",
+        "memory": "1991312Ki"
+      }
+    }
+  ]
+}
