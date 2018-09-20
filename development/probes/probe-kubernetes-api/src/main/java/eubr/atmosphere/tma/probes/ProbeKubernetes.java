@@ -80,12 +80,18 @@ public class ProbeKubernetes {
         HttpResponse response;
         InputStreamReader isr;
         try {
-            response = requestRestService(uri);
-            isr = new InputStreamReader(response.getEntity().getContent());
-            parsePodMetrics(isr, client);
+            for (int i = 0; i < 20; i++) {
+                response = requestRestService(uri);
+                isr = new InputStreamReader(response.getEntity().getContent());
+                parsePodMetrics(isr, client);
+                Thread.sleep(60000);
+            }
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
