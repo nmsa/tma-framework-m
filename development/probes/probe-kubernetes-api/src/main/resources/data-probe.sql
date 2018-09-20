@@ -7,5 +7,5 @@ INSERT INTO Resource(resourceName, resourceType, resourceAddress) VALUES ("kafka
 INSERT INTO Resource(resourceName, resourceType, resourceAddress) VALUES ("wildfly-0", "POD", "n/a");
 INSERT INTO Resource(resourceName, resourceType, resourceAddress) VALUES ("mysql-wsvd-0", "POD", "n/a");
 
-INSERT INTO Resource(resourceName, resourceType, resourceAddress) VALUES ("virtmanagernode-standard-pc-i440fx-piix-1996", "VM", "n/a");
-INSERT INTO Resource(resourceName, resourceType, resourceAddress) VALUES ("virtmanagermaster-standard-pc-i440fx-piix-1996", "VM", "n/a");
+INSERT INTO Resource(resourceName, resourceType, resourceAddress) VALUES ("virtmanagernode-standard-pc-i440fx-piix-1996", "VM", "192.168.122.113");
+INSERT INTO Resource(resourceName, resourceType, resourceAddress) VALUES ("virtmanagermaster-standard-pc-i440fx-piix-1996", "VM", "192.168.122.34");

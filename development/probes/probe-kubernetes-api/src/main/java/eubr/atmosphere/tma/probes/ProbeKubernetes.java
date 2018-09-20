@@ -191,25 +191,26 @@ public class ProbeKubernetes {
             Object metadata = nodeData.get("metadata");
             LinkedTreeMap<String, Object> ltmMetadata = (LinkedTreeMap<String, Object>) metadata;
             String nodeName = ltmMetadata.get("name").toString();
-            System.out.println(nodeName);
 
-            LinkedTreeMap<String, Object> ltmUsage = (LinkedTreeMap<String, Object>) nodeData.get("usage");
+            if (isMonitorizedNode(nodeName)) {
+                LinkedTreeMap<String, Object> ltmUsage = (LinkedTreeMap<String, Object>) nodeData.get("usage");
 
-            Message message = client.createMessage();
-            int resourceId = getResourceId(nodeName);
-            message.setResourceId(resourceId);
+                Message message = client.createMessage();
+                int resourceId = getResourceId(nodeName);
+                message.setResourceId(resourceId);
 
-            String cpuString = ltmUsage.get("cpu").toString();
-            message.addData(parseDatumValue(cpuString, cpuDescriptionId, 1));
+                String cpuString = ltmUsage.get("cpu").toString();
+                message.addData(parseDatumValue(cpuString, cpuDescriptionId, 1));
 
-            String memoryString = ltmUsage.get("memory").toString();
-            message.addData(parseDatumValue(memoryString, memoryDescriptionId, 2));
+                String memoryString = ltmUsage.get("memory").toString();
+                message.addData(parseDatumValue(memoryString, memoryDescriptionId, 2));
 
-            message.setSentTime((new Date()).getTime());
-            message.setMessageId(messageId++);
+                message.setSentTime((new Date()).getTime());
+                message.setMessageId(messageId++);
 
-            System.out.println(message);
-            client.send(message);
+                System.out.println(message);
+                client.send(message);
+            }
         }
     }
 
@@ -225,6 +226,10 @@ public class ProbeKubernetes {
 
     private static boolean isMonitorizedPod(String podName) {
         return podName.startsWith("wildfly-") || podName.startsWith("mysql-wsvd-") || podName.startsWith("kafka-");
+    }
+
+    private static boolean isMonitorizedNode(String nodeName) {
+        return nodeName.startsWith("virtmanagernode-");
     }
 
 }
