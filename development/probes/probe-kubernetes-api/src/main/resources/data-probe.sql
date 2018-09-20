@@ -6,3 +6,6 @@ INSERT INTO Description(dataType, descriptionName, unit) VALUES ("memory", "meas
 INSERT INTO Resource(resourceName, resourceType, resourceAddress) VALUES ("kafka-0", "POD", "n/a");
 INSERT INTO Resource(resourceName, resourceType, resourceAddress) VALUES ("wildfly-0", "POD", "n/a");
 INSERT INTO Resource(resourceName, resourceType, resourceAddress) VALUES ("mysql-wsvd-0", "POD", "n/a");
+
+INSERT INTO Resource(resourceName, resourceType, resourceAddress) VALUES ("virtmanagernode-standard-pc-i440fx-piix-1996", "VM", "n/a");
+INSERT INTO Resource(resourceName, resourceType, resourceAddress) VALUES ("virtmanagermaster-standard-pc-i440fx-piix-1996", "VM", "n/a");

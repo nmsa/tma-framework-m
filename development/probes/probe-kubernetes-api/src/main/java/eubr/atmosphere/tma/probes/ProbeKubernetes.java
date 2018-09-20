@@ -55,11 +55,13 @@ public class ProbeKubernetes {
 
     private static final String endpoint = "https://10.100.166.233:5000/monitor";
     private static final String metricsEndpoint =
-            "http://192.168.122.34:8089/apis/metrics.k8s.io/v1beta1/namespaces/";
+            "http://192.168.122.34:8089/apis/metrics.k8s.io/v1beta1/";
 
     private static final String namespaceName = "default";
 
     private static Map<String, Integer> resourceKeyMap = new HashMap<String, Integer>();
+
+    private static int messageId = 0;
 
     public static void main(String[] args) {
 
@@ -76,14 +78,22 @@ public class ProbeKubernetes {
         resourceKeyMap.put("wildfly-0", 9);
         resourceKeyMap.put("mysql-wsvd-0", 10);
 
-        String uri = metricsEndpoint + namespaceName + "/pods/";
+        resourceKeyMap.put("virtmanagernode-standard-pc-i440fx-piix-1996", 11);
+        resourceKeyMap.put("virtmanagermaster-standard-pc-i440fx-piix-1996", 12);
+
+        String uriPods = metricsEndpoint + "namespaces/" + namespaceName + "/pods/";
+        String uriNodes = metricsEndpoint + "nodes/";
         HttpResponse response;
         InputStreamReader isr;
         try {
             for (int i = 0; i < 20; i++) {
-                response = requestRestService(uri);
+                response = requestRestService(uriPods);
                 isr = new InputStreamReader(response.getEntity().getContent());
                 parsePodMetrics(isr, client);
+
+                response = requestRestService(uriNodes);
+                isr = new InputStreamReader(response.getEntity().getContent());
+                parseNodeMetrics(isr, client);
                 Thread.sleep(60000);
             }
         } catch (ClientProtocolException e) {
@@ -134,7 +144,6 @@ public class ProbeKubernetes {
         Object rawJson = gson.fromJson(isr, Object.class);
         LinkedTreeMap<String, Object> c = (LinkedTreeMap<String, Object>) rawJson;
         List<Object> items = (List<Object>) c.get("items");
-        int messageId = 0;
 
         for (Object object : items) {
             LinkedTreeMap<String, Object> podData = (LinkedTreeMap<String, Object>) object;
@@ -167,6 +176,40 @@ public class ProbeKubernetes {
                 System.out.println(message);
                 client.send(message);
             }
+        }
+    }
+
+    private static void parseNodeMetrics(InputStreamReader isr, BackgroundClient client) {
+
+        Gson gson = new GsonBuilder().create();
+        Object rawJson = gson.fromJson(isr, Object.class);
+        LinkedTreeMap<String, Object> c = (LinkedTreeMap<String, Object>) rawJson;
+        List<Object> items = (List<Object>) c.get("items");
+
+        for (Object object : items) {
+            LinkedTreeMap<String, Object> nodeData = (LinkedTreeMap<String, Object>) object;
+            Object metadata = nodeData.get("metadata");
+            LinkedTreeMap<String, Object> ltmMetadata = (LinkedTreeMap<String, Object>) metadata;
+            String nodeName = ltmMetadata.get("name").toString();
+            System.out.println(nodeName);
+
+            LinkedTreeMap<String, Object> ltmUsage = (LinkedTreeMap<String, Object>) nodeData.get("usage");
+
+            Message message = client.createMessage();
+            int resourceId = getResourceId(nodeName);
+            message.setResourceId(resourceId);
+
+            String cpuString = ltmUsage.get("cpu").toString();
+            message.addData(parseDatumValue(cpuString, cpuDescriptionId, 1));
+
+            String memoryString = ltmUsage.get("memory").toString();
+            message.addData(parseDatumValue(memoryString, memoryDescriptionId, 2));
+
+            message.setSentTime((new Date()).getTime());
+            message.setMessageId(messageId++);
+
+            System.out.println(message);
+            client.send(message);
         }
     }
 
