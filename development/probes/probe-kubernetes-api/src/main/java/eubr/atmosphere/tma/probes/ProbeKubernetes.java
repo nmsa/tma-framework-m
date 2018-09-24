@@ -14,7 +14,6 @@ package eubr.atmosphere.tma.probes;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -211,7 +210,7 @@ public class ProbeKubernetes {
                 String memoryString = ltmUsage.get("memory").toString();
                 message.addData(parseDatumValue(memoryString, memoryDescriptionId, 2));
 
-                message.setSentTime(Calendar.getInstance().getTime().getTime());
+                message.setSentTime((new Date()).getTime() / 1000);
                 message.setMessageId(messageId++);
 
                 System.out.println(message);
@@ -226,7 +225,7 @@ public class ProbeKubernetes {
             value = Integer.parseInt(valueString.substring(0, valueString.length() - unitLength));
         }
         Data datum = new Data(Data.Type.MEASUREMENT, descriptionId,
-                new Observation(Calendar.getInstance().getTime().getTime(), value));
+                new Observation((new Date()).getTime() / 1000, value));
         return datum;
     }
 
