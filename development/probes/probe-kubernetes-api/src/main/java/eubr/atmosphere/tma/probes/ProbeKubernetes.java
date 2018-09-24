@@ -63,10 +63,15 @@ public class ProbeKubernetes {
 
     private static int messageId = 0;
 
+    private static int minutes = 240;
+
     public static void main(String[] args) {
 
         LOGGER.info("Trust me! This is ATMOSPHERE!");
         BackgroundClient client = new BackgroundClient(endpoint);
+
+        if (args.length > 0)
+            minutes = Integer.parseInt(args[0]);
 
         client.authenticate(probeId, "pass".getBytes());
 
@@ -86,7 +91,7 @@ public class ProbeKubernetes {
         HttpResponse response;
         InputStreamReader isr;
         try {
-            for (int i = 0; i < 20; i++) {
+            for (int i = 0; i < minutes; i++) {
                 response = requestRestService(uriPods);
                 isr = new InputStreamReader(response.getEntity().getContent());
                 parsePodMetrics(isr, client);
