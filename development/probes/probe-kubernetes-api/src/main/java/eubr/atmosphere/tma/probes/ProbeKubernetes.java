@@ -15,7 +15,7 @@ package eubr.atmosphere.tma.probes;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.Instant;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -177,7 +177,7 @@ public class ProbeKubernetes {
                     System.out.println(cpuString);
                     System.out.println(memoryString);
                 }
-                message.setSentTime((new Date()).getTime());
+                message.setSentTime(Calendar.getInstance().getTimeInMillis());
                 message.setMessageId(messageId++);
                 System.out.println(message);
                 client.send(message);
