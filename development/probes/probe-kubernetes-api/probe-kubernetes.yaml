@@ -1,0 +1,26 @@
+
+apiVersion: apps/v1
+
+
+kind: Deployment
+
+metadata:
+  name: probe-kubernetes-api
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: probe-kubernetes-api
+
+  template:
+    metadata:
+      labels:
+        run: probe-kubernetes-api
+
+    spec:
+      containers:
+      - name: probe-kubernetes-api
+        image: tma-monitor/probe-kubernetes-api:0.1
+        tty: true
+
