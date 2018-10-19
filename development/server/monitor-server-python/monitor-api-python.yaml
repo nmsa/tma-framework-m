@@ -5,8 +5,10 @@ metadata:
   labels:
     app: monitor-server
 spec:
+  type: NodePort
   ports:
   - port: 5000
+    nodePort: 32025
   clusterIP: 10.100.166.233
   selector:
     app: monitor-server
