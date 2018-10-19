@@ -12,4 +12,4 @@ RUN pip install docker
 RUN apk update
 RUN apk add docker
 
-CMD ["python", "dockerAPI.py", "monitor-api", "https://10.100.166.233:5000/monitor"]
+CMD ["python", "dockerAPI.py", "monitor-api", "https://192.168.1.1:32025/monitor"]
