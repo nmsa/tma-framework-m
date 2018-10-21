@@ -2,7 +2,7 @@
 # Probe Kubernetes Metrics
 This probe was developed to collect performance metrics about containers deployed using Docker tool and managed with Kubernetes. This probe is able to collect metrics such as CPU usage and memory statistics.
 ## Prerequisites
-To use this probe, you need to initialize the Kubernetes cluster and deploy on it all components of server folder of this repository following the instructions present in README file of that folder.
+To use this probe, you need to initialize the Kubernetes cluster and deploy on it all components of `server` folder of this repository following the instructions present in README file of that folder.
 After that and as this probe will collect data from a docker container managed by Kubernetes, you need to have a Docker container running. When you have it, copy its image ID.
 ## Installation
 Before starting probe, you should build the image that will be used by the probe. You need to edit the `probe-k8-containers-metrics/Dockerfile`, by changing the container that will be monitored.

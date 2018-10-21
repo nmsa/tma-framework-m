@@ -105,7 +105,7 @@ For testing the validation of json files with schema, there is a script that inj
 That script is located in `test/testing-json-format/testing-json-format.sh`.
 Before running the script, check if the service is available on the endpoint of the defined in the file. You can do that by running the following command: 
 ```sh
-kubectl describe pods monitor-server-0
+kubectl describe service monitor-server
 ``` 
 To test the environment, you should run:
 

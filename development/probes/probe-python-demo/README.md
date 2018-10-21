@@ -1,7 +1,7 @@
 # Probe Python Demo
 This probe was developed to generate random data in format of the json schema of this project. This probe was developed to be deployed in a Kubernetes pod.
 ## Prerequisites
-To use this probe, you need to initialize the Kubernetes cluster and deploy on it all components of server folder of this repository following the instructions present in README file of that folder.
+To use this probe, you need to initialize the Kubernetes cluster and deploy on it all components of `server` folder of this repository following the instructions present in README file of that folder.
 ## Installation
 Before starting probe, you should build the image that will be used by the probe.
 In order to do that, you should run the following commands on the worker node:

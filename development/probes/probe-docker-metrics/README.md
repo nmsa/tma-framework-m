@@ -15,7 +15,7 @@ sh build.sh
 ```
 
 The previous commands will create the base image to be used in this probe. After that, you need to create the image of the probe demo. 
-To do that, you need to change both the endpoint of the service and the image ID on the last line of Dockerfile. After it, you need to create the image through the following commands:
+To do that, you need to create the image through the following commands:
 
 ```
 cd ../../probes/probe-docker-metrics/
