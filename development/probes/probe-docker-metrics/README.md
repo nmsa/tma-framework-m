@@ -3,7 +3,7 @@
 This probe was developed to collect performance metrics about containers deployed using Docker tool. This probe is able to collect metrics such as CPU usage and some statistics about memory and network interfaces.
 
 ## Prerequisites
-To use this probe, you need to initialize the Kubernetes cluster and deploy on it all components of the server folder of this repository following the instructions presented in README file of that folder.
+To use this probe, you need to initialize the Kubernetes cluster and deploy on it all components of the `server` folder of this repository following the instructions presented in `README` file of that folder.
 As this probe will collect data from a docker container, you need to have a Docker container running. When you have it, copy its image ID.
 
 ## Installation
@@ -14,7 +14,7 @@ cd ../../dependency/docker-client-base/
 sh build.sh
 ```
 
-The previous commands will create the base image to be used in this probe. After that, you need to create the image of the probe demo. 
+The previous commands will create the base image to be used in this probe. After that, you need to create the image of the probe docker metrics. 
 To do that, you need to create the image through the following commands:
 
 ```
