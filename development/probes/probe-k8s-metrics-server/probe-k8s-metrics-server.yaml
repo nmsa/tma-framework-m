@@ -5,22 +5,22 @@ apiVersion: apps/v1
 kind: Deployment
 
 metadata:
-  name: probe-kubernetes-api
+  name: probe-k8s-metrics-server
 
 spec:
   replicas: 1
   selector:
     matchLabels:
-      run: probe-kubernetes-api
+      run: probe-k8s-metrics-server
 
   template:
     metadata:
       labels:
-        run: probe-kubernetes-api
+        run: probe-k8s-metrics-server
 
     spec:
       containers:
-      - name: probe-kubernetes-api
-        image: tma-monitor/probe-kubernetes-api:0.1
+      - name: probe-k8s-metrics-server
+        image: tma-monitor/probe-k8s-metrics-server:0.1
         tty: true
 

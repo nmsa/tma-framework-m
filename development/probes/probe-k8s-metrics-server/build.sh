@@ -1,1 +1,1 @@
-docker build --no-cache -t tma-monitor/probe-kubernetes-api:0.1 .
+docker build --no-cache -t tma-monitor/probe-k8s-metrics-server:0.1 .
