@@ -1,2 +1,2 @@
 #Build probe image
-docker build -t probe-docker-metrics .
+docker build -t tma-monitor/probe-docker-metrics:0.1 .

@@ -21,6 +21,6 @@ spec:
     spec:
       containers:
       - name: probe-python-demo
-        image: probe-python-demo:0.1
+        image: tma-monitor/probe-python-demo:0.1
         tty: true
 
