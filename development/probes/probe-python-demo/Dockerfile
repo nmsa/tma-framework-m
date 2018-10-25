@@ -11,4 +11,4 @@ COPY 	communication.py 	/probe-python-demo
 
 
 
-CMD 	["python", "probe-python-demo.py", "https://10.100.166.233:5000/monitor"]
+CMD 	["python", "probe-python-demo.py", "https://192.168.1.1:32025/monitor"]

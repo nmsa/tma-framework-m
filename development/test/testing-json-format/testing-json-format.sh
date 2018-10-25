@@ -2,7 +2,7 @@
 
 if [ -z "$1" ]
 then
-    API_ENDPOINT="https://10.100.166.233:5000/monitor"
+    API_ENDPOINT="https://192.168.1.1:32025/monitor"
 else
     API_ENDPOINT="$1"
 fi

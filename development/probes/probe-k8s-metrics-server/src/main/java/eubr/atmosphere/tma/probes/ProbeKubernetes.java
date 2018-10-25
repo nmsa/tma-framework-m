@@ -38,6 +38,7 @@ import eu.atmosphere.tmaf.monitor.client.BackgroundClient;
 import eu.atmosphere.tmaf.monitor.message.Data;
 import eu.atmosphere.tmaf.monitor.message.Message;
 import eu.atmosphere.tmaf.monitor.message.Observation;
+import eubr.atmosphere.tma.probes.utils.PropertiesManager;
 
 /**
  * Probe that collects the data from kubernetes pods
@@ -54,9 +55,9 @@ public class ProbeKubernetes {
 
     private static final int probeId = 7;
 
-    private static final String endpoint = "https://10.100.166.233:5000/monitor";
+    private static final String endpoint = PropertiesManager.getInstance().getProperty("MONITOR_ENDPOINT");
     private static final String metricsEndpoint =
-            "http://192.168.122.34:8089/apis/metrics.k8s.io/v1beta1/";
+            PropertiesManager.getInstance().getProperty("METRICS_ENDPOINT");
 
     private static final String namespaceName = "default";
 
@@ -64,15 +65,10 @@ public class ProbeKubernetes {
 
     private static int messageId = 0;
 
-    private static int minutes = 240;
-
     public static void main(String[] args) {
 
         LOGGER.info("Trust me! This is ATMOSPHERE!");
         BackgroundClient client = new BackgroundClient(endpoint);
-
-        if (args.length > 0)
-            minutes = Integer.parseInt(args[0]);
 
         client.authenticate(probeId, "pass".getBytes());
 
@@ -92,7 +88,7 @@ public class ProbeKubernetes {
         HttpResponse response;
         InputStreamReader isr;
         try {
-            for (int i = 0; i < minutes; i++) {
+            while (true) {
                 response = requestRestService(uriPods);
                 isr = new InputStreamReader(response.getEntity().getContent());
                 parsePodMetrics(isr, client);
