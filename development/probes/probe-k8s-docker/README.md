@@ -1,5 +1,5 @@
 
-# Probe K8s Metrics
+# Probe Kubernetes Metrics
 
 This probe was developed to collect performance metrics about containers deployed using Docker tool and managed with Kubernetes. This probe is able to collect metrics such as CPU usage and memory statistics.
 
