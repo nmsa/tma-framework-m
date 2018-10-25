@@ -30,7 +30,7 @@ sh build.sh
 To deploy the probe, you should run the `yaml` file on the Kubernetes Master machine:
 
 ```sh
-kubectl create -f  	probe-k8s-metrics-server.yaml
+kubectl create -f probe-k8s-metrics-server.yaml
 ```
 
 ## Testing
