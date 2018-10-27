@@ -5,6 +5,9 @@ metadata:
   labels:
     app: flume
 spec:
+  ports:
+  - port: 9100
+    name: metrics
   clusterIP: None
   selector:
     app: flume
@@ -23,6 +26,7 @@ spec:
       labels:
         app: flume
     spec:
+      terminationGracePeriodSeconds: 10
       containers:
       - name: flume
         image: flume:0.1
@@ -30,8 +34,12 @@ spec:
         volumeMounts:
         - name: testing-mode
           mountPath: /testingmode
+        ports:
+        - containerPort: 9100
+          name: metrics
       volumes:
         - name: testing-mode
           hostPath:
-            path: /home/kubernetes/Desktop/testingmode     
+            path: /home/kubernetes/Desktop/testingmode
+             
      

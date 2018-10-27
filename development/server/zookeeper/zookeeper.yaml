@@ -11,6 +11,8 @@ spec:
     name: server
   - port: 3888
     name: leader-election
+  - port: 9100
+    name: metrics
   clusterIP: None
   selector:
     app: zk
@@ -25,6 +27,8 @@ spec:
   ports:
   - port: 2181
     name: client
+  - port: 9100
+    name: metrics
   selector:
     app: zk
 ---
@@ -67,6 +71,8 @@ spec:
           name: server
         - containerPort: 3888
           name: leader-election
+        - containerPort: 9100
+          name: metrics
         command:
         - sh
         - -c
