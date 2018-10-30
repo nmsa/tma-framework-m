@@ -9,6 +9,9 @@ spec:
   ports:
   - port: 5000
     nodePort: 32025
+    name: monitor
+  - port: 9100
+    name: metrics
   clusterIP: 10.100.166.233
   selector:
     app: monitor-server
@@ -32,3 +35,5 @@ spec:
         image: tma-monitor/server-python:0.1
         ports:
         - containerPort: 5000
+        - containerPort: 9100
+          name: metrics
