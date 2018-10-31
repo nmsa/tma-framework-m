@@ -79,7 +79,7 @@ def create_message(counter,metricTx,metricRx,metricDropTx,metricDropRx):
 
 if __name__ == '__main__':
     # receive the container name and server url as parameters
-    url = str("http://127.0.0.1:5000/monitor")
+    url = str(sys.argv[1] + '')
     communication = Communication(url)
     while 1:
         counter = 1
