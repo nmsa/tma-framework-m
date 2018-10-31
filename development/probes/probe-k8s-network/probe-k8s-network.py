@@ -13,27 +13,27 @@ import json as json
 
 # Get rate of transmitted network packets
 def getMetricTx():
-    network_tx = requests.get("http://10.244.1.124:9090/api/v1/query",
+    network_tx = requests.get("http://prometheus-0.prometheus.default.svc.cluster.local:9090/api/v1/query",
                               params={'query': 'rate(node_network_transmit_packets_total{device="eth0"}[1m])'})
     return network_tx.json()
 
 
 # Get rate of received network packets
 def getMetricRx():
-    network_rx = requests.get("http://10.244.1.124:9090/api/v1/query",
+    network_rx = requests.get("http://prometheus-0.prometheus.default.svc.cluster.local:9090/api/v1/query",
                               params={'query': 'rate(node_network_receive_packets_total{device="eth0"}[1m])'})
     return network_rx.json()
 
 
 # Get rate of dropped transmitted network packets
 def getMetricDropTx():
-    network_drop_tx = requests.get("http://10.244.1.124:9090/api/v1/query",
+    network_drop_tx = requests.get("http://prometheus-0.prometheus.default.svc.cluster.local:9090/api/v1/query",
                                    params={'query': 'rate(node_network_transmit_drop_total{device="eth0"}[1m])'})
     return network_drop_tx.json()
 
 # Get rate of dropped received network packets
 def getMetricDropRx():
-    network_drop_rx = requests.get("http://10.244.1.124:9090/api/v1/query",
+    network_drop_rx = requests.get("http://prometheus-0.prometheus.default.svc.cluster.local:9090/api/v1/query",
                                    params={'query': 'rate(node_network_receive_drop_total{device="eth0"}[1m])'})
     return network_drop_rx.json()
 
