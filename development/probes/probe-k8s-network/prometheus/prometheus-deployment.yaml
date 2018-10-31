@@ -1,16 +1,33 @@
-apiVersion: extensions/v1beta1
-kind: Deployment
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus
+  labels:
+    app: prometheus
+spec:
+  ports:
+  - port: 9090
+    name: web
+  clusterIP: None
+  selector:
+    app: prometheus
+---
+apiVersion: apps/v1
+kind: StatefulSet
 metadata:
   name: prometheus
 spec:
-  replicas: 1 # tells deployment to run 1 pod matching the template below
-  template: # crete pods using pod definition in this template
+  selector:
+    matchLabels:
+      app: prometheus # has to match .spec.template.metadata.labels
+  serviceName: "prometheus"
+  template:
     metadata:
-      labels: # these key value pairs will be attached to pods
-        app: prometheus
+      labels:
+        app: prometheus # has to match .spec.selector.matchLabels
     spec:
       containers:
-        - name: prometheus
-          image: prometheus:0.1
-          ports:
-            - containerPort: 9090 # port we open in the container
+      - name: prometheus
+        image: prometheus:0.1
+        ports:
+        - containerPort: 9090
