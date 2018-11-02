@@ -1,0 +1,26 @@
+
+apiVersion: apps/v1
+
+
+kind: Deployment
+
+metadata:
+  name: probe-k8s-network
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: probe-k8s-network
+
+  template:
+    metadata:
+      labels:
+        run: probe-k8s-network
+
+    spec:
+      containers:
+      - name: probe-k8s-network
+        image: tma-monitor/probe-k8s-network:0.1
+        tty: true
+

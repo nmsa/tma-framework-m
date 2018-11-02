@@ -9,6 +9,8 @@ spec:
   ports:
   - port: 9093
     name: server
+  - port: 9100
+    name: metrics
   clusterIP: None
   selector:
     app: kafka
@@ -70,6 +72,8 @@ spec:
         ports:
         - containerPort: 9093
           name: server
+        - containerPort: 9100
+          name: metrics
         command:
         - sh
         - -c

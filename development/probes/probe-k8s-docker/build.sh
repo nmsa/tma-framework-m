@@ -1,2 +1,2 @@
 #Build probe image
-docker build -t tma-monitor/probe-k8s-docker:0.1 .
+docker build -t probe-k8-containers-metrics:0.1 .
