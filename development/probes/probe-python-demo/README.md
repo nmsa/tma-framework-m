@@ -6,7 +6,7 @@ To use this probe, you need to initialize the Kubernetes cluster and deploy on i
 
 ## Installation
 
-Before starting probe, you should build the image that will be used by the probe.
+Before starting probe, you should build the base image that will be used by the probe.
 In order to do that, you should run the following commands on the worker node:
 
 ```

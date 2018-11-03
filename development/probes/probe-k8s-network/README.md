@@ -27,11 +27,19 @@ After that, you need to create the image of the probe k8s network, through the f
 cd ../../probes/probe-k8s-network/
 sh build.sh
 ```
-Before deploying the probe, it is needed to create a pod with Prometheus. To do that, you need to execute the following commands:
+Before deploying the probe, it is needed to create a pod with Prometheus. To do that, you need to create its Docker image by executing the following commands:
 ```
-kubectl create -f prometheus/permissions.yaml
-kubectl create -f prometheus/prometheus-deployment.yaml
+cd prometheus/
+sh build.sh
 ``` 
+
+After that, to run Prometheus in your Kubernetes Cluster, you need to execute the following commands:
+
+```
+kubectl create -f permissions.yaml
+kubectl create -f prometheus-deployment.yaml
+``` 
+
 Finally, to deploy the probe, you should run the `yaml` file on Kubernetes Master machine:
 
 
