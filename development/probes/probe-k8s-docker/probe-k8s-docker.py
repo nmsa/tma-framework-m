@@ -9,9 +9,10 @@ from data import Data
 from message import Message
 from message import ComplexEncoder
 from observation import Observation
+from communication import Communication
 
 # get stats from container
-def get_container_stats(container_name, url):
+def get_container_stats(container_name, url, communication):
     # connect to docker
     cli = docker.from_env()
     # get container
@@ -21,18 +22,18 @@ def get_container_stats(container_name, url):
 
     for stat in stats_obj:
         # print the response
-        print(send_stat(ast.literal_eval(stat), url))
+        print(send_stat(ast.literal_eval(stat), url, communication))
 
 
 # send stat to API server
-def send_stat(stat, url):
+def send_stat(stat, url, communication):
     # format the stats from container
     stat_formatted = format(stat)
 
     # url = 'http://0.0.0.0:5000/monitor'
-    headers = {'content-type': 'application/json'}
-    # return the response from Post request
-    return requests.post(url, data=stat_formatted, headers=headers, verify='cert.pem')
+    response = communication.send_message(stat_formatted)
+    return response
+
 # format stat to
 def format(stat):
     st = [-1] * 96
@@ -128,14 +129,6 @@ def format(stat):
         stat['memory_stats']['stats']['unevictable'],
         stat['memory_stats']['stats']['writeback'],
         stat['memory_stats']['limit'],
-#        stat['networks']['eth0']['rx_bytes'],
-#        stat['networks']['eth0']['rx_packets'],
-#        stat['networks']['eth0']['rx_errors'],
-#        stat['networks']['eth0']['rx_dropped'],
-#        stat['networks']['eth0']['tx_bytes'],
-#        stat['networks']['eth0']['tx_packets'],
-#        stat['networks']['eth0']['tx_errors'],
-#        stat['networks']['eth0']['tx_dropped'],
     ]
 
     merge_st = st + other_st
@@ -148,11 +141,11 @@ def format(stat):
     # follow the json schema
     # sentTime = current time? Or the same timestamp from the metrics?
     # need to change the probeId, resourceId and messageId
-    message = Message(probeId=1, resourceId=1, messageId=0, sentTime=int(time.time()), data=None)
+    message = Message(probeId=0, resourceId=0, messageId=0, sentTime=int(time.time()), data=None)
 
     # append measurement data to message
     for i in range(len(merge_st)):
-        dt = Data(type="measurement", descriptionId=(i+1), observations=None)
+        dt = Data(type="measurement", descriptionId=i, observations=None)
         obs = Observation(time=timestamp, value=merge_st[i])
         dt.add_observation(observation=obs)
 
@@ -167,5 +160,5 @@ if __name__ == '__main__':
     # receive the container name and server url as parameters
     container_name = str(sys.argv[1] + '')
     url = str(sys.argv[2] + '')
-    
-    get_container_stats(container_name, url)
+    communication = Communication(url)
+    get_container_stats(container_name, url, communication)

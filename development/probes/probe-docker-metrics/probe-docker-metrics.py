@@ -9,9 +9,10 @@ from data import Data
 from message import Message
 from message import ComplexEncoder
 from observation import Observation
+from communication import Communication
 
 # get stats from container
-def get_container_stats(container_name, url):
+def get_container_stats(container_name, url, communication):
     # connect to docker
     cli = docker.from_env()
     # get container
@@ -21,19 +22,17 @@ def get_container_stats(container_name, url):
 
     for stat in stats_obj:
         # print the response
-        print(send_stat(ast.literal_eval(stat), url))
+        print(send_stat(ast.literal_eval(stat), url, communication))
 
 
 # send stat to API server
-def send_stat(stat, url):
+def send_stat(stat, url, communication):
     # format the stats from container
     stat_formatted = format(stat)
 
     # url = 'http://0.0.0.0:5000/monitor'
-    headers = {'content-type': 'application/json'}
-    # return the response from Post request
-    return requests.post(url, data=stat_formatted, headers=headers, verify='cert.pem')
-
+    response = communication.send_message(stat_formatted)
+    return response
 
 # format stat to
 def format(stat):
@@ -169,5 +168,5 @@ if __name__ == '__main__':
     # receive the container name and server url as parameters
     container_name = str(sys.argv[1] + '')
     url = str(sys.argv[2] + '')
-    
-    get_container_stats(container_name, url)
+    communication = Communication(url)
+    get_container_stats(container_name, url, communication)
