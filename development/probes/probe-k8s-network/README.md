@@ -45,6 +45,7 @@ Finally, to deploy the probe, you should run the `yaml` file on Kubernetes Maste
 
 
 ```
+cd ..
 kubectl create -f probe-k8s-network.yaml
 ```
 ## Testing
