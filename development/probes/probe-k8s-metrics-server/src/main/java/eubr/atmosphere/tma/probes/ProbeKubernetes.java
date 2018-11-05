@@ -79,6 +79,8 @@ public class ProbeKubernetes {
         resourceKeyMap.put("kafka-0", 8);
         resourceKeyMap.put("wildfly-0", 9);
         resourceKeyMap.put("mysql-wsvd-0", 10);
+        resourceKeyMap.put("wildfly-1", 13);
+        resourceKeyMap.put("wildfly-2", 14);
 
         resourceKeyMap.put("virtmanagernode-standard-pc-i440fx-piix-1996", 11);
         resourceKeyMap.put("virtmanagermaster-standard-pc-i440fx-piix-1996", 12);
@@ -103,7 +105,6 @@ public class ProbeKubernetes {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -169,13 +170,10 @@ public class ProbeKubernetes {
 
                     String memoryString = ltmUsage.get("memory").toString();
                     message.addData(parseDatumValue(memoryString, memoryDescriptionId, 2));
-
-                    System.out.println(cpuString);
-                    System.out.println(memoryString);
                 }
                 message.setSentTime(Calendar.getInstance().getTimeInMillis());
                 message.setMessageId(messageId++);
-                System.out.println(message);
+                LOGGER.info(message.toString());
                 client.send(message);
             }
         }
@@ -210,7 +208,7 @@ public class ProbeKubernetes {
                 message.setSentTime(Instant.now().getEpochSecond());
                 message.setMessageId(messageId++);
 
-                System.out.println(message);
+                LOGGER.info(message.toString());
                 client.send(message);
             }
         }
