@@ -1,15 +1,11 @@
-FROM python:2.7-alpine3.7
+FROM tma-monitor/python-probe-base:0.1
 
-WORKDIR /python-client
+WORKDIR /probe-python
 
-COPY dockerAPI.py /python-client
-COPY data.py /python-client
-COPY message.py /python-client
-COPY observation.py /python-client
-COPY cert.pem /python-client
+COPY probe-k8s-docker.py /probe-python
 
 RUN pip install docker
 RUN apk update
 RUN apk add docker
 
-CMD ["python", "dockerAPI.py", "monitor-api", "https://192.168.1.1:32025/monitor"]
+CMD ["python", "probe-k8s-docker.py", "monitor-api", "https://192.168.1.1:32025/monitor"]

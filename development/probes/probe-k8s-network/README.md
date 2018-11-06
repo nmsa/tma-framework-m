@@ -9,7 +9,7 @@ Before starting probe, you need to copy Node Exporter application to all pods th
  ```
 kubectl cp prometheus/node_exporter-0.17.0-rc.0.linux-amd64 <pod-name>:/
 ```
-With Node Exporter application in pod, to run it, you should execute the following command:
+With Node Exporter application in the pod, to run it, you should execute the following command:
  ```
 kubectl exec -ti <pod-name> -- cd /node_exporter-0.17.0-rc.0.linux-amd64 && ./node_exporter
 ```
@@ -27,16 +27,25 @@ After that, you need to create the image of the probe k8s network, through the f
 cd ../../probes/probe-k8s-network/
 sh build.sh
 ```
-Before deploying the probe, it is needed to create a pod with Prometheus. To do that, you need to execute the following commands:
+Before deploying the probe, it is needed to create a pod with Prometheus. To do that, you need to create its Docker image by executing the following commands:
 ```
-kubectl create -f prometheus/permissions.yaml
-kubectl create -f prometheus/prometheus-deployment.yaml
+cd prometheus/
+sh build.sh
 ``` 
+
+After that, to run Prometheus in your Kubernetes Cluster, you need to execute the following commands:
+
+```
+kubectl create -f permissions.yaml
+kubectl create -f prometheus-deployment.yaml
+``` 
+
 Finally, to deploy the probe, you should run the `yaml` file on Kubernetes Master machine:
 
 
 
 ```
+cd ..
 kubectl create -f probe-k8s-network.yaml
 ```
 ## Testing
