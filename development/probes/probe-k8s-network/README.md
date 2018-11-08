@@ -1,6 +1,6 @@
 
 # Probe Kubernetes Network 
-This probe was developed to collect network metrics about pods deployed in a Kubernetes cluster. This probe is able to monitor the rate of network packets received, transmitted and dropped by each network interface of each pod.
+This probe was developed to collect network metrics about pods deployed in a Kubernetes cluster. This probe is able to collect data about the rate of network packets received, transmitted and dropped by each network interface of each pod.
 ## Prerequisites
 To use this probe, you need to initialize the Kubernetes cluster and deploy on it all components of [`server`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/server) folder of this repository following the instructions present in [`README`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/server/README.md)  file of that folder.
 ## Installation
