@@ -1,6 +1,6 @@
 
 # Probe Kubernetes Network 
-This probe was developed to collect metrics about pods deployed in a Kubernetes cluster. This probe is able to monitor the rate of network packets received, transmitted and dropped by each network interface of each pod.
+This probe was developed to collect network metrics about pods deployed in a Kubernetes cluster. This probe is able to monitor the rate of network packets received, transmitted and dropped by each network interface of each pod.
 ## Prerequisites
 To use this probe, you need to initialize the Kubernetes cluster and deploy on it all components of [`server`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/server) folder of this repository following the instructions present in [`README`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/server/README.md)  file of that folder.
 ## Installation
@@ -31,7 +31,7 @@ After that, you should run the following script to deploy Prometheus and probe i
 cd ../
 sh run.sh
 ``` 
-The previous script automates the copy the Node Exporter application into pods and its execution and the deployment of all necessary permissions to Prometheus be able to collect all metrics from Node Exporter application. Finally, the script also automates the deployment of Prometheus application, and when Prometheus pod is in "Ready" state, the probe is deployed too.   
+The previous script automates the copy of Node Exporter application into pods, its execution and the deployment of all necessary permissions to Prometheus be able to collect all metrics from Node Exporter application. Finally, the script also automates the deployment of Prometheus application, and when Prometheus pod is in "Ready" state, the probe is deployed too.
 ## Testing
 
 For testing purposes, you should create an Apache Kafka consumer that receives messages from `topic-monitor` topic. To do that you should execute the following command:
