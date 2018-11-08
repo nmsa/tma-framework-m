@@ -1,3 +1,4 @@
+
 # TMA-Monitor Server Development
 
 This server is a scalable REST API application for validating json files against a schema and if the json is correct, this application will send it to a Apache Kafka topic.
@@ -128,6 +129,16 @@ Rejected  (correct):  fail_3.json
 This platform can be tested with any probe present in probe folder of this repository. 
 After running this script or after deploying any probe, you can check the content of measurements table of knowledge database deployed in TMA_Knowledge component, if you choose the normal mode of Apache Flume operation. If you choose Testing Mode of Apache Flume operation, you can check the content of the file generated in the respective directory.
 
+**Note:** Digital certificates present in this repository are generated with the Kubernetes Master IP. In this case, all digital certificates were generated for the IP 192.168.1.1. If the Kubernetes Master IP of your setup is different, you need to generate a new digital certificate for your Kubernetes Master IP in [`Monitor`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/server/monitor-server-python/monitor-api-python) folder.
+
+To do that, execute the following command in folder previously mentioned.
+```sh
+openssl req -x509 -newkey rsa:4096 -nodes -out cert.pem -keyout key.pem -days 365
+``` 
+In this command, you need to input the content of some digital certificate fields. One of that is  `Common Name (e.g. server FQDN or YOUR name)` field, where you need to input your Kubernetes Master IP.
+After the execution of the previous command, cert.pem and key.pem files are generated and replaced by the existing ones in [`Monitor`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/server/monitor-server-python/monitor-api-python) folder.
+After that you need to replace all existing cert.pem files by the new one generated in this repository. After this process, you need to build Monitor Docker image again.
+In case of a probe deployment, you must also change the Monitor IP in the Dockerfile of that probe.
 
 ## Authors
 * Rui Silva
