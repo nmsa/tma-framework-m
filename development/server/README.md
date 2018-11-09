@@ -97,9 +97,9 @@ cd ..
 sh setup-testing-mode.sh
 ```
 
-First,  [`setup-testing-mode.sh`](https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/server/setup-testing-mode.sh) script runs the required commands to create the persistent volumes for Apache Zookeeper and Apache Kafka. Then, it deploys these two components. Then, it creates `topic-monitor` and `queue-listener` topic in Apache Kafka pod. Finnaly, Apache Flume is deployed in Kubernetes Cluster.
+First,  [`setup-testing-mode.sh`](https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/server/setup-testing-mode.sh) script runs the required commands to create the persistent volumes for Apache Zookeeper and Apache Kafka. Then, it deploys these two components. Then, it creates `topic-monitor` and `queue-listener` topics in Apache Kafka pod. Finnaly, Apache Flume is deployed in Kubernetes Cluster.
 
-With Apache Zookeeper, Apache Kafka, and Apache Flume running and the topic created, the next step is to deploy the Monitor application. The file called [`monitor-api-python.yaml`](https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/server/monitor-server-python/monitor-api-python.yaml) creates a Kubernetes Deployment of the Monitor application. In order to create that deploy, you should run:
+With Apache Zookeeper, Apache Kafka, and Apache Flume running and the topics created, the next step is to deploy the Monitor application. The file called [`monitor-api-python.yaml`](https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/server/monitor-server-python/monitor-api-python.yaml) creates a Kubernetes Deployment of the Monitor application. In order to create that deploy, you should run:
 ```sh
 kubectl create -f monitor-server-python/monitor-api-python.yaml
 ``` 
