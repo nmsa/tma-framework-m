@@ -104,11 +104,11 @@ kubectl create -f monitor-server-python/monitor-api-python.yaml
 For details on the REST API usage, you should check the current [monitor-server](monitor-server-python) implementation.
 With Monitor running and working correctly, you need to configure Apache Flume with [`flume.sh`](https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/server/flume/flume.sh) according to the operation mode that you want.
 
-This script shows a menu with two options. First option (Normal Mode) configures and executes Apache Flume to save the received data in a MySQL database that belongs to TMA_Knowledge component.
+This script shows a menu with two options. First option (Normal Mode) configures and executes Apache Flume to save the received data in a MySQL database that belongs to `TMA_Knowledge` component.
 For every observation in data received, one row in the database is generated with the following format:
-probeId,resourceId, type,descriptionId,time,value. Each one of these fields is saved in one column in the table created in database.
+probeId,resourceId,type,descriptionId,time,value. Each one of these fields is saved in one column in the table created in database.
 
-The second option  presented in the menu of script configures the Testing Mode in Apache Flume. In this mode, Apache Flume saves in a log file, for each observation, a SQL query that user can insert it in all types of SQL databases.
+The second option  presented in the menu of script configures the Testing Mode in Apache Flume. In this mode, Apache Flume saves in a log file, and a SQL query can be used to insert the observations in all types of SQL databases.
 
 ## Testing
 
@@ -137,7 +137,7 @@ Rejected  (correct):  fail_0.2.json
 Rejected  (correct):  fail_3.json
 ``` 
 This platform can be tested with any probe present in [`probe`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/probes) folder of this repository. 
-After running this script or after deploying any probe, you can check the content of Data table of knowledge database deployed in TMA_Knowledge component, if you choose the Normal Mode of Apache Flume operation. If you choose Testing Mode of Apache Flume operation, you can check the content of the file generated in the `/home/kubernetes/Desktop/testingmode` folder in Worker Node machine.
+After running this script or after deploying any probe, you can check the content of Data table of knowledge database deployed in `TMA_Knowledge` component, if you choose the Normal Mode of Apache Flume operation. If you choose Testing Mode of Apache Flume operation, you can check the content of the file generated in the `/home/kubernetes/Desktop/testingmode` folder in Worker Node machine.
 
 **Note:** Digital certificates present in this repository are generated with the Kubernetes Master IP. In this case, all digital certificates were generated for the IP 192.168.1.1. If the Kubernetes Master IP of your setup is different, you need to generate a new digital certificate for your Kubernetes Master IP in [`Monitor`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/server/monitor-server-python/monitor-api-python) folder.
 
