@@ -71,7 +71,7 @@ Now, the Kubernetes cluster are ready to deploy containers.
 
 After completing all steps of the previous section, the first step of project installation is to create the images that deploy Apache Kafka, Apache Zookeeper, the Monitor API REST, and Apache Flume containers. In order to do that, there is a shell script called `build.sh` presented in [`kafka`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/server/kafka), [`zookeeper`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/server/zookeeper), [`monitor-server-python`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/server/monitor-server-python), and [`flume`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/server/flume) folders of this project.
 
-To deploy the monitor, you need to run the script called build.sh presented in [`dependency/python-base`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/dependency/python-base "python-base") folder in order to create the base python image that will be used to generate the container that runs the Monitor.
+To deploy the monitor, you need to run the script called `build.sh` presented in [`dependency/python-base`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/dependency/python-base "python-base") folder in order to create the base python image that will be used to generate the container that runs the Monitor.
 
 To execute this script for all components of the architecture, you should run the following commands on the worker node:
 
@@ -119,7 +119,7 @@ The second option  presented in the menu of script configures the Testing Mode i
 For testing the validation of json files with schema, there is a script that injects some json files that have correct structure and others with some errors.
 
 That script is located in `test/testing-json-format/testing-json-format.sh`.
-Before running the script, check if the service is available on the endpoint of the defined in the file. You can do that by running the following command: 
+Before running the script, check if the service is available. You can do that by running the following command: 
 ```sh
 kubectl describe service monitor-server
 ``` 
@@ -143,7 +143,7 @@ Rejected  (correct):  fail_3.json
 ``` 
 This platform can be tested with any probe present in [`probe`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/probes) folder of this repository. 
 
-After running this script or after deploying any probe, you can check the content of Data table of knowledge database deployed in TMA_Knowledge component, if you choose the normal mode of Apache Flume operation. If you choose Testing Mode of Apache Flume operation, you can check the content of the file generated in the `/home/kubernetes/Desktop/testingmode` folder.
+After running this script or after deploying any probe, you can check the content of Data table of knowledge database deployed in TMA_Knowledge component, if you choose the normal mode of Apache Flume operation. If you choose Testing Mode of Apache Flume operation, you can check the content of the file generated in the `/home/kubernetes/Desktop/testingmode` folder in Worker Node machine.
 
 **Note:** Digital certificates present in this repository are generated with the Kubernetes Master IP. In this case, all digital certificates were generated for the IP 192.168.1.1. If the Kubernetes Master IP of your setup is different, you need to generate a new digital certificate for your Kubernetes Master IP in [`Monitor`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/server/monitor-server-python/monitor-api-python) folder.
 
