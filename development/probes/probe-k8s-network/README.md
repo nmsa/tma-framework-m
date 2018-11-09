@@ -41,7 +41,3 @@ kubectl exec -ti kafka-0 -- kafka-console-consumer.sh --topic topic-monitor --bo
 ```
 
 After running the previous command, you will see the data collected by this probe.
-
-
-
-
