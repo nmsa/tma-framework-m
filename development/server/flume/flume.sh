@@ -9,7 +9,7 @@ read option
 if [ $option -eq 1 ]; then
 
 
-	kubectl exec -ti flume-0 -- bash -c "cd /flume/apache-flume-1.6.0-bin/bin && ./flume-ng agent /flume/apache-flume-1.6.0-bin/conf/ -f /flume/apache-flume-1.6.0-bin/conf/flume.conf -n agent -Dflume.root.logger=INFO,console"
+	kubectl exec -ti flume-0 -- bash -c "cd /flume/apache-flume-1.6.0-bin/bin && ./flume-ng agent --conf /flume/apache-flume-1.6.0-bin/conf/ -f /flume/apache-flume-1.6.0-bin/conf/flume.conf -n agent -Dflume.root.logger=INFO,console"
 
 elif [ $option -eq 2 ]; then
 	
