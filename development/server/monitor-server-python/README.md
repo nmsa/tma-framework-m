@@ -17,7 +17,7 @@ If there are not errors, this method returns a string with "Accepted".
 ## REST API usage
 
 This REST API supports GET and POST methods. GET method only shows a message saying that this method is not allowed. 
-To interact with this application, user needs to generate and send a HTTP POST with a json file to the endpoint of TMA_Monitor. In this case, it is the MASTER_IP:30250.
+To interact with this application, user needs to generate and send a HTTP POST with a json file to the endpoint of TMA_Monitor. In this case, it is the MASTER_IP:32025.
 If json file sent to TMA_Monitor endpoint in in the expected format, the output of this application is a message with string "Accepted". If the data sent is not valid, a message with string "Rejected" is returned by the TMA_Monitor and also the description of errors occurred.
 
 
