@@ -37,6 +37,7 @@ public class Main {
      */
     public static void main(String[] args) {
         LOGGER.info("Trust me! This is ATMOSPHERE!");
+//        BackgroundClient client = new BackgroundClient("http://127.0.0.1:5000/monitor");
         BackgroundClient client = new BackgroundClient();
 
         client.authenticate(1098, "pass".getBytes());

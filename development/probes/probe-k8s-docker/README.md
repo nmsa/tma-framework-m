@@ -10,12 +10,20 @@ After that and as this probe will collect data from a docker container managed b
 
 ## Installation
 
-Before starting probe, you should build the image that will be used by the probe. You need to edit the [`probe-k8s-docker/Dockerfile`](probe-k8s-docker/Dockerfile), by changing the container that will be monitored.
+Before starting the probe, you need to build the image that will be used by the probe. To do that, you should run the following commands:
+
+
+```
+cd ../../dependency/python-probe-base/
+sh build.sh
+```
+
+The previous commands will create the base image to be used in this probe. Before building the probe image, you need to edit the [`probe-k8s-docker/Dockerfile`](probe-k8s-docker/Dockerfile), by changing the container that will be monitored.
 After that, you should run the following commands on the Kubernetes Worker node:
 
 
 ```sh
-cd probe-k8s-docker/
+cd ../../probes/probe-k8s-docker/
 sh build.sh
 ```
 

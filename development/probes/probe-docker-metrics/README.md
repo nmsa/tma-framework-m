@@ -10,11 +10,11 @@ As this probe will collect data from a docker container, you need to have a Dock
 
 ## Installation
 
-Before starting probe, you need to build the image that will be used by the probe. To do that, you should run the following commands:
+Before starting the probe, you need to build the image that will be used by the probe. To do that, you should run the following commands:
 
 
 ```
-cd ../../dependency/docker-client-base/
+cd ../../dependency/python-probe-base/
 sh build.sh
 ```
 

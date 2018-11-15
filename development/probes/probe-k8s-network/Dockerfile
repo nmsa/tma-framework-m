@@ -1,13 +1,9 @@
 FROM tma-monitor/python-probe-base:0.1
 
 
-WORKDIR	/probe-python-demo
+WORKDIR	/probe-python
 
-COPY 	probe-k8s-network.py 	/probe-python-demo
-COPY 	data.py 		/probe-python-demo
-COPY 	message.py 		/probe-python-demo
-COPY 	observation.py 	        /probe-python-demo
-COPY 	communication.py 	/probe-python-demo
+COPY 	probe-k8s-network.py 	/probe-python
 
 
 
