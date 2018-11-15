@@ -98,7 +98,9 @@ public class ProbeKubernetes {
                 response = requestRestService(uriNodes);
                 isr = new InputStreamReader(response.getEntity().getContent());
                 parseNodeMetrics(isr, client);
-                Thread.sleep(60000);
+
+                // This is the frequency that the probe collect the data and send to the monitor
+                Thread.sleep(30000);
             }
         } catch (ClientProtocolException e) {
             e.printStackTrace();
@@ -147,6 +149,9 @@ public class ProbeKubernetes {
         Object rawJson = gson.fromJson(isr, Object.class);
         LinkedTreeMap<String, Object> c = (LinkedTreeMap<String, Object>) rawJson;
         List<Object> items = (List<Object>) c.get("items");
+
+        // TODO change to check the node that the pod is inserted. We are allowed to do that, since we have only one node
+        // http://192.168.122.34:8089/api/v1/namespaces/default/pods/[POD_NAME]
 
         for (Object object : items) {
             LinkedTreeMap<String, Object> podData = (LinkedTreeMap<String, Object>) object;
