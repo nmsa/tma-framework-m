@@ -221,7 +221,7 @@ public class ProbeKubernetes {
 
     private static Data parseDatumValue(String valueString, int descriptionId, int unitLength) {
         int value = 0;
-        if (!"0".equals(valueString.trim())) {
+        if (!"0".equals(valueString.trim()) && !valueString.isEmpty()) {
             value = Integer.parseInt(valueString.substring(0, valueString.length() - unitLength));
         }
         Data datum = new Data(Data.Type.MEASUREMENT, descriptionId,
