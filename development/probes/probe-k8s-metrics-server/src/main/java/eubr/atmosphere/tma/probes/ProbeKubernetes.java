@@ -100,7 +100,7 @@ public class ProbeKubernetes {
                 parseNodeMetrics(isr, client);
 
                 // This is the frequency that the probe collect the data and send to the monitor
-                Thread.sleep(30000);
+                Thread.sleep(5000);
             }
         } catch (ClientProtocolException e) {
             e.printStackTrace();
