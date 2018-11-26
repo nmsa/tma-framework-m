@@ -14,7 +14,8 @@ namespace MonitorClient
 		[JsonProperty(Required = Required.Always)]
 		private double value
 		{
-			get;set;
+			get;
+			set;
 		}
 		public Observation (int timestamp = -1, double val = 0)
 		{

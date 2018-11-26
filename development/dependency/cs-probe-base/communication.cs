@@ -7,7 +7,11 @@ namespace MonitorClient
 
 	public class Communication
 	{
-		private string url;
+		private string url
+		{
+			get;
+			set;
+		}
 		public Communication(string link)
 		{
 			this.url = link;

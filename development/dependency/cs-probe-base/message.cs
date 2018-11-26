@@ -40,9 +40,9 @@ namespace MonitorClient
 			this.messageId = messageID;
 			this.sentTime = timestamp;
 		}
-		public void add_data (Data dat)
+		public void add_data (Data dt)
 		{
-			this.data.Add(dat);
+			this.data.Add(dt);
 		}
 		public List<Data> get_data()
 		{
