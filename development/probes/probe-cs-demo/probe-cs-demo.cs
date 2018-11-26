@@ -21,8 +21,8 @@ namespace MonitorClient
 			obs = new Observation(unixTimestamp,-1);
 			dt.add_observation(obs);
 			message.add_data(dt);
-			string sJSONResponse = JsonConvert.SerializeObject(message);
-	  		return sJSONResponse;
+			string json = JsonConvert.SerializeObject(message);
+	  		return json;
 		}
 	    static int Main (string[] args)
 	    {
@@ -33,8 +33,8 @@ namespace MonitorClient
 	        	string message = createMessage();
 	        	Console.WriteLine(message);
 	        	var response = communication.send_message(message);
-        		Thread.Sleep(1000);
         		Console.WriteLine(response);
+        		Thread.Sleep(1000);
 	        }
 	    }
 	}
