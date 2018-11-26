@@ -1,19 +1,21 @@
-
 # TMA-Monitor Probes
 
 This folder contains the monitoring probes to be developed to gather measurements and events and send to the `TMA Monitor` component.
 
 ## Contents
 
-In this folder, there are the following probes:
+In this folder there are demo probes that generate random data and probes that collect real data. There are the following demo probes:
  
 * [`probe-demo`](probe-demo) - this probe was developed in Java to generate random data in format of the json schema of this project;
+*  [`probe-python-demo`](probe-python-demo) - this probe was developed in Python to generate random data in format of the json schema of this project;
+*  [`probe-cs-demo`](probe-cs-demo) - this probe was developed in C# to generate random data in format of the json schema of this project;
+
+In this directory thera are also probes that collect real data. These probes are:
 
 * [`probe-docker-metrics`](probe-docker-metrics) - this probe collects performance metrics about containers deployed using the Docker tool. It is able to collect metrics such as CPU usage and statistics about memory, network and disk storage;
 * [`probe-k8s-docker`](probe-k8s-docker) - this probe was developed to collect performance metrics about Docker containers deployed and managed with Kubernetes. It is able to collect metrics related to CPU usage, memory, and disk storage;
 * [`probe-k8s-metrics-server`](probe-k8s-metrics-server) - this probe was developed to collect metrics about pods and nodes in a Kubernetes cluster. It is able to collect metrics of CPU usage and memory;
 * [`probe-k8s-network`](probe-k8s-network) - this probe was developed to collect network metrics about pods deployed in a Kubernetes cluster. It is able to collect the rate of network packets received, transmitted and dropped by each network interface of each pod;
-* [`probe-python-demo`](probe-python-demo) - this probe was developed in Python to generate random data in format of the json schema of this project;
 
 ## Prerequisites
 
@@ -50,6 +52,3 @@ run.sh
 * Rui Silva
 * José D'Abruzzo Pereira
 * Nuno Antunes
-
-
-
