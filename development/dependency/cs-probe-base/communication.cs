@@ -14,7 +14,6 @@ namespace MonitorClient
 		}
 		public dynamic send_message(string message_formated)
 		{
-			ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
 			var httpWebRequest = (HttpWebRequest)WebRequest.Create(this.url);
 			httpWebRequest.ContentType = "application/json";
 			httpWebRequest.Method = "POST";
