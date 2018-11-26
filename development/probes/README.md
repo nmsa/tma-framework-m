@@ -35,7 +35,7 @@ build.sh
 
 ## Running
 
-To run probes that collects metrics from pods, you should execute the `yaml` files that are pressented in probes respective folders. For example, to run [`probe-k8s-docker`](probe-k8s-docker), you should execute the following commands:
+To run probes that collects metrics from pods, you should execute the `yaml` files that are presented in probes respective folders. For example, to run [`probe-k8s-docker`](probe-k8s-docker), you should execute the following commands:
 ```sh
 cd probe-k8s-docker
 kubectl create -f probe-k8s-docker.yaml
