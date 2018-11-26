@@ -19,9 +19,9 @@ In this directory there are also probes that collect real data. Those probes are
 
 ## Prerequisites
 
-Probes developed in `Java` require the software available in [libraries](../libraries). Probes developed in `Python` require the software available in [dependency/probe-python-base](../dependency/python-probe-base), and probes developed in `C#` require the software available in [dependency/probe-cs-base](../dependency/python-cs-base).
+Probes developed in `Java` require the software available in [libraries](../libraries). Probes developed in `Python` require the software available in [dependency/probe-python-base](../dependency/python-probe-base), and probes developed in `C#` require the software available in [dependency/probe-cs-base](../dependency/cs-probe-base).
 
-The [`Demo Probe`](probe-demo), as well other probes developed in `Java`, include the `tma-monitor/libs` `docker` image, probes such as [Probe Python Demo](probe-python-demo) developed in `Python` include `tma-monitor/python-probe-base` `docker` image, and probes such as [Probe C# Demo](probe-cs-demo) developed in `C#` include `tma-monitor/python-cs-base` `docker` image . 
+The [`Demo Probe`](probe-demo), as well other probes developed in `Java`, include the `tma-monitor/libs` `docker` image, probes such as [Probe Python Demo](probe-python-demo) developed in `Python` include `tma-monitor/python-probe-base` `docker` image, and probes such as [Probe C# Demo](probe-cs-demo) developed in `C#` include `tma-monitor/cs-probe-base` `docker` image . 
 
 
 ## Installation
