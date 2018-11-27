@@ -8,7 +8,7 @@ using log4net.Core;
 using log4net.Appender;
 using log4net.Layout;
 
-namespace MonitorClient
+namespace ATMOSPHERE.TMAF.Monitor.Client
 {
 	public class Logger
     {
