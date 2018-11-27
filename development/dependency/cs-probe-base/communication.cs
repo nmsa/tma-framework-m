@@ -2,7 +2,7 @@ using System;
 using System.Net;
 using System.IO;
 
-namespace MonitorClient
+namespace ATMOSPHERE.TMAF.Monitor.Client
 {
 
 	public class Communication

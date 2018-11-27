@@ -1,7 +1,7 @@
 using System;
 using Newtonsoft.Json;
 
-namespace MonitorClient
+namespace ATMOSPHERE.TMAF.Monitor.Client
 {
 	public class Observation
 	{

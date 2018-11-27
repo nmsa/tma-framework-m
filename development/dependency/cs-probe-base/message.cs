@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace MonitorClient
+namespace ATMOSPHERE.TMAF.Monitor.Client
 {
 
 	public class Message
