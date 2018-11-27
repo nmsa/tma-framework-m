@@ -31,6 +31,7 @@ namespace MonitorClient
 			var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
 			using (var streamreader = new StreamReader(httpResponse.GetResponseStream()))
 			{
+				// return the response from Post request
 				var result = streamreader.ReadToEnd();
 				return result;
 			} 

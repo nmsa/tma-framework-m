@@ -10,6 +10,7 @@ COPY data.cs				/monitor-client
 COPY message.cs				/monitor-client
 COPY observation.cs			/monitor-client
 COPY Newtonsoft.Json.dll		/monitor-client
+COPY log4net.dll			/monitor-client
 
 # Add Digital Certificate to Trust Store
 RUN ["cert-sync", "--user", "cert.pem"]
