@@ -15,7 +15,7 @@ If you cannot install `mcs` in your system, you should use the `docker` image av
 To build the library, you need to run the following command.
 
 ```sh
-mcs -target:library -out:monitor-client.dll -r:Newtonsoft.Json.dll -r:log4net.dll observation.cs message.cs data.cs SynchronousClient.cs AssemblyInfo.csssssssssss
+mcs -target:library -out:monitor-client.dll -r:Newtonsoft.Json.dll -r:log4net.dll observation.cs message.cs data.cs SynchronousClient.cs AssemblyInfo.cs
 ```
 
 **Note:** As an alternative, you can take advantage of the [cs-probe-base](../) docker image to ease your deployment.
