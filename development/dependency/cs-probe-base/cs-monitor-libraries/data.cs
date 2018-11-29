@@ -8,20 +8,20 @@ namespace ATMOSPHERE.TMAF.Monitor.Client
 	public class Data
 	{
 		[JsonProperty(Required = Required.Always)]
-		private string type
+		public string type
 		{
 			get;
 			set;
 		}
 		[JsonProperty(Required = Required.Always)]
-		private int descriptionId
+		public int descriptionId
 		{
 			get;
 			set;
 		}
 		[JsonProperty(Required = Required.Always)]
 		private List<Observation> observations = new List<Observation>();
-		public Data (string type = "measurement", int descriptionID = -10, List<Observation> obs = null)
+		public Data (string type = "measurement", int descriptionID = -10)
 		{
 			this.type = type;
 			this.descriptionId = descriptionID;

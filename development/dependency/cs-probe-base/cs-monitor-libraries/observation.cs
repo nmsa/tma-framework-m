@@ -6,13 +6,13 @@ namespace ATMOSPHERE.TMAF.Monitor.Client
 	public class Observation
 	{
 		[JsonProperty(Required = Required.Always)]
-		private int time
+		public int time
 		{
 			get;
 			set;
 		}
 		[JsonProperty(Required = Required.Always)]
-		private double value
+		public double value
 		{
 			get;
 			set;

@@ -8,32 +8,32 @@ namespace ATMOSPHERE.TMAF.Monitor.Client
 	public class Message
 	{
 		[JsonProperty(Required = Required.Always)]
-		private int probeId
+		public int probeId
 		{
 			get;
 			set;
 		}
 		[JsonProperty(Required = Required.Always)]
-		private int resourceId
+		public int resourceId
 		{
 			get;
 			set;
 		}
 		[JsonProperty(Required = Required.Always)]
-		private int messageId
+		public int messageId
 		{
 			get;
 			set;
 		}
 		[JsonProperty(Required = Required.Always)]
-		private int sentTime
+		public int sentTime
 		{
 			get;
 			set;
 		}
 		[JsonProperty(Required = Required.Always)]
 		private List<Data> data = new List<Data>();
-		public Message (int probeID = -1, int resourceID = -1, int messageID = -1, int timestamp = -1)
+		public Message (int probeID = 1, int resourceID = 1, int messageID = 1, int timestamp = -1)
 		{
 			this.probeId = probeID;
 			this.resourceId = resourceID;
@@ -43,10 +43,6 @@ namespace ATMOSPHERE.TMAF.Monitor.Client
 		public void add_data (Data dt)
 		{
 			this.data.Add(dt);
-		}
-		public List<Data> get_data()
-		{
-			return this.data;
 		}
 	}
 }
