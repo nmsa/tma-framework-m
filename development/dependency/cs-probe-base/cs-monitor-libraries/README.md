@@ -12,7 +12,7 @@ If you cannot install `mono` in your system, you should use the `docker` image a
 
 ## Build
 
-To build the library, you need to run the following command.
+To build the library, you need to run the following command:
 
 ```sh
 mcs -target:library -out:monitor-client.dll -r:Newtonsoft.Json.dll -r:log4net.dll observation.cs message.cs data.cs SynchronousClient.cs AssemblyInfo.cs
