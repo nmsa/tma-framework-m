@@ -2,9 +2,15 @@ FROM tma-monitor/cs-probe-base:0.1
 
 WORKDIR /monitor-client
 
-COPY probe-cs-demo.cs	/monitor-client
+COPY AssemblyInfo.cs 		/monitor-client
+COPY log4net.config			/monitor-client
+COPY log4net.dll			/monitor-client
+COPY Newtonsoft.Json.dll	/monitor-client
+COPY probe-cs-demo.cs		/monitor-client
 
-RUN ["mcs", "-out:probe-cs-demo.exe", "communication.cs", "data.cs", "message.cs", "observation.cs", "probe-cs-demo.cs", "-r:Newtonsoft.Json.dll", "-r:log4net.dll"]
 
 
-CMD 	["mono", "probe-cs-demo.exe", "https://192.168.1.1:32025/monitor"]
+RUN ["mcs", "-out:probe-cs-demo.exe", "probe-cs-demo.cs", "AssemblyInfo.cs", "-r:log4net.dll", "-r:monitor-client.dll", "-r:Newtonsoft.Json.dll"]
+
+
+CMD ["mono", "probe-cs-demo.exe", "https://192.168.1.1:32025/monitor"]
