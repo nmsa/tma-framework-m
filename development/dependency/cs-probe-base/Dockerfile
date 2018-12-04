@@ -13,6 +13,6 @@ ADD cs-monitor-libraries/ /monitor-client/references
 WORKDIR /monitor-client/references
 
 # Generate DLL
-RUN ["mcs", "-target:library", "-out:../monitor-client.dll", "-r:Newtonsoft.Json.dll", "-r:log4net.dll", "observation.cs", "message.cs", "data.cs", "SynchronousClient.cs", "AssemblyInfo.cs"]
+RUN ["csc", "-target:library", "-out:../monitor-client.dll", "-r:Newtonsoft.Json.dll", "-r:log4net.dll", "observation.cs", "message.cs", "data.cs", "SynchronousClient.cs", "AssemblyInfo.cs"]
 
 

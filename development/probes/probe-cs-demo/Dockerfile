@@ -10,7 +10,7 @@ COPY probe-cs-demo.cs		/monitor-client
 
 
 
-RUN ["mcs", "-out:probe-cs-demo.exe", "probe-cs-demo.cs", "AssemblyInfo.cs", "-r:log4net.dll", "-r:monitor-client.dll", "-r:Newtonsoft.Json.dll"]
+RUN ["csc", "-out:probe-cs-demo.exe", "probe-cs-demo.cs", "AssemblyInfo.cs", "-r:log4net.dll", "-r:monitor-client.dll", "-r:Newtonsoft.Json.dll"]
 
 
 CMD ["mono", "probe-cs-demo.exe", "https://192.168.1.1:32025/monitor"]

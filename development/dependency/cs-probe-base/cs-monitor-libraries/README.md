@@ -5,9 +5,9 @@ Main dependency to use during the development of `TMA Monitor` probes developed 
 
 ## Prerequisites
 
-You need [mono](https://www.mono-project.com/) to build this project.
+You need [csc](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-options/command-line-building-with-csc-exe) to build this project.
 
-If you cannot install `mono` in your system, you should use the `docker` image available at [cs-probe-base](../). In this case, `docker` is mandatory.
+If you cannot install `csc` in your system, you should use the `docker` image available at [cs-probe-base](../). In this case, `docker` is mandatory.
 
 
 ## Build
@@ -15,7 +15,7 @@ If you cannot install `mono` in your system, you should use the `docker` image a
 To build the library, you need to run the following command:
 
 ```sh
-mcs -target:library -out:monitor-client.dll -r:Newtonsoft.Json.dll -r:log4net.dll observation.cs message.cs data.cs SynchronousClient.cs AssemblyInfo.cs
+csc -target:library -out:monitor-client.dll -r:Newtonsoft.Json.dll -r:log4net.dll observation.cs message.cs data.cs SynchronousClient.cs AssemblyInfo.cs
 ```
 
 **Note:** As an alternative, you can take advantage of the [cs-probe-base](../) docker image to ease your deployment.
