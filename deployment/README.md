@@ -65,14 +65,13 @@ Now, the Kubernetes cluster are ready to deploy containers.
 
 
 After completing all steps of the previous section, to deploy the `tma_deployment.yaml` file, you first need to execute the commands presented in this [README](https://github.com/eubr-atmosphere/tma-framework-k/tree/master/development/ceph).
-With Ceph correctly configured, need to execute the following commands:
+With Ceph correctly configured, need to execute the following commands in Ceph machine:
 ```sh
 ceph auth get-key client.admin
 echo [Output of the previous command]| base64
 ```
 
-After that you need to replace in yaml file in line 393 the key with the one returned by  
-the previous command. Finally, you need to replace the line 449 of the yaml file with the IP or FQDN of Ceph machine.
+After that you need to replace in yaml file in line 393 the key with the one returned by the previous command. Finally, you need to replace the line 449 of the yaml file with the IP or FQDN of Ceph machine.
 
 To deploy `tma_deployment_without_ceph.yaml`, you just need to execute the commands of the previous  section, and, after that, you just need to execute the following command:
 ```sh
