@@ -1,12 +1,12 @@
 {
-    "probeId": 679,
-    "resourceId": 81,
+    "probeId": 1,
+    "resourceId": 1,
     "messageId": 1002,
     "sentTime": 1524780030,
     "data": [
         {
             "type": "event",
-            "descriptionId": 2018,
+            "descriptionId": 1,
             "observations": [{
                     "time": 1524782445,
                     "value": -1
@@ -42,7 +42,7 @@
         }, 
         {
             "type": "event",
-            "descriptionId": 2010,
+            "descriptionId": 2,
             "observations": [{
                     "time": 1524782445,
                     "value": -1
@@ -63,7 +63,7 @@
         }, 
         {
             "type": "measurement",
-            "descriptionId": 19,
+            "descriptionId": 3,
             "observations": [
                 {
                     "time": 925,
@@ -85,7 +85,7 @@
         },
         {
             "type": "measurement",
-            "descriptionId": 768,
+            "descriptionId": 4,
             "observations": [
                 {
                     "time": 593,
@@ -103,7 +103,7 @@
         },
         {
             "type": "measurement",
-            "descriptionId": 747,
+            "descriptionId": 5,
             "observations": [
                 {
                     "time": 165,
@@ -121,7 +121,7 @@
         },
         {
             "type": "measurement",
-            "descriptionId": 349,
+            "descriptionId": 6,
             "observations": [
                 {
                     "time": 300,
