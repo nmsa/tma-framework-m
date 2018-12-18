@@ -390,7 +390,7 @@ kind: Secret
 metadata:
   name: ceph-secret
 data:
-  key: QVFEWVplbGJlWHhWSUJBQWFzV1B1YUNob0p6OURRMTBSaXA5d3c9PQo=
+  key: QVFDam5STmNQUXJwSnhBQStJWUxmMldUYjVuK0xXWHVGYzRkaEE9PQo=
 ---
 apiVersion: v1
 kind: Secret
@@ -438,7 +438,6 @@ spec:
         ports:
         - containerPort: 3306
           name: mysql
-        command: ["/bin/bash", "-c", "mysqld --user=root & sleep 3 && mysql -u root --password=passtobereplaced -e \"CREATE DATABASE knowledge\" && mysql -u root --password=passtobereplaced knowledge < /mysql/TMA-K_create_database.sql && while true; do sleep 30; done;"]
         volumeMounts:
         - name: mysql-vol
           mountPath: /var/lib/mysql
