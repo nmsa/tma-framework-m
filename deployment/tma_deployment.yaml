@@ -390,7 +390,7 @@ kind: Secret
 metadata:
   name: ceph-secret
 data:
-  key: QVFDam5STmNQUXJwSnhBQStJWUxmMldUYjVuK0xXWHVGYzRkaEE9PQo=
+  key: QVFEVGNCOWNjZS93SEJBQXdoOHBGZkFtRXB4Q1B5eG9xYk5lcEE9PQo=
 ---
 apiVersion: v1
 kind: Secret
@@ -445,7 +445,7 @@ spec:
         - name: mysql-vol
           rbd:
             monitors:
-              - 192.168.122.37:6789
+              - 10.0.0.43:6789
             pool: rbd
             image: tma_k_db_mysql
             user: admin
