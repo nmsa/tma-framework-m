@@ -14,7 +14,6 @@ class Communication:
    self.message_formated = message_formated
 
   def send_message(self, message_formated):
-   # url = 'http://0.0.0.0:5000/monitor'
    self.message_formated = message_formated
    headers = {'content-type': 'application/json'}
    # return the response from Post request
