@@ -5,7 +5,11 @@ Class files to use during the development of `TMA Monitor` probes developed in `
 
 ## Prerequisites
 
-To use this library, you need to import in probe `Python` file the files presented in this directory and install `requests` module.
+To use this library, you need to import in probe `Python` file the files presented in this directory and install `requests` module. To install `requests` module, you just need to execute the following command:
+
+```sh
+pip install requests
+```
 
 There is also a `docker` image that contains all files and dependencies needed. In this case, `docker` is mandatory. 
 
