@@ -1,7 +1,7 @@
 {
-    "title": "tma-m_schema_0_3r",
+    "title": "tma-m_schema_0_4",
 
-    "$id": "http://atmosphere-eubrazil.eu/tma-m_schema_v0.3r.json",
+    "$id": "http://atmosphere-eubrazil.eu/tma-m_schema_v0.4.json",
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
     "properties": {
