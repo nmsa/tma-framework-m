@@ -137,7 +137,7 @@ Rejected  (correct):  fail_3.json
 Rejected  (correct):  fail_4.json
 ``` 
 This platform can be tested with any probe present in [`probe`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/probes) folder of this repository. 
-After running this script or after deploying any probe, you can check the content of Data table of knowledge database deployed in `TMA_Knowledge` component, if you choose the Normal Mode of Apache Flume operation. If you choose Testing Mode of Apache Flume operation, you can check the content of the file generated in the `/home/kubernetes/Desktop/testingmode` folder in Worker Node machine.
+After running this script or after deploying any probe, you can check the content of Data table of knowledge database deployed in `TMA_Knowledge` component, if you choose the Normal Mode of Apache Flume operation. If you choose Testing Mode of Apache Flume operation, you can check the content of the file generated in the directory presented in line 43 of [`flume.yaml`](https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/server/flume/flume.yaml) file in Worker Node machine.
 
 **Note:** Digital certificates present in this repository are generated with the Kubernetes Master IP. In this case, all digital certificates were generated for the IP 192.168.1.1. If the Kubernetes Master IP of your setup is different, you need to generate a new digital certificate for your Kubernetes Master IP in [`Monitor`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/server/monitor-server-python/monitor-api-python) folder.
 
