@@ -32,7 +32,7 @@
         "data": {
             "$id": "/properties/data",
             "type": "array",
-            "minItems": 0,
+            "minItems": 1,
             "items": {
                 "$id": "/properties/data/items",
                 "type": "object",
