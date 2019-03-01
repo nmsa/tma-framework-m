@@ -45,7 +45,7 @@ def validate_schema(input_msg):
     # check if there are errors in json file and return the result
       errors = [error.message for error in validator.iter_errors(input_msg)]
       if errors:
-          response = "Number of erros: " + str(len(errors)) + "\n" + str(errors) + "\n"
+          response = "Number of errors: " + str(len(errors)) + "\n" + str(errors) + "\n"
           return response
       else:
 	  # Convert dict into string. Kafka only accept messages at bytes or string format
