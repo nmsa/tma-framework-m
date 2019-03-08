@@ -312,7 +312,12 @@ spec:
            --override replica.fetch.backoff.ms=1000 \
            --override replica.fetch.max.bytes=1048576 \
            --override replica.fetch.response.max.bytes=10485760 \
-           --override reserved.broker.max.id=1000 & sleep 2 && kafka-topics.sh --create --topic topic-monitor --zookeeper zk-0.zk-hs.default.svc.cluster.local:2181 --partitions 1 --replication-factor 1 && kafka-topics.sh --create --topic queue-listener --zookeeper zk-0.zk-hs.default.svc.cluster.local:2181 --partitions 1 --replication-factor 1 && kafka-topics.sh --create --topic topic-planning --zookeeper zk-0.zk-hs.default.svc.cluster.local:2181 --partitions 1 --replication-factor 1 && kafka-topics.sh --create --topic topic-execute --zookeeper zk-0.zk-hs.default.svc.cluster.local:2181 --partitions 1 --replication-factor 1 && while true; do sleep 30; done;"] 
+           --override reserved.broker.max.id=1000 & sleep 2 && \ 
+           kafka-topics.sh --create --topic topic-monitor --zookeeper zk-0.zk-hs.default.svc.cluster.local:2181 --partitions 1 --replication-factor 1 && \
+           kafka-topics.sh --create --topic queue-listener --zookeeper zk-0.zk-hs.default.svc.cluster.local:2181 --partitions 1 --replication-factor 1 && \
+           kafka-topics.sh --create --topic topic-planning --zookeeper zk-0.zk-hs.default.svc.cluster.local:2181 --partitions 1 --replication-factor 1 && \
+           kafka-topics.sh --create --topic topic-execute --zookeeper zk-0.zk-hs.default.svc.cluster.local:2181 --partitions 1 --replication-factor 1 && \
+           while true; do sleep 30; done;"] 
 
         env:
         - name: KAFKA_HEAP_OPTS
@@ -436,7 +441,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: mysql
-        image:  eubraatmosphere/tma-knowledge-mysql
+        image: eubraatmosphere/tma-knowledge-mysql
         env:
           # Use secret in real usage
         - name: MYSQL_ROOT_PASSWORD
@@ -499,21 +504,60 @@ spec:
         - containerPort: 9100
           name: metrics
 ---
-#apiVersion: apps/v1
-#kind: Deployment
+---
+apiVersion: apps/v1
+kind: Deployment
 
-#metadata:
-#  name: tma-analyze
+metadata:
+  name: tma-analyze
 
-#spec:
-#  selector:
-#    matchLabels:
-#      run: tma-analyze
-#  template:
-#    metadata:
-#      labels:
-#        run: tma-analyze
-#    spec:
-#      containers:
-#      - name: tma-analyze
-#        image: eubraatmosphere
+spec:
+  selector:
+    matchLabels:
+      run: tma-analyze
+  template:
+    metadata:
+      labels:
+        run: tma-analyze
+    spec:
+      containers:
+      - name: tma-analyze
+        image: eubraatmosphere/tma-analyze
+---
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: tma-planning
+
+spec:
+  selector:
+    matchLabels:
+      run: tma-planning
+  template:
+    metadata:
+      labels:
+        run: tma-planning
+    spec:
+      containers:
+      - name: tma-planning
+        image: eubraatmosphere/tma-planning
+---
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: tma-execute
+
+spec:
+  selector:
+    matchLabels:
+      run: tma-execute
+  template:
+    metadata:
+      labels:
+        run: tma-execute
+    spec:
+      containers:
+      - name: tma-execute
+        image: eubraatmosphere/tma-execute
