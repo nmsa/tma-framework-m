@@ -498,7 +498,7 @@ spec:
     spec:
       containers:
       - name: monitor-server
-        image: eubraatmosphere/tma-monitor
+        image: tma-monitor/server-python:0.1
         ports:
         - containerPort: 5000
         - containerPort: 9100
