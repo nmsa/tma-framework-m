@@ -75,6 +75,15 @@ After completing all steps of the previous section, it is necessary to initializ
 kubectl proxy --address IP_MASTER_MACHINE --port=8089 --accept-hosts '.*' &
 ```
 
+After that, you need to run the script called [`setup-environment.sh`](https://github.com/eubr-atmosphere/tma-framework-m/blob/new/master/development/server/monitor-server-python/monitor-api-python/setup-environment.sh) to generate the digital certificate according to the IP of the `Kubernetes` Master of your setup and build the monitor `Docker` image. This script receives as argument the IP of the Master Machine of your `Kubernetes` cluster.
+ 
+To do that, you need to execute the following commands:
+
+```sh
+cd ../development/server/monitor-server-python/monitor-api-python/
+sh setup-environment.sh MASTER_IP
+```
+
 To deploy the `tma_deployment.yaml` file, first, you need to execute the commands presented in this [README](https://github.com/eubr-atmosphere/tma-framework-k/tree/master/development/ceph).
 
 With Ceph correctly configured, you need to execute the following commands in Ceph machine:
