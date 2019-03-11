@@ -75,14 +75,14 @@ After completing all steps of the previous section, it is necessary to initializ
 kubectl proxy --address IP_MASTER_MACHINE --port=8089 --accept-hosts '.*' &
 ```
 
-After that, you need to build the base `Docker` image of TMA_Monitor. To do that, you shoudl run the following commnads in Worker node:
+After that, you need to build the base `Docker` image of TMA_Monitor. To do that, you should run the following commnads in Worker node:
 
 ```sh
 cd ../development/dependency/python-base/
 sh build.sh
 ```
 
-Also in Worker Machine, you need to run the script called [`setup-environment.sh`](https://github.com/eubr-atmosphere/tma-framework-m/blob/new/master/development/server/monitor-server-python/monitor-api-python/setup-environment.sh) to generate the digital certificate according to the IP of the `Kubernetes` Master of your setup and build the monitor `Docker` image. This script receives as argument the IP of the Master Machine of your `Kubernetes` cluster.
+Also in Worker node, you need to run the script called [`setup-environment.sh`](https://github.com/eubr-atmosphere/tma-framework-m/blob/new/master/development/server/monitor-server-python/monitor-api-python/setup-environment.sh) to generate the digital certificate according to the IP of the `Kubernetes` Master of your setup and build the monitor `Docker` image. This script receives as argument the IP of the Master Machine of your `Kubernetes` cluster.
  
 To do that, you need to execute the following commands:
 
