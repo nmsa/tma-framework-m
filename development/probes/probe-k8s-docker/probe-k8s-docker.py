@@ -5,7 +5,7 @@ import json
 import time
 from datetime import datetime
 import requests
-from tmalibrary import *
+from tmalibrary.probes import *
 
 # get stats from container
 def get_container_stats(container_name, url, communication):

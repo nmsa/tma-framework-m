@@ -2,7 +2,7 @@ import requests
 import time
 import sys
 import json
-from  tmalibrary import *
+from  tmalibrary.probes import *
 
 
 # Get rate of transmitted network packets

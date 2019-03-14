@@ -4,7 +4,7 @@ import json
 import time
 from datetime import datetime
 import requests
-from tmalibrary import *
+from tmalibrary.probes import *
 
 def send_message(url, message_formated):
 
