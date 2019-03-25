@@ -87,7 +87,7 @@ Also in Worker node, you need to run the script called [`setup-environment.sh`](
 To do that, you need to execute the following commands:
 
 ```sh
-cd ../development/server/monitor-server-python/monitor-api-python/
+cd ../../server/monitor-server-python/monitor-api-python/
 sh setup-environment.sh MASTER_IP
 ```
 
