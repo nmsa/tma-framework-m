@@ -19,7 +19,7 @@ There is also a `docker` image with these modules already installed. In this cas
 To use this library in the development of your probe, you just need to include the following lines in your probe main file, using the code below.
 
 ```python
-from tmalibrary import *
+from tmalibrary.probes import *
 ```
 
 **Note:** As an alternative, you can take advantage of the library docker image present in this folder to ease your deployment.
