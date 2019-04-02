@@ -7,7 +7,7 @@ ENV     ZK_USER=zookeeper \
             JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
 ARG     GPG_KEY=0xe22a746a68e327c1 
-ARG     ZK_DIST=zookeeper-3.4.13
+ARG     ZK_DIST=zookeeper-3.4.14
 RUN     set -x \
             && apt-get update \
             && apt-get install -y openjdk-8-jre-headless wget netcat-openbsd \
