@@ -79,11 +79,12 @@ public class ProbeKubernetes {
         resourceKeyMap.put("kafka-0", 8);
         resourceKeyMap.put("wildfly-0", 9);
         resourceKeyMap.put("mysql-wsvd-0", 10);
+        resourceKeyMap.put("teastore-webui-0", 15);
         resourceKeyMap.put("wildfly-1", 13);
         resourceKeyMap.put("wildfly-2", 14);
 
-        resourceKeyMap.put("virtmanagernode-standard-pc-i440fx-piix-1996", 11);
-        resourceKeyMap.put("virtmanagermaster-standard-pc-i440fx-piix-1996", 12);
+        resourceKeyMap.put("kubernetes-master", 11);
+        resourceKeyMap.put("kubernetes-worker", 12);
 
         String uriPods = metricsEndpoint + "namespaces/" + namespaceName + "/pods/";
         String uriNodes = metricsEndpoint + "nodes/";
@@ -230,11 +231,11 @@ public class ProbeKubernetes {
     }
 
     private static boolean isMonitorizedPod(String podName) {
-        return podName.startsWith("wildfly-") || podName.startsWith("mysql-wsvd-") || podName.startsWith("kafka-");
+        return podName.startsWith("wildfly-") || podName.startsWith("mysql-wsvd-") || podName.startsWith("kafka-")|| podName.startsWith("teastore-webui-");
     }
 
     private static boolean isMonitorizedNode(String nodeName) {
-        return nodeName.startsWith("virtmanagernode-");
+        return nodeName.startsWith("kubernetes-");
     }
 
 }
