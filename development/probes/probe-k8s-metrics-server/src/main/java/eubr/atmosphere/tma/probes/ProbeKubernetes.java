@@ -79,14 +79,14 @@ public class ProbeKubernetes {
         resourceKeyMap.put("kafka-0", 8);
         resourceKeyMap.put("wildfly-0", 9);
         resourceKeyMap.put("mysql-wsvd-0", 10);
-        resourceKeyMap.put("teastore-webui-0", 15);
         resourceKeyMap.put("wildfly-1", 13);
         resourceKeyMap.put("wildfly-2", 14);
+        resourceKeyMap.put("teastore-webui-0", 15);
+        resourceKeyMap.put("teastore-webui-1", 16);
+        resourceKeyMap.put("teastore-webui-2", 17);
 
         resourceKeyMap.put("virtmanagernode-standard-pc-i440fx-piix-1996", 11);
         resourceKeyMap.put("virtmanagermaster-standard-pc-i440x-piix-1996", 12);
-        resourceKeyMap.put("kubernetes-master", 16);
-        resourceKeyMap.put("kubernetes-worker", 17);
 
         String uriPods = metricsEndpoint + "namespaces/" + namespaceName + "/pods/";
         String uriNodes = metricsEndpoint + "nodes/";
@@ -139,10 +139,7 @@ public class ProbeKubernetes {
         if (resourceKeyMap.containsKey(podName)) {
             return resourceKeyMap.get(podName);
         } else {
-            Random random = new Random();
-            int podKey = random.nextInt(1000) + 1;
-            resourceKeyMap.put(podName, podKey);
-            return podKey;
+            return -1;
         }
     }
 
@@ -165,6 +162,10 @@ public class ProbeKubernetes {
             if (isMonitorizedPod(podName)) {
                 Message message = client.createMessage();
                 int resourceId = getResourceId(podName);
+                if (resourceId == -1) {
+                    LOGGER.info("ResourceId not found: {}", podName);
+                    continue;
+                }
                 message.setResourceId(resourceId);
 
                 List<Object> containers = (List<Object>) podData.get("containers");
