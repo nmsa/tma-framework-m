@@ -64,7 +64,7 @@ spec:
       terminationGracePeriodSeconds: 300
       containers:
       - name: k8skafka
-        image: kafka:0.1
+        image: eubraatmosphere/tma-kafka
         resources:
           requests:
             memory: "1Gi"
