@@ -8,6 +8,7 @@ ENV     KAFKA_USER=kafka \
 
 ARG     KAFKA_VERSION=2.1.1
 ARG     KAFKA_DIST=kafka_2.11-2.1.1
+
 RUN     set -x \
             && apt-get update \
             && apt-get install -y openjdk-8-jre-headless wget \

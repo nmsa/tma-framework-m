@@ -79,9 +79,14 @@ public class ProbeKubernetes {
         resourceKeyMap.put("kafka-0", 8);
         resourceKeyMap.put("wildfly-0", 9);
         resourceKeyMap.put("mysql-wsvd-0", 10);
+        resourceKeyMap.put("wildfly-1", 13);
+        resourceKeyMap.put("wildfly-2", 14);
+        resourceKeyMap.put("teastore-webui-0", 15);
+        resourceKeyMap.put("teastore-webui-1", 16);
+        resourceKeyMap.put("teastore-webui-2", 17);
 
         resourceKeyMap.put("virtmanagernode-standard-pc-i440fx-piix-1996", 11);
-        resourceKeyMap.put("virtmanagermaster-standard-pc-i440fx-piix-1996", 12);
+        resourceKeyMap.put("virtmanagermaster-standard-pc-i440x-piix-1996", 12);
 
         String uriPods = metricsEndpoint + "namespaces/" + namespaceName + "/pods/";
         String uriNodes = metricsEndpoint + "nodes/";
@@ -96,14 +101,15 @@ public class ProbeKubernetes {
                 response = requestRestService(uriNodes);
                 isr = new InputStreamReader(response.getEntity().getContent());
                 parseNodeMetrics(isr, client);
-                Thread.sleep(60000);
+
+                // This is the frequency that the probe collect the data and send to the monitor
+                Thread.sleep(5000);
             }
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
@@ -133,10 +139,7 @@ public class ProbeKubernetes {
         if (resourceKeyMap.containsKey(podName)) {
             return resourceKeyMap.get(podName);
         } else {
-            Random random = new Random();
-            int podKey = random.nextInt(1000) + 1;
-            resourceKeyMap.put(podName, podKey);
-            return podKey;
+            return -1;
         }
     }
 
@@ -147,6 +150,9 @@ public class ProbeKubernetes {
         LinkedTreeMap<String, Object> c = (LinkedTreeMap<String, Object>) rawJson;
         List<Object> items = (List<Object>) c.get("items");
 
+        // TODO change to check the node that the pod is inserted. We are allowed to do that, since we have only one node
+        // http://192.168.122.34:8089/api/v1/namespaces/default/pods/[POD_NAME]
+
         for (Object object : items) {
             LinkedTreeMap<String, Object> podData = (LinkedTreeMap<String, Object>) object;
             Object metadata = podData.get("metadata");
@@ -156,6 +162,10 @@ public class ProbeKubernetes {
             if (isMonitorizedPod(podName)) {
                 Message message = client.createMessage();
                 int resourceId = getResourceId(podName);
+                if (resourceId == -1) {
+                    LOGGER.info("ResourceId not found: {}", podName);
+                    continue;
+                }
                 message.setResourceId(resourceId);
 
                 List<Object> containers = (List<Object>) podData.get("containers");
@@ -169,13 +179,10 @@ public class ProbeKubernetes {
 
                     String memoryString = ltmUsage.get("memory").toString();
                     message.addData(parseDatumValue(memoryString, memoryDescriptionId, 2));
-
-                    System.out.println(cpuString);
-                    System.out.println(memoryString);
                 }
                 message.setSentTime(Calendar.getInstance().getTimeInMillis());
                 message.setMessageId(messageId++);
-                System.out.println(message);
+                LOGGER.info(message.toString());
                 client.send(message);
             }
         }
@@ -210,7 +217,7 @@ public class ProbeKubernetes {
                 message.setSentTime(Instant.now().getEpochSecond());
                 message.setMessageId(messageId++);
 
-                System.out.println(message);
+                LOGGER.info(message.toString());
                 client.send(message);
             }
         }
@@ -218,7 +225,7 @@ public class ProbeKubernetes {
 
     private static Data parseDatumValue(String valueString, int descriptionId, int unitLength) {
         int value = 0;
-        if (!"0".equals(valueString.trim())) {
+        if (!"0".equals(valueString.trim()) && !valueString.isEmpty() && (valueString.length() > unitLength)) {
             value = Integer.parseInt(valueString.substring(0, valueString.length() - unitLength));
         }
         Data datum = new Data(Data.Type.MEASUREMENT, descriptionId,
@@ -227,11 +234,10 @@ public class ProbeKubernetes {
     }
 
     private static boolean isMonitorizedPod(String podName) {
-        return podName.startsWith("wildfly-") || podName.startsWith("mysql-wsvd-") || podName.startsWith("kafka-");
+        return podName.startsWith("wildfly-") || podName.startsWith("mysql-wsvd-") || podName.startsWith("kafka-")|| podName.startsWith("teastore-webui-");
     }
 
     private static boolean isMonitorizedNode(String nodeName) {
-        return nodeName.startsWith("virtmanagernode-");
+        return nodeName.startsWith("virtmanagernode-") || nodeName.startsWith("kubernetes-");
     }
-
 }
