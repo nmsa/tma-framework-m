@@ -120,7 +120,7 @@ This script shows a menu with two options. First option (Normal Mode) configures
 For every observation in data received, one row in the database is generated with the following format:
 probeId,resourceId,type,descriptionId,time,value. Each one of these fields is saved in one column in the table created in database.
 
-The second option  presented in the menu of script configures the Testing Mode in `Apache Flume`. In this mode, `Apache Flume` saves in a log file, a SQL query that can be used to insert the observations in all types of SQL databases.
+The second option presented in the menu of the script configures the Testing Mode in Apache Flume. In this mode, Apache Flume saves in a log file presented in `/home/kubernetes/Desktop/testingmode` folder, a SQL query that can be used to insert the observations in all types of SQL databases. To change the previous directory, you just need to replace the directory in line 43 of [`flume.yaml`](https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/server/flume/flume.yaml) file. 
 
 ## Testing
 
@@ -152,6 +152,9 @@ Rejected  (correct):  fail_0.2.json
 Rejected  (correct):  fail_3.json
 Rejected  (correct):  fail_4.json
 ``` 
+
+This platform can be tested with any probe present in [`probe`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/probes) folder of this repository. 
+After running this script or after deploying any probe, you can check the content of Data table of knowledge database deployed in `TMA_Knowledge` component, if you choose the Normal Mode of Apache Flume operation. If you choose Testing Mode of Apache Flume operation, you can check the content of the file generated in the directory presented in line 43 of [`flume.yaml`](https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/server/flume/flume.yaml) file in Worker Node machine.
 
 This platform can be tested with any probe present in [`probe`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/probes) folder of this repository. 
 
