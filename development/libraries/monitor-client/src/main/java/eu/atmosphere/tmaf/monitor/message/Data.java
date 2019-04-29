@@ -82,20 +82,15 @@ public class Data implements Serializable {
         this.observations.addAll(observations);
     }
 
-    public Data(Data.Type type, Integer descriptionId, Observation... observations) {
+    public Data(Data.Type type, long descriptionId, Observation... observations) {
         this.type = type;
         this.descriptionId = descriptionId;
         this.observations.addAll(Arrays.asList(observations));
     }
 
-    public Data(Data.Type type, Integer descriptionId, List<Observation> observations) {
-        this.type = type;
-        this.descriptionId = descriptionId;
-        this.observations.addAll(observations);
-    }
-
     /**
      *
+     * @return 
      */
     @JsonProperty("type")
     public Data.Type getType() {
