@@ -21,7 +21,7 @@ All images will be available in Docker Hub soon.
 
 ### Development of `Java` components
 Java components should be developed in `maven` projects.
-All projects should follow the `maven` archetype available at [atmosphere-tmaf-archetype](dependency/atmosphere-tmaf-archetype). 
+All projects should follow the `maven` archetype available at [tma-archetype](https://github.com/eubr-atmosphere/tma-framework/tree/master/common/tma-archetype). 
 Details on usage are available in the folder.
 
 A `docker` image with the Java dependencies of the project is available at the [libraries](libraries) folder.
