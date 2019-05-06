@@ -5,9 +5,9 @@ Main dependency to use during the development of `TMA Monitor` probes developed 
 
 ## Prerequisites
 
-You need [maven](https://maven.apache.org/) to build this project.
+You need Apache [maven](https://maven.apache.org/) to build this project.
 
-If you cannot install `maven` in your system, you should use the `docker` image available at [java-client-lib](../). In this case, `docker` is mandatory.
+If you cannot install `maven` in your system, you should use the `docker` image available at [java-client-lib](./). In this case, `docker` is mandatory.
 
 
 ## Build
@@ -18,7 +18,7 @@ To build the library, you need to run the following command.
 mvn clean install
 ```
 
-**Note:** As an alternative, you can take advantage of the [java-client-lib](../) docker image to ease your deployment.
+**Note:** As an alternative, you can take advantage of the [java-client-lib](./) docker image to ease your deployment.
 
 ## Usage
 
