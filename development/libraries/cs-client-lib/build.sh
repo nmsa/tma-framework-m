@@ -1,1 +1,1 @@
-docker build -t tma-monitor/cs-probe-base:0.1  .
+docker build -t tma-monitor/cs-client-lib:0.1  .
