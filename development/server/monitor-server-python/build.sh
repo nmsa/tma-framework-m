@@ -1,1 +1,1 @@
-docker build --no-cache -t tma-monitor/server-python:0.2  .
+docker build --no-cache -t tma-monitor/server-python:0.1  .

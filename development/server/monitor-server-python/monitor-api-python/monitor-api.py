@@ -11,6 +11,7 @@ from kafka import SimpleProducer, KafkaClient
 app = Flask(__name__)
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 logger.info('Starting Monitor Server Python')
 
 # load json schema
@@ -32,7 +33,7 @@ producer = SimpleProducer(kafka)
 def process_message():
     # load json file
     input = request.get_json(force=True)
-    logger.debug('Processing Request %s', input)
+    logger.info('Processing Request %s', input)
 
     return validate_schema(input)
 
@@ -64,11 +65,11 @@ def validate_schema(input_msg):
             return response
         else:
             # Convert dict into string. Kafka only accept messages at bytes or string format
-            jd = json.dumps(input_msg)
+            jd = bytes(json.dumps(input_msg),encoding = 'utf-8')
             # Sending message
             producer.send_messages('topic-monitor', jd)
             return "0" + "\n"
-    except Exception, e:
+    except Exception as e:
         logger.error('Error Code -1: %s', e)
 
 
@@ -89,7 +90,6 @@ def setup_logging(default_path='logging.json', env_key='LOG_CFG'):
 if __name__ == '__main__':
     setup_logging()
     logger = logging.getLogger(__name__)
+    logger.setLevel(logging.DEBUG)
     logger.info('Initializing  Monitor Server Python')
-    app.run(debug='True', host='0.0.0.0', port=5000, ssl_context=('cert.pem', 'key.pem'))
-
-    
+    app.run(debug='True', host='0.0.0.0', port=5000, ssl_context=('cert.pem', 'key.pem'))   
