@@ -19,5 +19,3 @@ To use this library in the development of your probe, you need to include the fo
 ```python
 from tmalibrary.probes import *
 ```
-
-**Note**: To upload a new version of this library, the [INSTRUCTIONS.md](INSTRUCTIONS.md) file has all instructions needed.

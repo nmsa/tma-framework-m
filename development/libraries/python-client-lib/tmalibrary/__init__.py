@@ -1,1 +1,2 @@
-from . import probes
+name = "tmalibrary"
+from tmalibrary.probes import *
