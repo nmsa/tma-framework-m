@@ -18,7 +18,7 @@ def get_container_stats(container_name, url, communication):
 
     for stat in stats_obj:
         # print the response
-        send_stat(ast.literal_eval(stat), url, communication)
+        send_stat(eval(stat), url, communication)
 
 
 # send stat to API server
@@ -28,6 +28,7 @@ def send_stat(stat, url, communication):
 
     # url = 'http://0.0.0.0:5000/monitor'
     response = communication.send_message(stat_formatted)
+    print (response)
 
 # format stat to
 def format(stat):

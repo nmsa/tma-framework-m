@@ -8,4 +8,4 @@ RUN pip install docker
 RUN apk update
 RUN apk add docker
 
-CMD ["python", "probe-k8s-docker.py", "monitor-api", "https://192.168.1.1:32025/monitor"]
+CMD ["python3", "probe-k8s-docker.py", "monitor-api", "https://192.168.1.1:32025/monitor"]
