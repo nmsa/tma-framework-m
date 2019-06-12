@@ -88,7 +88,7 @@ if __name__ == '__main__':
         for result in resultsTx:
             message_formated = create_message(counter, resultsTx, resultsRx, resultsDropTx, resultsDropRx)
             response = communication.send_message(message_formated)
-            print response.text
+            print (response.text)
             counter = counter + 1
         resource = 0
         time.sleep(1)
