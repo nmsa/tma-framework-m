@@ -1,8 +1,8 @@
 # Design-Time Probe
 This probe was developed to send design-time data to TMA_Monitor endpoint. To execute this probe, you need to create two files:
 
-- CSV file - File that have the values of design-time metrics to be loaded to TMA_Monitor;
-- JSON file - File that have the description of all fields of CSV file.
+- CSV file - File that has the values of design-time metrics to be loaded to TMA_Monitor;
+- JSON file - File that has the description of all fields of CSV file.
 
 There is one example of each of these files in this folder.
 
