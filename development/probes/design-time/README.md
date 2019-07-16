@@ -16,7 +16,7 @@ pip install csv
 pip install tmalibrary
 ```
 
-## Installation
+## Execution
 
 To execute this probe, you need to execute the following command:
 
