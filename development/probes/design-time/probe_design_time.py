@@ -11,18 +11,13 @@ def read_json (json_file):
 		return data
 
 def process_message(communication, fields, csv_file):
-	index_resourceId = fields['resourceId']-1
-	index_type = fields['type']-1
-	index_descriptionId = fields['descriptionId']-1
-	index_time = fields['time']-1
-	index_value = fields['value']-1
-
+	messageId = 0
 	with open(csv_file) as csv_file:
 		csv_reader = csv.reader(csv_file, delimiter=';')
 		for row in csv_reader:
-			message = Message(probeId=30010, resourceId=int(row[index_resourceId]), messageId=0, sentTime=int(time.time()), data=None)
-			dt = Data(type=row[index_type], descriptionId=int(row[index_descriptionId]),observations=None)
-			obs = Observation(time=int(row[index_time]), value=float(row[index_value]))
+			message = Message(probeId=30010, resourceId=int(row[fields['resourceId']]), messageId=messageId, sentTime=int(time.time()), data=None)
+			dt = Data(type=row[fields['type']], descriptionId=int(row[fields['descriptionId']]),observations=None)
+			obs = Observation(time=int(row[fields['time']]), value=float(row[fields['value']]))
 			dt.add_observation(obs)	
 
 			message.add_data(data=dt)
@@ -30,6 +25,7 @@ def process_message(communication, fields, csv_file):
 			response = communication.send_message(message_formated)
 			print(response.text)
 			time.sleep(1)
+			messageId = messageId + 1
 
 if __name__ == '__main__':
 	json_file = sys.argv[1]
