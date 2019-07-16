@@ -21,7 +21,7 @@ pip install tmalibrary
 To execute this probe, you need to execute the following command:
 
 ```
-python3 probe_desing_time.py [JSON FILE NAME] [CSV FILE NAME] [TMA_MONITOR ENDPOINT]
+python3 probe_design_time.py [JSON FILE NAME] [CSV FILE NAME] [TMA_MONITOR ENDPOINT]
 ```
 
 ## Testing
