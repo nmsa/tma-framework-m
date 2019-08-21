@@ -12,10 +12,10 @@
  */
 package eu.atmosphere.tmaf.probe;
 
-import eu.atmosphere.tmaf.monitor.client.BackgroundClient;
-import eu.atmosphere.tmaf.monitor.message.Data;
-import eu.atmosphere.tmaf.monitor.message.Message;
-import eu.atmosphere.tmaf.monitor.message.Observation;
+//import eu.atmosphere.tmaf.monitor.client.BackgroundClient;
+//import eu.atmosphere.tmaf.monitor.message.Data;
+//import eu.atmosphere.tmaf.monitor.message.Message;
+//import eu.atmosphere.tmaf.monitor.message.Observation;
 import java.util.concurrent.ExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,23 +46,23 @@ public class Main {
     public static void main(String[] args) throws Exception{
         LOGGER.info("Trust me! This is ATMOSPHERE!");
 //        BackgroundClient client = new BackgroundClient("http://127.0.0.1:5000/monitor");
-        BackgroundClient client = new BackgroundClient();
+        //BackgroundClient client = new BackgroundClient();
 
-        client.authenticate(1098, "pass".getBytes());
+        //client.authenticate(1098, "pass".getBytes());
 
-        Message message;
+        //Message message;
 
-        boolean start = client.start();
-        LOGGER.info("start {}!", start);
+        //boolean start = client.start();
+        //LOGGER.info("start {}!", start);
         int i = 0;
 
         while (true)
         {
-            message = client.createMessage();
-            message.setResourceId(101098);
+            //message = client.createMessage();
+            //message.setResourceId(101098);
 
             // create jmx connection with mules jmx agent
-			JMXServiceURL url = new JMXServiceURL("service:jmx:rmi:///jndi/rmi://localhost:1098/server");
+			JMXServiceURL url = new JMXServiceURL("service:jmx:rmi://localhost/jndi/rmi://localhost:8008/jmxrmi");
 
 			JMXConnector jmxc = JMXConnectorFactory.connect(url, null);
 			jmxc.connect();
@@ -96,12 +96,12 @@ public class Main {
 			long cpuDiff = cpuAfter - cpuBefore; //find cpu time between our first and last jmx poll
 			cpuBefore = cpuAfter;
 			System.out.println("Cpu diff in milli seconds: " + cpuDiff / 1000000); //print cpu time in miliseconds
-            
 
-            message.addData(new Data(Data.Type.MEASUREMENT, i, new Observation(Instant.now().getEpochSecond(), Double.parseDouble(cd.get("used").toString())), new Observation(Instant.now().getEpochSecond(), (double)cpuDiff)));
 
-            client.send(message);
-            i++;
+      //message.addData(new Data(Data.Type.MEASUREMENT, i, new Observation(Instant.now().getEpochSecond(), Double.parseDouble(cd.get("used").toString())), new Observation(Instant.now().getEpochSecond(), (double)cpuDiff)));
+
+      //client.send(message);
+      i++;
     }
 }
 }
