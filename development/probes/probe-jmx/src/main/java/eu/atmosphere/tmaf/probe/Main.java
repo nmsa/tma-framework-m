@@ -84,9 +84,7 @@ public class Main {
            cd = (CompositeData) memoryMbean;
            //get an instance of the OperatingSystem Mbean
            osMbean = jmxc.getMBeanServerConnection().getAttribute(new ObjectName("java.lang:type=OperatingSystem"),"ProcessCpuTime");
-           System.out.println("Used memory: " + " " + cd.get("used") + " Used cpu: " + osMbean); //print memory usage
            tempMemory = tempMemory + Long.parseLong(cd.get("used").toString());
-           Thread.sleep(1000); //delay for one second
 
 
            //get system time and cpu time from last poll
@@ -95,13 +93,13 @@ public class Main {
 
            long cpuDiff = cpuAfter - cpuBefore; //find cpu time between our first and last jmx poll
            cpuBefore = cpuAfter;
-           System.out.println("Cpu diff in milli seconds: " + cpuDiff / 1000000); //print cpu time in miliseconds
 
 
            message.addData(new Data(Data.Type.MEASUREMENT, i, new Observation(Instant.now().getEpochSecond(), Double.parseDouble(cd.get("used").toString())), new Observation(Instant.now().getEpochSecond(), (double)cpuDiff)));
 
            client.send(message);
            i++;
+           Thread.sleep(1000); //delay for one second
     }
   }
 }
