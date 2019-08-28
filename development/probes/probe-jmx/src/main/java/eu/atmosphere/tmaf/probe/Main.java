@@ -46,7 +46,7 @@ public class Main {
     public static void main(String[] args) throws Exception{
         LOGGER.info("Trust me! This is ATMOSPHERE!");
 //        BackgroundClient client = new BackgroundClient("http://127.0.0.1:5000/monitor");
-        BackgroundClient client = new BackgroundClient();
+       BackgroundClient client = new BackgroundClient();
 
         client.authenticate(1098, "pass".getBytes());
 
@@ -54,15 +54,18 @@ public class Main {
 
         boolean start = client.start();
         LOGGER.info("start {}!", start);
-        int i = 0;
+        int descriptionId = 0;
 
         while (true)
         {
            message = client.createMessage();
            message.setResourceId(101098);
 
-            // create jmx connection with mules jmx agent
-           JMXServiceURL url = new JMXServiceURL("service:jmx:rmi://localhost/jndi/rmi://localhost:8008/jmxrmi");
+           // Normal applications using java -jar command
+           //JMXServiceURL url = new JMXServiceURL("service:jmx:rmi://localhost/jndi/rmi://localhost:9990/jmxrmi");
+
+           // Wildfly case
+           JMXServiceURL url = new JMXServiceURL("service:jmx:remote+http://192.168.1.1:9990");
 
            JMXConnector jmxc = JMXConnectorFactory.connect(url, null);
            jmxc.connect();
@@ -71,7 +74,6 @@ public class Main {
            Object memoryMbean = null;
            Object osMbean = null;
            long cpuBefore = 0;
-           long tempMemory = 0;
            CompositeData cd = null;
 
            // call the garbage collector before the test using the Memory Mbean
@@ -84,7 +86,6 @@ public class Main {
            cd = (CompositeData) memoryMbean;
            //get an instance of the OperatingSystem Mbean
            osMbean = jmxc.getMBeanServerConnection().getAttribute(new ObjectName("java.lang:type=OperatingSystem"),"ProcessCpuTime");
-           tempMemory = tempMemory + Long.parseLong(cd.get("used").toString());
 
 
            //get system time and cpu time from last poll
@@ -95,10 +96,10 @@ public class Main {
            cpuBefore = cpuAfter;
 
 
-           message.addData(new Data(Data.Type.MEASUREMENT, i, new Observation(Instant.now().getEpochSecond(), Double.parseDouble(cd.get("used").toString())), new Observation(Instant.now().getEpochSecond(), (double)cpuDiff)));
+           message.addData(new Data(Data.Type.MEASUREMENT, descriptionId, new Observation(Instant.now().getEpochSecond(), Double.parseDouble(cd.get("used").toString())), new Observation(Instant.now().getEpochSecond(), (double)cpuDiff)));
 
            client.send(message);
-           i++;
+           descriptionId++;
            Thread.sleep(1000); //delay for one second
     }
   }
