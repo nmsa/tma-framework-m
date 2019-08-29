@@ -28,7 +28,6 @@ def send_stat(stat, url, communication):
 
     # url = 'http://0.0.0.0:5000/monitor'
     response = communication.send_message(stat_formatted)
-    print (response)
 
 # format stat to
 def format(stat):
