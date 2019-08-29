@@ -1,5 +1,7 @@
 # tmalibrary
 
+TODO: Corrigir isto para apontar para tma-framework
+
 Class files to be used during the development of `TMA Monitor` probes developed in `Python`.
 
 
