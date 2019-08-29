@@ -1,1 +1,1 @@
-docker build --no-cache -f Dockerfile -t tma-monitor/java-client-lib:0.1 .
+docker build --no-cache -f Dockerfile -t tma-monitor/libs:0.1 .
