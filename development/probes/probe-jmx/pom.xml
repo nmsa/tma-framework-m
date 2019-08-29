@@ -10,7 +10,7 @@
     <packaging>jar</packaging>
 
     <url>https://github.com/eubr-atmosphere/tma-framework</url>
-    
+
     <organization> <!-- set your organization info -->
         <name>University of Coimbra</name>
         <url>http://www.uc.pt/fctuc/dei/</url>
@@ -43,7 +43,7 @@
     </dependencies>
 
     <build>
-        
+
         <plugins><!-- add your plugins -->
             <plugin> <!-- define your main class or remove -->
                 <groupId>org.apache.maven.plugins</groupId>
@@ -59,9 +59,9 @@
                     <outputDirectory>${basedir}/bin</outputDirectory>
                 </configuration>
             </plugin>
-            
-            
-            
+
+
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -82,12 +82,12 @@
                     </execution>
                 </executions>
             </plugin>
-            
-            
-            
-      
-        </plugins>        
-        
+
+
+
+
+        </plugins>
+
         <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
             <plugins>
                 <plugin>
