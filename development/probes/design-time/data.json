@@ -1,7 +1,6 @@
 {
 	"resourceId" : 0,
-	"type" : 1,
-	"descriptionId" : 2,
-	"time" : 3,
-	"value" : 4
+	"descriptionId" : 1,
+	"time" : 2,
+	"value" : 3
 }
