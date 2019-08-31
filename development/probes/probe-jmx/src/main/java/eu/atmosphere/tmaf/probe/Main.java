@@ -46,20 +46,20 @@ public class Main {
     public static void main(String[] args) throws Exception{
         LOGGER.info("Trust me! This is ATMOSPHERE!");
 //        BackgroundClient client = new BackgroundClient("http://127.0.0.1:5000/monitor");
-       //BackgroundClient client = new BackgroundClient();
+       BackgroundClient client = new BackgroundClient();
 
-        //client.authenticate(1098, "pass".getBytes());
+        client.authenticate(1098, "pass".getBytes());
 
-        //Message message;
+        Message message;
 
-        //boolean start = client.start();
-        //LOGGER.info("start {}!", start);
+        boolean start = client.start();
+        LOGGER.info("start {}!", start);
         int descriptionId = 0;
 
         while (true)
         {
-           //message = client.createMessage();
-           //message.setResourceId(101098);
+           message = client.createMessage();
+           message.setResourceId(101098);
 
            // Normal applications using java -jar command
            //JMXServiceURL url = new JMXServiceURL("service:jmx:rmi://localhost/jndi/rmi://localhost:9990/jmxrmi");
@@ -99,11 +99,9 @@ public class Main {
            long cpuDiff = cpuAfter - cpuBefore; //find cpu time between our first and last jmx poll
            cpuBefore = cpuAfter;
 
-           System.out.println(cpuDiff);
-           System.out.println(cd.get("used"));
-           //message.addData(new Data(Data.Type.MEASUREMENT, descriptionId, new Observation(Instant.now().getEpochSecond(), Double.parseDouble(cd.get("used").toString())), new Observation(Instant.now().getEpochSecond(), (double)cpuDiff)));
+           message.addData(new Data(Data.Type.MEASUREMENT, descriptionId, new Observation(Instant.now().getEpochSecond(), Double.parseDouble(cd.get("used").toString())), new Observation(Instant.now().getEpochSecond(), (double)cpuDiff)));
 
-           //client.send(message);
+           client.send(message);
            descriptionId++;
            Thread.sleep(1000); //delay for one second
     }
