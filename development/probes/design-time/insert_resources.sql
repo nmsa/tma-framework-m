@@ -1,4 +1,4 @@
-INSERT INTO RESOURCE(resourceId, resourceName, resourceType) VALUES 
+INSERT INTO Resource(resourceId, resourceName, resourceType) VALUES 
 (30030,"java/build/org/apache/derbyBuild/ChangesFileGenerator.java!addError(String)","Java_Function"),
 (30031,"java/build/org/apache/derbyBuild/ChangesFileGenerator.java!addHeadlinedItem(Element#commaString#commaString)","Java_Function"),
 (30032,"java/build/org/apache/derbyBuild/ChangesFileGenerator.java!addListItem(Element#commaNode)","Java_Function"),
