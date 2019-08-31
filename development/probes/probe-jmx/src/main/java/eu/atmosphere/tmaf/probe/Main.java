@@ -26,6 +26,7 @@ import javax.management.openmbean.CompositeData;
 import javax.management.ObjectName;
 import java.net.MalformedURLException;
 import java.time.Instant;
+import eu.atmosphere.tmaf.probe.utils.PropertiesManager;
 
 
 /**
@@ -38,8 +39,12 @@ public class Main {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
-    /**
-     * Please, document your main methods using <tt>Javadoc</tt>.
+    private static final String endpoint = PropertiesManager.getInstance().getProperty("JMX_ENDPOINT");
+
+    private static int messageId = 0;
+
+    /**P
+     * Probe that collects Memory nad CPU from Java Application Servers
      *
      * @param args
      */
@@ -54,22 +59,13 @@ public class Main {
 
         boolean start = client.start();
         LOGGER.info("start {}!", start);
-        int descriptionId = 0;
 
         while (true)
         {
            message = client.createMessage();
-           message.setResourceId(101098);
+           message.setResourceId(30018);
 
-           // Normal applications using java -jar command
-           //JMXServiceURL url = new JMXServiceURL("service:jmx:rmi://localhost/jndi/rmi://localhost:9990/jmxrmi");
-
-           // Wildfly case
-           // JMXServiceURL url = new JMXServiceURL("service:jmx:remote+http://192.168.1.1:9990");
-
-           // Glassfish case
-
-           JMXServiceURL url = new JMXServiceURL("service:jmx:rmi://localhost:8686/jndi/rmi://localhost:8686/jmxrmi");
+           JMXServiceURL url = new JMXServiceURL(endpoint);
 
            JMXConnector jmxc = JMXConnectorFactory.connect(url, null);
            jmxc.connect();
@@ -99,10 +95,11 @@ public class Main {
            long cpuDiff = cpuAfter - cpuBefore; //find cpu time between our first and last jmx poll
            cpuBefore = cpuAfter;
 
-           message.addData(new Data(Data.Type.MEASUREMENT, descriptionId, new Observation(Instant.now().getEpochSecond(), Double.parseDouble(cd.get("used").toString())), new Observation(Instant.now().getEpochSecond(), (double)cpuDiff)));
+           message.addData(new Data(Data.Type.MEASUREMENT, 30082, new Observation(Instant.now().getEpochSecond(), Double.parseDouble(cd.get("used").toString()))));
+           message.addData(new Data(Data.Type.MEASUREMENT, 30083, new Observation(Instant.now().getEpochSecond(), (double)cpuDiff)));
 
            client.send(message);
-           descriptionId++;
+           messageId++;
            Thread.sleep(1000); //delay for one second
     }
   }
