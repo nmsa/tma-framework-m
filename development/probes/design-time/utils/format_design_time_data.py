@@ -1,6 +1,6 @@
 import csv
 
-filename = "functions.csv"
+filename = "../data/functions.csv"
 initial_resource_id = 30
 initial_description_id = 60
 partner = "30"
@@ -27,7 +27,7 @@ def insert_resources(filename):
             current_resource_id = current_resource_id + 1
 
     with open("insert_resources.sql", 'w') as output_file:
-        output_file.write("INSERT INTO RESOURCE(resourceId, resourceName, resourceType) VALUES \n")
+        output_file.write("INSERT INTO Resource(resourceId, resourceName, resourceType) VALUES \n")
         output_file.write(",\n".join(resources))
         output_file.write(";")
 
