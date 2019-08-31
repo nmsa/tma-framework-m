@@ -1,6 +1,6 @@
 # TMA-Monitor Server Development
 
-This server is a scalable REST API application for validating json files against a schema and if the json is correct, this application will send them to a Apache Kafka topic.
+This server is a scalable REST API application for validating json files against a schema and if the json is correct, this application will send them to a `Apache Kafka` topic.
 
 The instructions provided below include all steps that are needed to set up this framework in you local system for testing purposes.
 
@@ -93,7 +93,7 @@ sh build.sh
 
 After executing these scripts, all containers are created and we are ready to deploy them on `Kubernetes` cluster.
 
-The first containers to be deployed in `Kubernetes` are `Apache Zookeeper`, `Apache Kafka`, and `Apache Flume`. To do that, there is a script called [`setup-testing-mode.sh`](https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/server/setup-testing-mode.sh) that automates all commands required to deploy these components. To execute the script, run the following command:
+The first containers to be deployed in `Kubernetes` are `Apache Zookeeper` and `Apache Kafka`. To do that, there is a script called [`setup-testing-mode.sh`](https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/server/setup-testing-mode.sh) that automates all commands required to deploy these components. To execute the script, run the following command:
 
 ```sh
 cd ..
@@ -102,7 +102,7 @@ sh setup-testing-mode.sh
 
 Firstly, [`setup-testing-mode.sh`](https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/server/setup-testing-mode.sh) script runs the required commands to create the persistent volumes for `Apache Zookeeper` and `Apache Kafka`. Then, it deploys these two components. Finally, it creates `topic-monitor` and `queue-listener` topics in `Apache Kafka` pod.
 
-With `Apache Zookeeper` and Apache Kafka` running and the topics created, the next step is to deploy the Monitor application. The file called [`monitor-api-python.yaml`](https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/server/monitor-server-python/monitor-api-python.yaml) creates a `Kubernetes` deployment of the Monitor application. In order to create that deploy, you should run:
+With `Apache Zookeeper` and `Apache Kafka` running and the topics created, the next step is to deploy the Monitor application. The file called [`monitor-api-python.yaml`](https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/server/monitor-server-python/monitor-api-python.yaml) creates a `Kubernetes` deployment of the Monitor application. In order to create that deploy, you should run:
 
 ```sh
 kubectl create -f monitor-server-python/monitor-api-python.yaml
