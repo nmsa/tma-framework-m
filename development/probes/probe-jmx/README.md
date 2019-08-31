@@ -40,7 +40,7 @@ After these configurations, you need to restart the GlassFish server.
 
 ## Installation
 
-Before starting probe, you will need to configure the properties value in [the configuration file](https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/probes/probe-k8s-metrics-server/src/main/resources/environment.properties). In this file is presented one example of a JMX endpoint for each type of server.
+Before starting probe, you will need to configure the properties value in [the configuration file](https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/probes/probe-jmx/src/main/resources/environment.properties). In this file is presented one example of a JMX endpoint for each type of server.
 
 To use the probe, you should build its project with the following command:
 
