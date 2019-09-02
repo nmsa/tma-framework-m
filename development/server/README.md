@@ -142,7 +142,10 @@ Rejected  (correct):  fail_4.json
 ```
 
 This platform can be tested with any probe present in [`probe`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/probes) folder of this repository.
+
 After running this script or after deploying any probe, you can check the content of Data table of knowledge database deployed in `TMA_Knowledge` component.
+
+To check the data stored in database, you need to deploy [`data-loader`](https://github.com/eubr-atmosphere/tma-framework-k/tree/master/development/data-loader) and [`MySQL`](https://github.com/eubr-atmosphere/tma-framework-k/tree/master/development/mysql) applications of `TMA_Knowledge` component.
 
 ## Authors
 * Rui Silva
