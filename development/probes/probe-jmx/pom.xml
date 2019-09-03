@@ -53,14 +53,11 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>eu.atmosphere.tmaf.probe.Main</mainClass>
                         </manifest>
                     </archive>
                     <outputDirectory>${basedir}/bin</outputDirectory>
                 </configuration>
             </plugin>
-
-
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -82,10 +79,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-
-
-
         </plugins>
 
         <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
