@@ -18,7 +18,7 @@ def get_container_stats(container_name, url, communication):
 
     for stat in stats_obj:
         # print the response
-        send_stat(ast.literal_eval(stat), url, communication)
+        send_stat(eval(stat), url, communication)
 
 
 # send stat to API server
@@ -35,39 +35,39 @@ def format(stat):
     # sometimes the following metrics can be empty (reboot can fix it). -1 -> empty
     if len(stat['blkio_stats']['io_service_bytes_recursive']) > 0:
         for i in range(0,15,3):
-            st[i] = stat['blkio_stats']['io_service_bytes_recursive'][i/3]['major']
-            st[i+1] = stat['blkio_stats']['io_service_bytes_recursive'][i/3]['minor']
-            st[i+2] = stat['blkio_stats']['io_service_bytes_recursive'][i/3]['value']
+            st[i] = stat['blkio_stats']['io_service_bytes_recursive'][i//3]['major']
+            st[i+1] = stat['blkio_stats']['io_service_bytes_recursive'][i//3]['minor']
+            st[i+2] = stat['blkio_stats']['io_service_bytes_recursive'][i//3]['value']
 
     if len(stat['blkio_stats']['io_serviced_recursive']) > 0:
         for i in range (15,30,3):
-            st[i] = stat['blkio_stats']['io_serviced_recursive'][i/3-5]['major']
-            st[i+1] = stat['blkio_stats']['io_serviced_recursive'][i/3-5]['minor']
-            st[i+2] = stat['blkio_stats']['io_serviced_recursive'][i/3-5]['value']
+            st[i] = stat['blkio_stats']['io_serviced_recursive'][i//3-5]['major']
+            st[i+1] = stat['blkio_stats']['io_serviced_recursive'][i//3-5]['minor']
+            st[i+2] = stat['blkio_stats']['io_serviced_recursive'][i//3-5]['value']
 
     if len(stat['blkio_stats']['io_queue_recursive']) > 0:
         for i in range(30,45,3):
-            st[i] = stat['blkio_stats']['io_queue_recursive'][i/3-10]['major']
-            st[i+1] = stat['blkio_stats']['io_queue_recursive'][i/3-10]['minor']
-            st[i+2] = stat['blkio_stats']['io_queue_recursive'][i/3-10]['value']
+            st[i] = stat['blkio_stats']['io_queue_recursive'][i//3-10]['major']
+            st[i+1] = stat['blkio_stats']['io_queue_recursive'][i//3-10]['minor']
+            st[i+2] = stat['blkio_stats']['io_queue_recursive'][i//3-10]['value']
 
     if len(stat['blkio_stats']['io_service_time_recursive']) > 0:
         for i in range(45,60,3):
-            st[i] = stat['blkio_stats']['io_service_time_recursive'][i/3-15]['major']
-            st[i+1] = stat['blkio_stats']['io_service_time_recursive'][i/3-15]['minor']
-            st[i+2] = stat['blkio_stats']['io_service_time_recursive'][i/3-15]['value']
+            st[i] = stat['blkio_stats']['io_service_time_recursive'][i//3-15]['major']
+            st[i+1] = stat['blkio_stats']['io_service_time_recursive'][i//3-15]['minor']
+            st[i+2] = stat['blkio_stats']['io_service_time_recursive'][i//3-15]['value']
 
     if len(stat['blkio_stats']['io_wait_time_recursive']) > 0:
         for i in range(60,75,3):
-            st[i] = stat['blkio_stats']['io_wait_time_recursive'][i/3-20]['major']
-            st[i+1] = stat['blkio_stats']['io_wait_time_recursive'][i/3-20]['minor']
-            st[i+2] = stat['blkio_stats']['io_wait_time_recursive'][i/3-20]['value']
+            st[i] = stat['blkio_stats']['io_wait_time_recursive'][i//3-20]['major']
+            st[i+1] = stat['blkio_stats']['io_wait_time_recursive'][i//3-20]['minor']
+            st[i+2] = stat['blkio_stats']['io_wait_time_recursive'][i//3-20]['value']
 
     if len(stat['blkio_stats']['io_merged_recursive']) > 0:
         for i in range(75,90,3):
-            st[i] = stat['blkio_stats']['io_merged_recursive'][i/3-25]['major']
-            st[i+1] = stat['blkio_stats']['io_merged_recursive'][i/3-25]['minor']
-            st[i+2] = stat['blkio_stats']['io_merged_recursive'][i/3-25]['value']
+            st[i] = stat['blkio_stats']['io_merged_recursive'][i//3-25]['major']
+            st[i+1] = stat['blkio_stats']['io_merged_recursive'][i//3-25]['minor']
+            st[i+2] = stat['blkio_stats']['io_merged_recursive'][i//3-25]['value']
 
     if len(stat['blkio_stats']['io_time_recursive']) > 0:
         st[90] = stat['blkio_stats']['io_time_recursive'][0]['major']

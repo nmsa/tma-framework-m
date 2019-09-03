@@ -21,7 +21,7 @@ def create_message():
 	# sentTime = current time? Or the same timestamp from the metrics?
 	# need to change the probeId, resourceId and messageId
 	message = Message(probeId=1, resourceId=101098, messageId=0, sentTime=int(time.time()), data=None)
-        timestamp = int(time.time())
+	timestamp = int(time.time())
 	# append measurement data to message
 	dt = Data(type="measurement", descriptionId=1, observations=None)
 	obs = Observation(time=timestamp, value=20000.00001 + 1)

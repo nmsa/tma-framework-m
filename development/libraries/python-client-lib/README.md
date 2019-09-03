@@ -3,14 +3,10 @@
 Class files to be used during the development of `TMA Monitor` probes developed in `Python`.
 
 
-## Prerequisites
+## Installation
 
-To use this library, you need to install `requests` and `tmalibrary` module. To install these modules, you need to execute the following commands:
-
-```sh
-pip install requests
-pip install tmalibrary
-```
+To use this library, you need to compile the sources presented in this [folder](https://github.com/eubr-atmosphere/tma-framework/tree/master/common/tmalibrary) in [tma-framework](https://github.com/eubr-atmosphere/tma-framework) repository.
+All instructions needed are presented in [INSTRUCTIONS.md](https://github.com/eubr-atmosphere/tma-framework/blob/master/common/tmalibrary/INSTRUCTIONS.md) file.
 
 ## Usage
 
@@ -19,5 +15,3 @@ To use this library in the development of your probe, you need to include the fo
 ```python
 from tmalibrary.probes import *
 ```
-
-**Note**: To upload a new version of this library, the [INSTRUCTIONS.md](INSTRUCTIONS.md) file has all instructions needed.

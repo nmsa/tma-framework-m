@@ -1,4 +1,4 @@
-FROM tma-monitor/cs-probe-base:0.1
+FROM tma-monitor/cs-client-lib:0.1
 
 WORKDIR /monitor-client
 

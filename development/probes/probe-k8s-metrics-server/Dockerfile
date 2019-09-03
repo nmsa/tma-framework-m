@@ -1,4 +1,4 @@
-FROM    tma-monitor/libs:0.1
+FROM    tma-monitor/java-client-lib:0.1
 
 ENV     probes      /atmosphere/tma/probe
 

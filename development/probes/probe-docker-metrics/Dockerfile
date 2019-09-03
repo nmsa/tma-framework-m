@@ -9,4 +9,4 @@ RUN apk add docker
 
 RUN pip install docker
 
-CMD 	["python", "probe-docker-metrics.py", "monitor-api", "https://192.168.1.1:32025/monitor"]
+CMD 	["python3", "probe-docker-metrics.py", "monitor-api", "https://192.168.1.1:32025/monitor"]

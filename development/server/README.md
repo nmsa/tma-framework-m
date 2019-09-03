@@ -1,6 +1,6 @@
 # TMA-Monitor Server Development
 
-This server is a scalable REST API application for validating json files against a schema and if the json is correct, this application will send them to a Apache Kafka topic.
+This server is a scalable REST API application for validating json files against a schema and if the json is correct, this application will send them to a `Apache Kafka` topic.
 
 The instructions provided below include all steps that are needed to set up this framework in you local system for testing purposes.
 
@@ -19,7 +19,7 @@ To install `Kubernetes` you should execute the following commands:
 
 ```sh
 sudo su -
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add 
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add
 echo -e "deb http://apt.kubernetes.io/ kubernetes-xenial main " >> /etc/apt/sources.list.d/kubernetes.list
 apt-get update
 apt-get install -y kubelet kubeadm kubectl kubernetes-cni
@@ -67,12 +67,12 @@ Now, the `Kubernetes` cluster are ready to deploy containers.
 
 ## Installation
 
-After completing all steps of the previous section, the first step of project installation is to create the images that deploy `Apache Kafka`, `Apache Zookeeper`, the Monitor API REST, and `Apache Flume`containers. In order to do that, there is a shell script called `build.sh` presented in [`kafka`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/server/kafka), [`zookeeper`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/server/zookeeper), [`monitor-server-python`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/server/monitor-server-python), and [`flume`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/server/flume) folders of this project.
+After completing all steps of the previous section, the first step of project installation is to create the images that deploy `Apache Kafka`, `Apache Zookeeper`, and the Monitor API REST containers. In order to do that, there is a shell script called `build.sh` presented in [`kafka`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/server/kafka), [`zookeeper`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/server/zookeeper), and [`monitor-server-python`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/server/monitor-server-python) folders of this project.
 
 To deploy the monitor, you need to run the script called `build.sh` presented in [`dependency/python-base`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/dependency/python-base "python-base") folder in order to create the base python image that will be used to generate the container that runs the Monitor.
 
 After that, you need to run the script called [`setup-environment.sh`](https://github.com/eubr-atmosphere/tma-framework-m/blob/new/master/development/server/monitor-server-python/monitor-api-python/setup-environment.sh) to generate the digital certificate according to the IP of the `Kubernetes` Master of your setup and build the monitor `Docker` image. This script receives as argument the IP of the Master Machine of your `Kubernetes` cluster.
- 
+
 To do that, you need to execute the following commands:
 
 ```sh
@@ -80,7 +80,7 @@ cd monitor-server-python/monitor-api-python
 sh setup-environment.sh MASTER_IP
 ```
 
-To build the `Docker` images of `Apache Kafka`, `Apache Flume` and `Apache Zookeeper`, you should run the following commands on the worker node:
+To build the `Docker` images of `Apache Kafka` and `Apache Zookeeper`, you should run the following commands on the worker node:
 
 ```sh
 cd development/dependency/python-base/
@@ -89,49 +89,37 @@ cd ../../server/kafka
 sh build.sh
 cd ../zookeeper
 sh build.sh
-cd ../flume
-sh build.sh
 ```
 
 After executing these scripts, all containers are created and we are ready to deploy them on `Kubernetes` cluster.
 
-The first containers to be deployed in `Kubernetes` are `Apache Zookeeper`, `Apache Kafka`, and `Apache Flume`. To do that, there is a script called [`setup-testing-mode.sh`](https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/server/setup-testing-mode.sh) that automates all commands required to deploy these components. To execute the script, run the following command:
+The first containers to be deployed in `Kubernetes` are `Apache Zookeeper` and `Apache Kafka`. To do that, there is a script called [`setup-testing-mode.sh`](https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/server/setup-testing-mode.sh) that automates all commands required to deploy these components. To execute the script, run the following command:
 
 ```sh
 cd ..
 sh setup-testing-mode.sh
 ```
 
-Firstly, [`setup-testing-mode.sh`](https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/server/setup-testing-mode.sh) script runs the required commands to create the persistent volumes for `Apache Zookeeper` and `Apache Kafka`. Then, it deploys these two components. Then, it creates `topic-monitor` and `queue-listener` topics in `Apache Kafka` pod. Finnaly, `Apache Flume` is deployed in `Kubernetes` cluster.
+Firstly, [`setup-testing-mode.sh`](https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/server/setup-testing-mode.sh) script runs the required commands to create the persistent volumes for `Apache Zookeeper` and `Apache Kafka`. Then, it deploys these two components. Finally, it creates `topic-monitor` and `queue-listener` topics in `Apache Kafka` pod.
 
-With `Apache Zookeeper`, `Apache Kafka`, and `Apache Flume` running and the topics created, the next step is to deploy the Monitor application. The file called [`monitor-api-python.yaml`](https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/server/monitor-server-python/monitor-api-python.yaml) creates a `Kubernetes` deployment of the Monitor application. In order to create that deploy, you should run:
+With `Apache Zookeeper` and `Apache Kafka` running and the topics created, the next step is to deploy the Monitor application. The file called [`monitor-api-python.yaml`](https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/server/monitor-server-python/monitor-api-python.yaml) creates a `Kubernetes` deployment of the Monitor application. In order to create that deploy, you should run:
 
 ```sh
 kubectl create -f monitor-server-python/monitor-api-python.yaml
-``` 
+```
 
 For details on the REST API usage, you should check the current [monitor-server](monitor-server-python) implementation.
-
-
-With Monitor running and working correctly, you need to configure `Apache Flume` with [`flume.sh`](https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/server/flume/flume.sh) according to the operation mode that you want.
-
-This script shows a menu with two options. First option (Normal Mode) configures and executes `Apache Flume` to save the received data in a `MySQL` database that belongs to `TMA_Knowledge` component.
-
-For every observation in data received, one row in the database is generated with the following format:
-probeId,resourceId,type,descriptionId,time,value. Each one of these fields is saved in one column in the table created in database.
-
-The second option presented in the menu of the script configures the Testing Mode in Apache Flume. In this mode, Apache Flume saves in a log file presented in `/home/kubernetes/Desktop/testingmode` folder, a SQL query that can be used to insert the observations in all types of SQL databases. To change the previous directory, you just need to replace the directory in line 43 of [`flume.yaml`](https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/server/flume/flume.yaml) file. 
 
 ## Testing
 
 For testing the validation of json files with schema, there is a script that injects some json files that have correct structure and others with some errors.
 That script is located in `test/testing-json-format/testing-json-format.sh`.
 
-Before running the script, check if the service is available. You can do that by running the following command: 
+Before running the script, check if the service is available. You can do that by running the following command:
 
 ```sh
 kubectl describe service monitor-server
-``` 
+```
 
 To test the environment, you should run:
 
@@ -139,7 +127,7 @@ To test the environment, you should run:
 cd ../test/testing-json-format/
 chmod 777 testing-json-format.sh
 ./testing-json-format.sh
-``` 
+```
 
 After running the script, you should see an output like the following:
 
@@ -151,14 +139,13 @@ Rejected  (correct):  fail_0.1.json
 Rejected  (correct):  fail_0.2.json
 Rejected  (correct):  fail_3.json
 Rejected  (correct):  fail_4.json
-``` 
+```
 
-This platform can be tested with any probe present in [`probe`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/probes) folder of this repository. 
-After running this script or after deploying any probe, you can check the content of Data table of knowledge database deployed in `TMA_Knowledge` component, if you choose the Normal Mode of Apache Flume operation. If you choose Testing Mode of Apache Flume operation, you can check the content of the file generated in the directory presented in line 43 of [`flume.yaml`](https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/server/flume/flume.yaml) file in Worker Node machine.
+This platform can be tested with any probe present in [`probe`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/probes) folder of this repository.
 
-This platform can be tested with any probe present in [`probe`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/probes) folder of this repository. 
+After running this script or after deploying any probe, you can check the content of Data table of knowledge database deployed in `TMA_Knowledge` component.
 
-After running this script or after deploying any probe, you can check the content of Data table of knowledge database deployed in `TMA_Knowledge` component, if you choose the Normal Mode of `Apache Flume` operation. If you choose Testing Mode of Apache Flume operation, you can check the content of the file generated in the `/home/kubernetes/Desktop/testingmode` folder in Worker Node machine.
+To check the data stored in database, you need to deploy [`data-loader`](https://github.com/eubr-atmosphere/tma-framework-k/tree/master/development/data-loader) and [`MySQL`](https://github.com/eubr-atmosphere/tma-framework-k/tree/master/development/mysql) applications of `TMA_Knowledge` component.
 
 ## Authors
 * Rui Silva
