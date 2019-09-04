@@ -49,16 +49,24 @@ public class TMAProbe {
     private static final String DESCRIPTION_ID_CPU = PropertiesManager.getInstance().getProperty("DESCRIPTION_ID_CPU");
     private static final String DESCRIPTION_ID_MEMORY = PropertiesManager.getInstance().getProperty("DESCRIPTION_ID_MEMORY");
     private static final String RESOURCE_ID = PropertiesManager.getInstance().getProperty("RESOURCE_ID");
+    private static final String PASSWORD = PropertiesManager.getInstance().getProperty("PASSWORD");
+
+    private static final int PROBE_ID = PropertiesManager.getInstance().getIntegerProperty("PROBE_ID");
 
     private static final int DEFAULT_PROBE_DELAY = 1000;
 
     private static final AtomicBoolean running = new AtomicBoolean(false);
 
-    public static boolean startReporting() {
+    public static void main(String[] args) {
+      running.set(true);
+      boolean execution = startReporting();
+      stopReporting();
+    }
+
+    public static boolean startReporting () {
         BackgroundClient client = new BackgroundClient();
 
-        // TODO: this passwords should come from...
-        client.authenticate(1098, "pass".getBytes());
+        client.authenticate(PROBE_ID, PASSWORD.getBytes());
 
         int probingDelay = PropertiesManager.getInstance().getIntegerProperty("PROBING_DELAY");
         if (PropertiesManager.INVALID_INTEGER_ERROR_CODE == probingDelay) {
@@ -80,6 +88,8 @@ public class TMAProbe {
         boolean start = client.start();
         LOGGER.info("start {}!", start);
 
+
+
         /**
          * For the inner thread;
          */
@@ -97,10 +107,6 @@ public class TMAProbe {
 
                 while (running.get()) {
 
-                    // Ill advised
-//                    // call the garbage collector before the test using the Memory Mbean
-//                    jmxcFinal.getMBeanServerConnection().invoke(new ObjectName("java.lang:type=Memory"), "gc", null, null);
-// 
                     try {
                         //get an instance of the HeapMemoryUsage Mbean
                         memoryMbean = server.getAttribute(new ObjectName("java.lang:type=Memory"), "HeapMemoryUsage");
@@ -134,10 +140,6 @@ public class TMAProbe {
             }
         };
 
-        /**
-         * *
-         * We forgot to start the thread.
-         */
         Executors.newSingleThreadExecutor().submit(r);
 
         return true;

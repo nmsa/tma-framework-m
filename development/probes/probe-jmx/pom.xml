@@ -53,6 +53,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>eu.atmosphere.tmaf.probe.TMAProbe</mainClass>
                         </manifest>
                     </archive>
                     <outputDirectory>${basedir}/bin</outputDirectory>
