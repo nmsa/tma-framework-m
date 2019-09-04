@@ -26,10 +26,12 @@ import javax.management.ObjectName;
 import java.time.Instant;
 import eu.atmosphere.tmaf.probe.utils.PropertiesManager;
 import java.io.IOException;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 import javax.management.AttributeNotFoundException;
 import javax.management.InstanceNotFoundException;
 import javax.management.MBeanException;
+import javax.management.MBeanServerConnection;
 import javax.management.MalformedObjectNameException;
 import javax.management.ReflectionException;
 
@@ -64,11 +66,12 @@ public class TMAProbe {
             probingDelay = DEFAULT_PROBE_DELAY;
         }
 
-        JMXConnector jmxc = null;
+        final MBeanServerConnection server;
         try {
             JMXServiceURL url = new JMXServiceURL(ENDPOINT);
-            jmxc = JMXConnectorFactory.connect(url, null);
+            JMXConnector jmxc = JMXConnectorFactory.connect(url, null);
             jmxc.connect();
+            server = jmxc.getMBeanServerConnection();
         } catch (IOException ex) {
             LOGGER.error("Invalid JMXServiceURL or Connection!", ex);
             return false;
@@ -81,17 +84,16 @@ public class TMAProbe {
          * For the inner thread;
          */
         final int probingDelayFinal = probingDelay;
-        final JMXConnector jmxcFinal = jmxc;
         Runnable r = new Runnable() {
             @Override
             public void run() {
                 Message message;
 
                 //create object instances that will be used to get memory and operating system Mbean objects exposed by JMX; create variables for cpu time and system time before
-                Object memoryMbean = null;
-                Object osMbean = null;
+                Object memoryMbean;
+                Object osMbean;
                 long cpuBefore = 0;
-                CompositeData cd = null;
+                CompositeData cd;
 
                 while (running.get()) {
 
@@ -101,10 +103,10 @@ public class TMAProbe {
 // 
                     try {
                         //get an instance of the HeapMemoryUsage Mbean
-                        memoryMbean = jmxcFinal.getMBeanServerConnection().getAttribute(new ObjectName("java.lang:type=Memory"), "HeapMemoryUsage");
+                        memoryMbean = server.getAttribute(new ObjectName("java.lang:type=Memory"), "HeapMemoryUsage");
                         cd = (CompositeData) memoryMbean;
                         //get an instance of the OperatingSystem Mbean
-                        osMbean = jmxcFinal.getMBeanServerConnection().getAttribute(new ObjectName("java.lang:type=OperatingSystem"), "ProcessCpuTime");
+                        osMbean = server.getAttribute(new ObjectName("java.lang:type=OperatingSystem"), "ProcessCpuTime");
 
                         //get system time and cpu time from last poll
                         long cpuAfter = Long.parseLong(osMbean.toString());
@@ -131,6 +133,12 @@ public class TMAProbe {
                 }
             }
         };
+
+        /**
+         * *
+         * We forgot to start the thread.
+         */
+        Executors.newSingleThreadExecutor().submit(r);
 
         return true;
     }
