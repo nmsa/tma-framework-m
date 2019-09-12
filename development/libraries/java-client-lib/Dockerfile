@@ -11,12 +11,12 @@ RUN ["./keytool", "-import", "-trustcacerts", "-keystore", "/usr/lib/jvm/java-1.
 #Adding Monitor Client
 WORKDIR ${libs}/monitor-client
 # Prepare by downloading dependencies
-ADD     monitor-client/pom.xml  ${libs}/monitor-client/pom.xml
+ADD     pom.xml  ${libs}/monitor-client/pom.xml
 RUN     ["mvn", "dependency:resolve"]
 RUN     ["mvn", "verify"]
 
 # Adding source, compile and package into a fat jar
-ADD     monitor-client/src      ${libs}/monitor-client/src
+ADD     src      ${libs}/monitor-client/src
 RUN     ["mvn", "install"]
 
 
