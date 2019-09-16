@@ -23,8 +23,8 @@
 
     <dependency>
       <groupId>eu.atmosphere.tmaf</groupId>
-      <artifactId>monitor-client</artifactId>
-      <version>0.1</version>
+      <artifactId>java-client-lib</artifactId>
+      <version>0.2</version>
     </dependency>
 
     <dependency>
