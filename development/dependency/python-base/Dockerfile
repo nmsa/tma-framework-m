@@ -4,3 +4,4 @@ RUN     pip install virtualenv
 RUN     pip install flask
 RUN     pip install jsonschema
 RUN     pip install kafka-python
+RUN     pip install gunicorn
