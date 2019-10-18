@@ -45,25 +45,38 @@ public class TMAProbe {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TMAProbe.class);
 
-    private static final String ENDPOINT = PropertiesManager.getInstance().getProperty("JMX_ENDPOINT");
-    private static final String DESCRIPTION_ID_CPU = PropertiesManager.getInstance().getProperty("DESCRIPTION_ID_CPU");
-    private static final String DESCRIPTION_ID_MEMORY = PropertiesManager.getInstance().getProperty("DESCRIPTION_ID_MEMORY");
-    private static final String RESOURCE_ID = PropertiesManager.getInstance().getProperty("RESOURCE_ID");
-    private static final String PASSWORD = PropertiesManager.getInstance().getProperty("PASSWORD");
+    private static final String ENDPOINT
+            = PropertiesManager.getInstance().getProperty("JMX_ENDPOINT");
+    private static final String DESCRIPTION_ID_CPU
+            = PropertiesManager.getInstance().getProperty("DESCRIPTION_ID_CPU");
+    private static final String DESCRIPTION_ID_MEMORY
+            = PropertiesManager.getInstance().getProperty("DESCRIPTION_ID_MEMORY");
+    private static final String RESOURCE_ID
+            = PropertiesManager.getInstance().getProperty("RESOURCE_ID");
+    private static final String PASSWORD
+            = PropertiesManager.getInstance().getProperty("PASSWORD");
 
-    private static final int PROBE_ID = PropertiesManager.getInstance().getIntegerProperty("PROBE_ID");
+    private static final int PROBE_ID
+            = PropertiesManager.getInstance().getIntegerProperty("PROBE_ID");
 
     private static final int DEFAULT_PROBE_DELAY = 1000;
 
     private static final AtomicBoolean running = new AtomicBoolean(false);
 
-    public static void main(String[] args) {
-      running.set(true);
-      boolean execution = startReporting();
-      stopReporting();
+    public enum Result {
+        PROBE_ALREADY_RUNNING,
+        INVALID_JMX_SERVICE_URL,
+        SUCCESS
     }
 
-    public static boolean startReporting () {
+    public static Result startReporting() {
+
+        if (running.get()) {
+            return Result.PROBE_ALREADY_RUNNING;
+        }
+
+        running.set(true);
+
         BackgroundClient client = new BackgroundClient();
 
         client.authenticate(PROBE_ID, PASSWORD.getBytes());
@@ -82,67 +95,71 @@ public class TMAProbe {
             server = jmxc.getMBeanServerConnection();
         } catch (IOException ex) {
             LOGGER.error("Invalid JMXServiceURL or Connection!", ex);
-            return false;
+            return Result.INVALID_JMX_SERVICE_URL;
         }
 
         boolean start = client.start();
-        LOGGER.info("start {}!", start);
-
-
+        LOGGER.trace("BackgroundClient started: {}!", start);
+        running.set(true);
 
         /**
          * For the inner thread;
          */
         final int probingDelayFinal = probingDelay;
-        Runnable r = new Runnable() {
-            @Override
-            public void run() {
-                Message message;
+        Runnable r = () -> {
+            Message message;
 
-                //create object instances that will be used to get memory and operating system Mbean objects exposed by JMX; create variables for cpu time and system time before
-                Object memoryMbean;
-                Object osMbean;
-                long cpuBefore = 0;
-                CompositeData cd;
+            // create object instances that will be used to get memory and operating 
+            // system Mbean objects exposed by JMX; create variables for cpu time 
+            // and system time before
+            Object memoryMbean;
+            Object osMbean;
+            long cpuBefore = 0;
+            CompositeData cd;
 
-                while (running.get()) {
+            while (running.get()) {
 
-                    try {
-                        //get an instance of the HeapMemoryUsage Mbean
-                        memoryMbean = server.getAttribute(new ObjectName("java.lang:type=Memory"), "HeapMemoryUsage");
-                        cd = (CompositeData) memoryMbean;
-                        //get an instance of the OperatingSystem Mbean
-                        osMbean = server.getAttribute(new ObjectName("java.lang:type=OperatingSystem"), "ProcessCpuTime");
+                try {
+                    //get an instance of the HeapMemoryUsage Mbean
+                    memoryMbean = server.getAttribute(new ObjectName("java.lang:type=Memory"), "HeapMemoryUsage");
+                    cd = (CompositeData) memoryMbean;
+                    //get an instance of the OperatingSystem Mbean
+                    osMbean = server.getAttribute(new ObjectName("java.lang:type=OperatingSystem"), "ProcessCpuTime");
 
-                        //get system time and cpu time from last poll
-                        long cpuAfter = Long.parseLong(osMbean.toString());
-                        long cpuDiff = cpuAfter - cpuBefore; //find cpu time between our first and last jmx poll
-                        cpuBefore = cpuAfter;
+                    //get system time and cpu time from last poll
+                    long cpuAfter = Long.parseLong(osMbean.toString());
+                    //find cpu time between our first and last jmx poll
+                    long cpuDiff = cpuAfter - cpuBefore;
+                    cpuBefore = cpuAfter;
 
-                        message = client.createMessage();
-                        message.setResourceId(Integer.parseInt(RESOURCE_ID));
-                        message.addData(new Data(Data.Type.MEASUREMENT, Integer.parseInt(DESCRIPTION_ID_MEMORY), new Observation(Instant.now().getEpochSecond(), Double.parseDouble(cd.get("used").toString()))));
-                        message.addData(new Data(Data.Type.MEASUREMENT, Integer.parseInt(DESCRIPTION_ID_CPU), new Observation(Instant.now().getEpochSecond(), (double) cpuDiff)));
+                    message = client.createMessage();
+                    message.setResourceId(Integer.parseInt(RESOURCE_ID));
+                    message.addData(new Data(Data.Type.MEASUREMENT,
+                            Integer.parseInt(DESCRIPTION_ID_MEMORY),
+                            new Observation(Instant.now().getEpochSecond(), Double.parseDouble(cd.get("used").toString()))));
+                    message.addData(new Data(Data.Type.MEASUREMENT,
+                            Integer.parseInt(DESCRIPTION_ID_CPU),
+                            new Observation(Instant.now().getEpochSecond(), (double) cpuDiff)));
 
-                        client.send(message);
+                    client.send(message);
 
-                    } catch (IOException | MalformedObjectNameException | MBeanException | AttributeNotFoundException | InstanceNotFoundException | ReflectionException | NumberFormatException ex) {
-                        LOGGER.warn("Unable to read metrics, no message created or sent.", ex);
+                } catch (IOException | MalformedObjectNameException | MBeanException
+                        | AttributeNotFoundException | InstanceNotFoundException
+                        | ReflectionException | NumberFormatException ex) {
+                    LOGGER.warn("Unable to read metrics, no message created or sent.", ex);
+                }
 
-                    }
-
-                    try {
-                        Thread.sleep(probingDelayFinal); //delay for configured millis
-                    } catch (InterruptedException ex) {
-                        LOGGER.trace("Sleep Interrupted.", ex);
-                    }
+                try {
+                    Thread.sleep(probingDelayFinal);
+                } catch (InterruptedException ex) {
+                    LOGGER.trace("Sleep Interrupted.", ex);
                 }
             }
         };
 
         Executors.newSingleThreadExecutor().submit(r);
 
-        return true;
+        return Result.SUCCESS;
     }
 
     public static void stopReporting() {
