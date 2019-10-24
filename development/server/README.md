@@ -5,6 +5,7 @@ This server is a scalable REST API application for validating json files against
 The instructions provided below include all steps that are needed to set up this framework in you local system for testing purposes.
 
 ## Prerequisites
+
 The instructions were tested in `ubuntu`, but should work in other `debian`-based distributions, assuming that you are able to install the key dependencies.
 
 The first step is to install the required components: `Docker`, and `Kubernetes`.
@@ -71,12 +72,21 @@ After completing all steps of the previous section, the first step of project in
 
 To deploy the monitor, you need to run the script called `build.sh` presented in [`dependency/python-base`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/dependency/python-base "python-base") folder in order to create the base python image that will be used to generate the container that runs the Monitor.
 
-After that, you need to run the script called [`setup-environment.sh`](https://github.com/eubr-atmosphere/tma-framework-m/blob/new/master/development/server/monitor-server-python/monitor-api-python/setup-environment.sh) to generate the digital certificate according to the IP of the `Kubernetes` Master of your setup and build the monitor `Docker` image. This script receives as argument the IP of the Master Machine of your `Kubernetes` cluster.
+There are two versions of Monitor. One version deploys Gunicorn on top of Flask for high performance environments. Other version only deployes Flask for debugging purposes.
+
+After that, you need to run the script called `setup-environment.sh` to generate the digital certificate according to the IP of the `Kubernetes` Master of your setup and build the monitor `Docker` image. This script receives as argument the IP of the Master Machine of your `Kubernetes` cluster.
 
 To do that, you need to execute the following commands:
 
 ```sh
 cd monitor-server-python/monitor-api-python
+sh setup-environment.sh MASTER_IP
+```
+
+If you want to deploy TMA Monitor with Guinicorn, you should run the following commands: 
+
+```sh
+cd monitor-server-python-gunicorn/monitor-api-python
 sh setup-environment.sh MASTER_IP
 ```
 
@@ -100,14 +110,21 @@ cd ..
 sh setup-testing-mode.sh
 ```
 
-Firstly, [`setup-testing-mode.sh`](https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/server/setup-testing-mode.sh) script runs the required commands to create the persistent volumes for `Apache Zookeeper` and `Apache Kafka`. Then, it deploys these two components. Finally, it creates `topic-monitor` and `queue-listener` topics in `Apache Kafka` pod.
+Firstly, [`setup-testing-mode.sh`](https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/server/setup-testing-mode.sh) script runs the required commands to create the persistent volumes for `Apache Zookeeper` and `Apache Kafka`. Then, it deploys these two components. Finally, it creates `topic-monitor` topic in `Apache Kafka` pod.
 
-With `Apache Zookeeper` and `Apache Kafka` running and the topics created, the next step is to deploy the Monitor application. The file called [`monitor-api-python.yaml`](https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/server/monitor-server-python/monitor-api-python.yaml) creates a `Kubernetes` deployment of the Monitor application. In order to create that deploy, you should run:
+With `Apache Zookeeper` and `Apache Kafka` running and the topics created, the next step is to deploy the Monitor application. The file called [`monitor-api-python.yaml`](https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/server/monitor-server-python/monitor-api-python.yaml) creates a `Kubernetes` deployment of the Monitor application. 
+
+To deploy debugging version of Monitor, you should run:
 
 ```sh
 kubectl create -f monitor-server-python/monitor-api-python.yaml
 ```
 
+To deploy TMA Monitor with Gunicorn, you shoul run the following command:
+
+```sh
+kubectl create -f monitor-server-python-gunicorn/monitor-api-python.yaml
+```
 For details on the REST API usage, you should check the current [monitor-server](monitor-server-python) implementation.
 
 ## Testing

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TMA-Monitor - ATMOSPHERE</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+       
+        <h1>TMA-Monitor - ATMOSPHERE</h1>
+
+        <p>
+            The sources of <a href="http://tma.dei.uc.pt">TMA Framework</a> components are available at <a href="https://github.com/eubr-atmosphere/tma-framework">https://github.com/eubr-atmosphere/tma-framework/</a>. 
+            <br/>
+            Find more about the project at the website <a href="http://atmosphere-eubrazil.eu/">http://atmosphere-eubrazil.eu</a>. 
+        </p>
+
+        <p>
+            If you are reading this, you are probably looking to use <b>TMA-Monitor</b> thorough REST. <br/>
+            For this, you should use the <b>HTTP</b> method post to the url: <a href="/monitor/">http://ip:port/monitor/</a>.
+            <br/>
+            Our libraries will help you with that. There libraries for the languages Java, C# and Python.
+        </p>
+
+        <p>
+        	If you use Java, the library is presented in this <a href="https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/libraries/java-client-lib">link</a>. The instructions of how to use it and how to include it in your project is presented in this <a href="https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/libraries/java-client-lib/README.md">README</a> file
+        </p>
+
+        <p>
+        	If you are using Python programming language, the library can be found <a href="https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/libraries/python-client-lib">here</a>. All the instructions needed to use this library can be found in this <a href="https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/libraries/python-client-lib/README.md">README</a> file.
+        </p>
+
+        <p>
+        	If your project is being developed in C# you can use the C# <a href="https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/libraries/cs-client-lib">library</a> to communicate correctly with this Monitor. All instructions needed can be found in this <a href="https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/libraries/cs-client-lib/README.md">README</a> file
+        </p>
+
+        <hr/>
+
+
+        <form action="/monitor_demo" method="POST" enctype="multipart/form-data">
+            <table border="0" cellpadding="2">
+                <thead>
+                    <tr>
+                        <th>You can use this form to test the REST endpoint.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <textarea rows="15" cols="40" name = "attachment">
+{
+    "probeId": 1,
+    "resourceId": 1,
+    "messageId": 1000,
+    "sentTime": 1524780010,
+    "data": [
+        {
+            "type": "measurement",
+            "descriptionId": 1,
+            "observations": [{
+                    "time": 1524782445,
+                    "value": -1
+            }]
+        }
+    ]}                            
+                            </textarea>                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"><input type="submit"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        <br/>
+        Thanks. :-)
+    </body>
+</html>
+
