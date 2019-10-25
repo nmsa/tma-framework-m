@@ -15,3 +15,4 @@ RUN     ["mvn", "install"]
 RUN     ["cp", "-r", "bin", "/atmosphere/tma/probe/bin"]
 
 CMD     ["java", "-jar", "/atmosphere/tma/probe/bin/probe-demo-0.1.jar"]
+
