@@ -92,4 +92,4 @@ if __name__ == '__main__':
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.DEBUG)
     logger.info('Initializing  Monitor Server Python')
-    app.run(debug='True', host='0.0.0.0', port=5000, ssl_context=('cert.pem', 'key.pem'))   
+    app.run(debug='True', host='0.0.0.0', port=5000, ssl_context=('cert.pem','key.pem'))   
