@@ -83,10 +83,10 @@ cd monitor-server-python/monitor-api-python
 sh setup-environment.sh MASTER_IP
 ```
 
-If you want to deploy TMA Monitor with Guinicorn, you should run the following commands: 
+If you want to use TMA Monitor only with Flask, you should run the following commands: 
 
 ```sh
-cd monitor-server-python-gunicorn/monitor-api-python
+cd monitor-server-python-debug/monitor-api-python
 sh setup-environment.sh MASTER_IP
 ```
 
@@ -114,16 +114,16 @@ Firstly, [`setup-testing-mode.sh`](https://github.com/eubr-atmosphere/tma-framew
 
 With `Apache Zookeeper` and `Apache Kafka` running and the topics created, the next step is to deploy the Monitor application. The file called [`monitor-api-python.yaml`](https://github.com/eubr-atmosphere/tma-framework-m/blob/master/development/server/monitor-server-python/monitor-api-python.yaml) creates a `Kubernetes` deployment of the Monitor application. 
 
-To deploy debugging version of Monitor, you should run:
+To deploy debug version of Monitor, you should run:
 
 ```sh
-kubectl create -f monitor-server-python/monitor-api-python.yaml
+kubectl create -f monitor-server-python-debug/monitor-api-python.yaml
 ```
 
 To deploy TMA Monitor with Gunicorn, you shoul run the following command:
 
 ```sh
-kubectl create -f monitor-server-python-gunicorn/monitor-api-python.yaml
+kubectl create -f monitor-server-python/monitor-api-python.yaml
 ```
 For details on the REST API usage, you should check the current [monitor-server](monitor-server-python) implementation.
 
