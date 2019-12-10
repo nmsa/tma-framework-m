@@ -28,7 +28,7 @@ To use the monitor-client in the development of your probe, you just need to inc
 <dependency>
     <groupId>eu.atmosphere.tmaf</groupId>
     <artifactId>java-client-lib</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
 </dependency>
 ```
 
