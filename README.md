@@ -40,19 +40,14 @@ Each message includes:
 
 ## TMA Monitor Server
 
-**Under development**
-
-Preliminary documentation is currently available at [development](development) and [server](development/server).
+Documentation is available at [development](development) and [server](development/server).
 
 
 
 
 ## TMA Monitor Client libraries
 
-**Under development**
-
-Preliminary documentation is currently available at [development](development), [libraries](development/libraries) and [probes](development/probes).
-
+Documentation is available at [development](development), [libraries](development/libraries) and [probes](development/probes).
 
 
 
