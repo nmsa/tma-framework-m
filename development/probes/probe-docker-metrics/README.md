@@ -6,7 +6,7 @@ This probe was developed to collect performance metrics about containers deploye
 ## Prerequisites
 
 To use this probe, you need to initialize the Kubernetes cluster and deploy on it all components of the [`server`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/server)  folder of this repository following the instructions presented in [`README`](https://github.com/eubr-atmosphere/tma-framework-m/tree/master/development/server/README.md)  file of that folder.
-As this probe will collect data from a docker container, you need to have a Docker container running. When you have it, copy its container name.
+As this probe will collect data from a docker container, you need to have a Docker container running. When you have it, copy its image ID.
 
 ## Installation
 
@@ -18,17 +18,12 @@ cd ../../dependency/python-probe-base/
 sh build.sh
 ```
 
-The previous commands will create the base image to be used in this probe. After that, you need to create the image of the probe docker metrics, but before some information has to be set on the Dockerfile. So, execute the following command to go the corresponding folder:
+The previous commands will create the base image to be used in this probe. After that, you need to create the image of the probe docker metrics. 
+To do that, you need to create the image through the following commands:
+
 
 ```
 cd ../../probes/probe-docker-metrics/
-```
-
-Now, edit the Dockerfile and set, in the line 17, the parameters *container_name*, *server url*, *probeId*, *resourceId*, *probingPeriod* according to the comment of the line 16. The meaning of each parameter is respectively, the following: name of the container to be monitored running in the Docker environment, TMA's monitor component endpoint, matching TMA's database Id of this probe, matching TMA's database Id of the monitored container, period in which the probe will send metrics.
-
-Next, you need to create the image through the following command:
-
-```
 sh build.sh
 ```
 
