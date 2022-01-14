@@ -158,7 +158,7 @@ def format(stat):
 
     # append measurement data to message
     for i in range(len(merge_st)):
-        dt = Data(type="measurement", descriptionId=1, observations=None)
+        dt = Data(type="measurement", descriptionId=i+1, observations=None)
         obs = Observation(time=timestamp, value=merge_st[i])
         dt.add_observation(observation=obs)
 
