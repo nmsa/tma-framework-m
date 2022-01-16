@@ -1,7 +1,7 @@
 
 # Probe Docker CPU % and MEM %
 
-This probe was developed to collect *CPU %* and *MEM %* metrics from containers deployed using Docker tool.
+This probe was developed to collect *CPU %* and *MEM %* metrics from containers deployed using Docker tool. It is a specified version from the [`probe-docker-metrics`](../probe-docker-metrics).
 
 ## Prerequisites
 
