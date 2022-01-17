@@ -1,2 +1,2 @@
 #Build probe image
-docker build -t tma-monitor/probe-docker-CPU_MEM_usage:0.1 .
+docker build -t tma-monitor/probe-docker-cpu_mem_usage:0.1 .
