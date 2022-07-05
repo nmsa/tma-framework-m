@@ -7,19 +7,29 @@ from datetime import datetime
 import requests
 from tmalibrary.probes import *
 
+probeId = 0
+resourceId = 0
+messageId = 0
+probingPeriod = 1
+
 # get stats from container
 def get_container_stats(container_name, url, communication):
+    global messageId
     # connect to docker
     cli = docker.from_env()
     # get container
     container = cli.containers.get(container_name)
-    # get stream of stats from container
-    stats_obj = container.stats()
-
-    for stat in stats_obj:
-        # print the response
-        send_stat(eval(stat), url, communication)
-
+    
+    while(True):
+        #increment messageId before sending message with stats. This variable is used on format() function to
+        #construct the message that is about to be sent with stats from the container
+        messageId = messageId + 1
+        # get current stats from container
+        stats_obj = container.stats(stream=False)
+        #format stats and send them to the server
+        send_stat(stats_obj, url, communication)
+        #sleep for probingPeriod seconds before sending the next stat
+        time.sleep(probingPeriod)
 
 # send stat to API server
 def send_stat(stat, url, communication):
@@ -144,11 +154,11 @@ def format(stat):
     # follow the json schema
     # sentTime = current time? Or the same timestamp from the metrics?
     # need to change the probeId, resourceId and messageId
-    message = Message(probeId=0, resourceId=0, messageId=0, sentTime=int(time.time()), data=None)
+    message = Message(probeId, resourceId, messageId, sentTime=int(time.time()), data=None)
 
     # append measurement data to message
     for i in range(len(merge_st)):
-        dt = Data(type="measurement", descriptionId=i, observations=None)
+        dt = Data(type="measurement", descriptionId=i+1, observations=None)
         obs = Observation(time=timestamp, value=merge_st[i])
         dt.add_observation(observation=obs)
 
@@ -160,8 +170,13 @@ def format(stat):
 
 
 if __name__ == '__main__':
-    # receive the container name and server url as parameters
+    #receive multiple variables as parameters
+    #container name, server url, probeId, resourceId
     container_name = str(sys.argv[1] + '')
     url = str(sys.argv[2] + '')
+    probeId = int(sys.argv[3])
+    resourceId = int(sys.argv[4])
+    probingPeriod = int(sys.argv[5])
+
     communication = Communication(url)
     get_container_stats(container_name, url, communication)

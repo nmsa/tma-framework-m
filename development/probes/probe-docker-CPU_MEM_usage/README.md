@@ -1,7 +1,7 @@
 
-# Probe Docker Metrics
+# Probe Docker CPU % and MEM %
 
-This probe was developed to collect performance metrics about containers deployed using Docker tool. This probe is able to collect metrics such as CPU usage and some statistics about memory and network interfaces.
+This probe was developed to collect *CPU %* and *MEM %* metrics from containers deployed using Docker tool. It is a customized version from the [`probe-docker-metrics`](../probe-docker-metrics).
 
 ## Prerequisites
 
@@ -21,7 +21,7 @@ sh build.sh
 The previous commands will create the base image to be used in this probe. After that, you need to create the image of the probe docker metrics, but before some information has to be set on the Dockerfile. So, execute the following command to go the corresponding folder:
 
 ```
-cd ../../probes/probe-docker-metrics/
+cd ../../probes/probe-docker-CPU_MEM_usage/
 ```
 
 Now, edit the Dockerfile and set, in the line 17, the parameters *container_name*, *server url*, *probeId*, *resourceId*, *probingPeriod* according to the comment of the line 16. The meaning of each parameter is respectively, the following: name of the container to be monitored running in the Docker environment, TMA's monitor component endpoint, matching TMA's database Id of this probe, matching TMA's database Id of the monitored container, period in which the probe will send metrics.
